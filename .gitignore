@@ -185,3 +185,9 @@ compile_commands.json
 
 # Eclipse generated file for annotation processors
 .factorypath
+
+#Added by 1675
+simgui.json
+simgui-ds.json
+networktables.json
+src/main/java/frc/robot/generated/*
