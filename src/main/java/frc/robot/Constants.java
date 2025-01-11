@@ -19,6 +19,6 @@ public final class Constants {
     public static class Controller {
         public static final int DRIVER_CONTROLLER = 0;
         public static final int OPERATOR_CONTROLLER = 1;
-        public static final int DEADZONE_CONSTANT = 1675;
+        public static final double DEADZONE_CONSTANT = 0.0;
     }
 }

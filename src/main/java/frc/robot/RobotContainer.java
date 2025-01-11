@@ -4,14 +4,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.Autos;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
-// import frc.robot.operation.Operator;
 import frc.robot.subsystems.ExampleSubsystem;
 import java.util.ArrayList;
 
@@ -31,9 +28,6 @@ public class RobotContainer {
 
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
-    private boolean shotTesting = false;
-    private ShuffleboardTab testOnlyTab;
-    private GenericEntry testAngleEntry;
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
@@ -56,18 +50,7 @@ public class RobotContainer {
         }
     }
 
-    public void teleopInit() {
-
-        //    for (OperationConfiguration opConfig : operationConfig){
-        //     opConfig.registerTeleopFunctions(this);
-        //    }
-
-        //    @Override
-        //    public void registerTeleopFunctions(trigger t){
-
-        //    }
-
-    }
+    public void teleopInit() {}
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
