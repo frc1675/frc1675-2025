@@ -10,9 +10,7 @@ public class WillOperatorConfiguration extends AbstractCommandXboxOperationConfi
     }
 
     @Override
-    public void registerRobotFunctions(RobotContainer rc) {
-        
-    }
+    public void registerRobotFunctions(RobotContainer rc) {}
 
     @Override
     public void registerTeleopFunctions(RobotContainer rc) {
