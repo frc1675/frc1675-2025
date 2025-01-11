@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.drive.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -21,6 +22,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+    private DriveSubsystem drive;
 
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final CommandXboxController m_driverController =
@@ -28,6 +30,17 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+
+        drive = new DriveSubsystem.DriveSubsystemBuilder()
+                .withMaxVelocities(Constants.Drive.MAXIMUM_VELOCITY, Constants.Drive.MAXIMUM_ANGULAR_VELOCITY)
+                .withPointingPID(
+                        Constants.Drive.ROTATION_P,
+                        Constants.Drive.ROTATION_I,
+                        Constants.Drive.ROTATION_D,
+                        Constants.Drive.ROTATION_TARGET_RANGE)
+                .withVisionProperties(Constants.Drive.MAXIMUM_VISION_POSE_OVERRIDE_DISTANCE)
+                .build();
+
         // Configure the trigger bindings
         configureBindings();
     }

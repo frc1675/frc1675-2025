@@ -1,0 +1,25 @@
+{
+    "imu": {
+      "type": "navx_usb",
+      "id": null,
+      "canbus": null
+    },
+    "conversionFactors": {
+      "angle": {
+        "gearRatio": 12.8,
+        "factor": 0
+      },
+      "drive": {
+        "gearRatio": 6.12,
+        "diameter": 4,
+        "factor": 0
+      }
+    },
+    "invertedIMU": false,
+    "modules": [
+      "frontleft.json",
+      "frontright.json",
+      "backleft.json",
+      "backright.json"
+    ]
+  }
