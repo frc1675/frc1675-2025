@@ -34,8 +34,8 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         // Configure the trigger bindings
-        driverController = new CommandXboxController(Constants.Controller.DRIVER_CONTROLLER);
-        operatorController = new CommandXboxController(Constants.Controller.OPERATOR_CONTROLLER);
+        driverController = new CommandXboxController(0);
+        operatorController = new CommandXboxController(1);
         initOperationConfigs();
         registerRobotFunctions();
     }
@@ -50,7 +50,12 @@ public class RobotContainer {
         }
     }
 
-    public void teleopInit() {}
+    public void teleopInit() {
+
+        for (OperationConfiguration opConfig : operationConfigs) {
+            opConfig.registerTeleopFunctions(this);
+        }
+    }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
