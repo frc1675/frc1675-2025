@@ -10,8 +10,10 @@ import frc.robot.Robot;
 public class AllianceUtil {
 
     /**
-     *
-     * @return Whether or not the robot is on the red alliance. In simulation the robot is always Blue alliance by default. If no alliance could be found from the field, the robot reverts to blue alliance.
+     * Determines whether or not the robot is on the red alliance.
+     * In simulation the robot is always Blue alliance by default.
+     * If no alliance could be found from the field, the robot reverts to blue alliance.
+     * @return Whether or not the robot is on the red alliance.
      */
     public static boolean isRedAlliance() {
         if (Robot.isSimulation()) {
@@ -27,7 +29,7 @@ public class AllianceUtil {
     }
 
     /**
-     * Maintains field-centric control absed on driver station.
+     * Maintains field-centric control based on driver station.
      * "Away" for blue (towards red) is opposite "away" for red (towards blue).
      * "Left/Right" for blue (towards or away from scoring table) is opposite "left/right" for red.
      * Multiply by this value whenever you calculate a translation component in teleop.
