@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import swervelib.SwerveDrive;
 import swervelib.SwerveModule;
-import swervelib.math.SwerveMath;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -60,7 +59,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param pointingTolerance Tolerance for automatic pointing, in degrees.
      * @param maxVisionPoseOverrideDistance Maximum vision pose difference allowed, in meters. (If the vision pose is too far off, ignore it)
      */
-    private DriveSubsystem(DriveSubsystemBuilder builder) {
+    public DriveSubsystem(DriveSubsystemBuilder builder) {
 
         this.maxRotationVelocity = builder.maxRotationVelocity;
         this.maxTranslationVelocity = builder.maxTranslationVelocity;
@@ -72,13 +71,11 @@ public class DriveSubsystem extends SubsystemBase {
 
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         try {
+            System.out.println("Max Translation Velocity " + maxTranslationVelocity);
+            System.out.println("Steering Gear Ratio " + builder.steeringGearRatio);
+
             swerve = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"))
-                    .createSwerveDrive(
-                            maxTranslationVelocity,
-                            SwerveMath.calculateDegreesPerSteeringRotation(
-                                    builder.steeringGearRatio, builder.steeringPulsePerRotation),
-                            SwerveMath.calculateMetersPerRotation(
-                                    builder.wheelDiameter, builder.driveGearRatio, builder.drivePulsePerRotation));
+                    .createSwerveDrive(maxTranslationVelocity);
         } catch (IOException e) {
             System.out.println("Swerve drive configuration file could not be found at "
                     + Filesystem.getDeployDirectory()
