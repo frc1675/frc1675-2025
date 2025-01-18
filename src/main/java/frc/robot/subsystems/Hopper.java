@@ -17,22 +17,21 @@ public class Hopper extends SubsystemBase {
     }
 
     enum hopperState {
-      ON,
-      OFF
+        ON,
+        OFF
     }
 
     hopperState state = hopperState.OFF;
 
-    public void changeState(boolean epicName){
+    public void changeState(boolean epicName) {}
 
+    public boolean getState() {
+        switch (state) {
+            case ON:
+                return true;
+            case OFF:
+                return false;
+        }
+        return false;
     }
-    
-    public  getState(){
-      switch(state);
-      case ON: return true;
-      break;
-      case OFF: return false;
-      break;
-    }
-    
 }

@@ -19,10 +19,8 @@ public class Manipulator extends SubsystemBase {
 
     public boolean hasCoral() {
 
-      return null;
+        return false;
     }
 
-    public void changeState(){
-
-    }
+    public void changeState() {}
 }
