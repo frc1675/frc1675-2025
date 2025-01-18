@@ -4,16 +4,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.Autos;
 import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
-import frc.robot.subsystems.ExampleSubsystem;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
 
@@ -34,7 +30,6 @@ public class RobotContainer {
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
     // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
     private DriveSubsystem drive;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -78,10 +73,6 @@ public class RobotContainer {
         drive.setDefaultCommand(new DefaultDrive(drive, x, y, rotation, () -> 1.0));
     }
 
-    private double getJoystickInput(CommandGenericHID stick, int axe) {
-        return MathUtil.applyDeadband(stick.getRawAxis(axe), Constants.Controller.DEADZONE_CONSTANT);
-    }
-
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
@@ -89,16 +80,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return Autos.exampleAuto(m_exampleSubsystem);
-    }
-
-    public void registerDefaultDrive(double joystickInput) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'registerDefaultDrive'");
-    }
-
-    public void registerDefaultDrive(double joystickInput, double joystickInput2, double joystickInput3) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'registerDefaultDrive'");
+        return null;
     }
 }
