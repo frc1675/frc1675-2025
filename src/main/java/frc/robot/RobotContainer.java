@@ -6,10 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.Autos;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
-import frc.robot.subsystems.ExampleSubsystem;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +27,6 @@ public class RobotContainer {
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
     // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -64,6 +61,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return Autos.exampleAuto(m_exampleSubsystem);
+        return null;
     }
 }
