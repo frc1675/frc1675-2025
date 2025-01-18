@@ -29,7 +29,6 @@ public class Manipulator extends SubsystemBase {
         return state;
     }
 
-    public void changeState(Manipulator.ManipulatorState changeManipulatorState) {}
-
+    // Shooting changes state of manipulator to waiting/No coral detected by sensor
     public void shoot() {}
 }

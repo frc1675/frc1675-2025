@@ -24,7 +24,7 @@ public class Hopper extends SubsystemBase {
 
     HopperState state = HopperState.OFF;
 
-    public void changeState(Hopper.HopperState changeHopperState) {}
+    public void changeState(Hopper.HopperState hopperState) {}
 
     public HopperState getState() {
         return state;
