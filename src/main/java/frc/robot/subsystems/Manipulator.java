@@ -17,9 +17,12 @@ public class Manipulator extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
-    public void powerMotor() {}
+    public boolean hasCoral() {
 
-    public void depowerMotor() {}
+      return null;
+    }
 
-    public void detectCoral() {}
+    public void changeState(){
+
+    }
 }

@@ -16,7 +16,23 @@ public class Hopper extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
-    public void powerMotor(double time) {}
+    enum hopperState {
+      ON,
+      OFF
+    }
 
-    public void depowerMotor() {}
+    hopperState state = hopperState.OFF;
+
+    public void changeState(boolean epicName){
+
+    }
+    
+    public  getState(){
+      switch(state);
+      case ON: return true;
+      break;
+      case OFF: return false;
+      break;
+    }
+    
 }

@@ -15,9 +15,15 @@ public class Climber extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
-    public void powerMotor() {}
+    public double getCurrentAngle(){
+      return null;
+    }
 
-    public void depowerMotor() {}
+    public void goToAngle(double angle){
 
-    public void detectCage() {}
+    }
+
+    public boolean attachedToCage() {
+      return null;
+    }
 }
