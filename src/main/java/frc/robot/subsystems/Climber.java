@@ -19,9 +19,9 @@ public class Climber extends SubsystemBase {
         return 1;
     }
 
-    public void goToAngle(double angle) {}
+    public void setTarget(double angle) {}
 
-    public boolean attachedToCage() {
+    public boolean isCageDetected() {
         return false;
     }
 }

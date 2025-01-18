@@ -16,22 +16,17 @@ public class Hopper extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
-    enum hopperState {
+    enum HopperState {
         ON,
-        OFF
+        OFF,
+        REVERSE
     }
 
-    hopperState state = hopperState.OFF;
+    HopperState state = HopperState.OFF;
 
-    public void changeState(boolean epicName) {}
+    public void changeState(Hopper.HopperState changeHopperState) {}
 
-    public boolean getState() {
-        switch (state) {
-            case ON:
-                return true;
-            case OFF:
-                return false;
-        }
-        return false;
+    public HopperState getState() {
+        return state;
     }
 }

@@ -17,10 +17,19 @@ public class Manipulator extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
-    public boolean hasCoral() {
-
-        return false;
+    enum ManipulatorState {
+        LOADED,
+        SHOOTING,
+        WAITING
     }
 
-    public void changeState() {}
+    ManipulatorState state = ManipulatorState.WAITING;
+
+    public ManipulatorState getState() {
+        return state;
+    }
+
+    public void changeState(Manipulator.ManipulatorState changeManipulatorState) {}
+
+    public void shoot() {}
 }
