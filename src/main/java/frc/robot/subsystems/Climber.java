@@ -19,7 +19,9 @@ public class Climber extends SubsystemBase {
         return 1;
     }
 
-    public void getTarget(double target) {}
+    public double getTarget() {
+        return 1;
+    }
 
     public void setTarget(double angle) {}
 
