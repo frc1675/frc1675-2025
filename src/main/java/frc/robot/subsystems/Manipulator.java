@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,7 +16,10 @@ public class Manipulator extends SubsystemBase {
     //  private LaserCan laserCAN;
 
     /** Creates a new Manipulator. */
-    public Manipulator() {}
+    public Manipulator() {
+        shooter = new SparkMax(1, MotorType.kBrushless);
+        hasCoral = true;
+    }
 
     @Override
     public void periodic() {
