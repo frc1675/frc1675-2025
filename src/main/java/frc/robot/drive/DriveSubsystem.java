@@ -71,9 +71,6 @@ public class DriveSubsystem extends SubsystemBase {
 
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         try {
-            System.out.println("Max Translation Velocity " + maxTranslationVelocity);
-            System.out.println("Steering Gear Ratio " + builder.steeringGearRatio);
-
             swerve = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"))
                     .createSwerveDrive(maxTranslationVelocity);
         } catch (IOException e) {

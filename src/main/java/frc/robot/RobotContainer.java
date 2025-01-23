@@ -5,7 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
@@ -71,6 +73,10 @@ public class RobotContainer {
 
     public void registerDefaultDrive(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation) {
         drive.setDefaultCommand(new DefaultDrive(drive, x, y, rotation, () -> 1.0));
+    }
+
+    public void registerZeroGyro(Trigger t) {
+        t.onTrue(new InstantCommand(() -> drive.zeroGyroscope(), drive));
     }
 
     /**
