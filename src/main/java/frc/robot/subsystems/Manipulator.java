@@ -21,6 +21,17 @@ public class Manipulator extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         // checks sensor if it's loaded or not --> will trasnition to loaded when coral is in
+
+        if (state == ManipulatorState.WAITING && hasCoral) {
+
+            state = ManipulatorState.LOADED;
+        }
+
+        if (state == ManipulatorState.SHOOTING && !hasCoral) {
+            state = ManipulatorState.WAITING;
+
+            shooter.setVoltage(0);
+        }
     }
 
     enum ManipulatorState {
@@ -41,5 +52,11 @@ public class Manipulator extends SubsystemBase {
     }
 
     // Shooting changes state of manipulator to shooting, then waiting since no coral is detected by sensor
-    public void shoot() {}
+    public void shoot() {
+        if (state == ManipulatorState.LOADED) {
+            state = ManipulatorState.SHOOTING;
+
+            shooter.setVoltage(1);
+        }
+    }
 }
