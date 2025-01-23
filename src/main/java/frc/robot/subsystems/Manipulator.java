@@ -4,10 +4,15 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Manipulator extends SubsystemBase {
     private boolean hasCoral;
+
+    private SparkMax shooter;
+
+    //  private LaserCan laserCAN;
 
     /** Creates a new Manipulator. */
     public Manipulator() {}
@@ -15,12 +20,18 @@ public class Manipulator extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        // checks sensor if it's loaded or not --> will trasnition to loaded when coral is in
     }
 
     enum ManipulatorState {
         LOADED,
+        // the state when there is 1 coral present in the manipulator
+        // Will be "waiting" if not ready to shoot --> maybe refer "waiting" to "hold" in the loaded state
         SHOOTING,
+        // the state when 1 coral is shot to score L1 at the reef
+        // triggered when driver
         WAITING
+        // the state when there is no coral present in the manipulator
     }
 
     ManipulatorState state = ManipulatorState.WAITING;
