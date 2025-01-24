@@ -10,19 +10,29 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Hopper extends SubsystemBase {
 
-    private SparkMax HOPPER_MOTOR;
-    private HopperState HopperCurrentState;
+    private SparkMax hopperMotor;
+    private HopperState hopperCurrentState;
 
     /** Creates a new Hopper. */
     public Hopper() {
-        HOPPER_MOTOR = new SparkMax(0, MotorType.kBrushless); // Replace CAN ID with constant
-        HopperCurrentState = HopperState.OFF;
+        hopperMotor = new SparkMax(0, MotorType.kBrushless); // Replace CAN ID with constant
+        hopperCurrentState = HopperState.OFF;
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-
+        if (getState() == HopperState.OFF) {
+            hopperMotor.setVoltage(0);
+        }
+        if (getState() == HopperState.ON) {
+            hopperMotor.setVoltage(12);
+            // Should adjust to a speed constant later
+        }
+        if (getState() == HopperState.REVERSE) {
+            hopperMotor.setVoltage(-12);
+            // Should adjust to a speed constant later
+        }
     }
 
     enum HopperState {
@@ -32,23 +42,10 @@ public class Hopper extends SubsystemBase {
     }
 
     public void changeState(Hopper.HopperState hopperState) {
-        HopperCurrentState = hopperState;
-        if (getState() == HopperState.OFF) {
-            HOPPER_MOTOR.setVoltage(0);
-        }
-        if (getState() == HopperState.ON) {
-            HOPPER_MOTOR.setVoltage(12);
-            // Should adjust to a speed constant later
-        }
-        if (getState() == HopperState.REVERSE) {
-            HOPPER_MOTOR.setVoltage(-12);
-            // Should adjust to a speed constant later
-        }
+        hopperCurrentState = hopperState;
     }
 
     public HopperState getState() {
-        return HopperCurrentState;
+        return hopperCurrentState;
     }
-    // make something that makes sum motor spin jus like last year intake robot but just one not two
-
 }
