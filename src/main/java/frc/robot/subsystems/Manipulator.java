@@ -16,9 +16,10 @@ public class Manipulator extends SubsystemBase {
 
     ManipulatorState state = ManipulatorState.EMPTY;
 
-    private double DELAY = 1.5;
-    private double ON_SPEED = 1.2;
-    private double OFF_SPEED = 0.0;
+    private final double DELAY = 1.5;
+    private final double SHOOTING_SPEED = 1.0;
+    private final double INTAKE_SPEED = 0.2;
+    private final double MAX_VOLTAGE = 12.0;
     private Timer stopwatch;
 
     //  private LaserCan laserCAN;
@@ -39,6 +40,7 @@ public class Manipulator extends SubsystemBase {
         // This method will be called once per scheduler run
         // checks sensor if it's loaded or not --> will trasnition to loaded when coral is in
 
+        // stage 1 - Transitioning between states
         if (state == ManipulatorState.EMPTY && hasCoral) {
 
             state = ManipulatorState.LOADED;
@@ -46,20 +48,30 @@ public class Manipulator extends SubsystemBase {
 
         if (state == ManipulatorState.SHOOTING) {
 
-            if (hasCoral) {
+            if (!hasCoral) {
 
-                shooter.setVoltage(ON_SPEED);
-            } else {
                 if (!stopwatch.isRunning()) {
                     stopwatch.restart();
                 } else {
                     if (stopwatch.hasElapsed(DELAY)) {
                         state = ManipulatorState.EMPTY;
-                        shooter.setVoltage(OFF_SPEED);
                         stopwatch.stop();
                     }
                 }
             }
+        } // End of stage 1
+
+        // stage 2 - Setting the motor speed
+        if (state == ManipulatorState.SHOOTING) {
+            shooter.setVoltage(SHOOTING_SPEED * MAX_VOLTAGE);
+        }
+
+        if (state == ManipulatorState.EMPTY) {
+            shooter.setVoltage(INTAKE_SPEED * MAX_VOLTAGE);
+        }
+
+        if (state == ManipulatorState.LOADED) {
+            shooter.setVoltage(0);
         }
     }
 
