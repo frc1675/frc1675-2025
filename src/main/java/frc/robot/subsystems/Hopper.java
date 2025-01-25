@@ -12,6 +12,9 @@ public class Hopper extends SubsystemBase {
 
     private SparkMax hopperMotor;
     private HopperState hopperCurrentState;
+    // intake speed, and speed when intake would go reverse
+    private static final double HOPPER_INTAKE_SPEED = 12.0;
+    private static final double HOPPER_REVERSE_SPEED = -12.0;
 
     /** Creates a new Hopper. */
     public Hopper() {
@@ -26,12 +29,10 @@ public class Hopper extends SubsystemBase {
             hopperMotor.setVoltage(0);
         }
         if (getState() == HopperState.ON) {
-            hopperMotor.setVoltage(12);
-            // Should adjust to a speed constant later
+            hopperMotor.setVoltage(HOPPER_INTAKE_SPEED);
         }
         if (getState() == HopperState.REVERSE) {
-            hopperMotor.setVoltage(-12);
-            // Should adjust to a speed constant later
+            hopperMotor.setVoltage(HOPPER_REVERSE_SPEED);
         }
     }
 
