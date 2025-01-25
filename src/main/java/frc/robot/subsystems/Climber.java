@@ -22,19 +22,23 @@ public class Climber extends SubsystemBase {
 
     private int CLIMB_MOTOR;
     private double WINCH_MOTOR_SPEED = 1;
-    private double WINCH_MAX_ACCELERATION = 1;
-    private double WINCH_MAX_VELOCITY = 1;
+    private double DEPLOY_WINCH_MAX_ACCELERATION = 1;
+    private double DEPLOY_WINCH_MAX_VELOCITY = 1;
+
+    private double RETRACT_WINCH_MAX_ACCELERATION = 1;
+    private double RETRACT_WINCH_MAX_VELOCITY = 1;
 
     private ProfiledPIDController retractWinchPID;
     public static final double RETRACT_PID_P_COEFFICIENT = 0;
     public static final double RETRACT_PID_I_COEFFICIENT = 0;
     public static final double RETRACT_PID_D_COEFFICIENT = 0;
-    private TrapezoidProfile.Constraints profileConstraints;
+    private TrapezoidProfile.Constraints retractConstraints;
 
     private ProfiledPIDController deployWinchPID;
     public static final double DEPLOY_PID_P_COEFFICIENT = 0;
     public static final double DEPLOY_PID_I_COEFFICIENT = 0;
     public static final double DEPLOY_PID_D_COEFFICIENT = 0;
+    private TrapezoidProfile.Constraints deployConstraints;
 
     /** Creates a new Climber. */
     public Climber() {
@@ -43,12 +47,14 @@ public class Climber extends SubsystemBase {
 
         climberEncoder = new DutyCycleEncoder(ENCODER_CHANNEL);
 
-        profileConstraints = new TrapezoidProfile.Constraints(WINCH_MAX_VELOCITY, WINCH_MAX_ACCELERATION);
-        deployWinchPID = new ProfiledPIDController(
-                RETRACT_PID_P_COEFFICIENT, RETRACT_PID_I_COEFFICIENT, RETRACT_PID_D_COEFFICIENT, profileConstraints);
+        deployConstraints = new TrapezoidProfile.Constraints(DEPLOY_WINCH_MAX_VELOCITY, DEPLOY_WINCH_MAX_ACCELERATION);
+        retractConstraints =
+                new TrapezoidProfile.Constraints(RETRACT_WINCH_MAX_VELOCITY, RETRACT_WINCH_MAX_ACCELERATION);
 
         retractWinchPID = new ProfiledPIDController(
-                DEPLOY_PID_P_COEFFICIENT, DEPLOY_PID_I_COEFFICIENT, DEPLOY_PID_D_COEFFICIENT, profileConstraints);
+                DEPLOY_PID_P_COEFFICIENT, DEPLOY_PID_I_COEFFICIENT, DEPLOY_PID_D_COEFFICIENT, deployConstraints);
+        deployWinchPID = new ProfiledPIDController(
+                RETRACT_PID_P_COEFFICIENT, RETRACT_PID_I_COEFFICIENT, RETRACT_PID_D_COEFFICIENT, retractConstraints);
     }
 
     @Override
