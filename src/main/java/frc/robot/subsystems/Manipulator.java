@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Manipulator extends SubsystemBase {
@@ -13,12 +14,24 @@ public class Manipulator extends SubsystemBase {
 
     private SparkMax shooter;
 
+    ManipulatorState state = ManipulatorState.EMPTY;
+
+    private double DELAY = 1.5;
+    private double ON_SPEED = 1.2;
+    private double OFF_SPEED = 0.0;
+    private Timer stopwatch;
+
     //  private LaserCan laserCAN;
 
     /** Creates a new Manipulator. */
     public Manipulator() {
         shooter = new SparkMax(1, MotorType.kBrushless);
-        hasCoral = true;
+        hasCoral = false;
+
+        stopwatch = new Timer();
+        // Not sure if timer starts automaticallly but wants to be off
+        stopwatch.stop();
+        stopwatch.reset();
     }
 
     @Override
@@ -26,30 +39,43 @@ public class Manipulator extends SubsystemBase {
         // This method will be called once per scheduler run
         // checks sensor if it's loaded or not --> will trasnition to loaded when coral is in
 
-        if (state == ManipulatorState.WAITING && hasCoral) {
+        if (state == ManipulatorState.EMPTY && hasCoral) {
 
             state = ManipulatorState.LOADED;
         }
 
-        if (state == ManipulatorState.SHOOTING && !hasCoral) {
-            state = ManipulatorState.WAITING;
+        if (state == ManipulatorState.SHOOTING) {
 
-            shooter.setVoltage(0);
+            if (hasCoral) {
+
+                shooter.setVoltage(ON_SPEED);
+            } else {
+                if (!stopwatch.isRunning()) {
+                    stopwatch.restart();
+                } else {
+                    if (stopwatch.hasElapsed(DELAY)) {
+                        state = ManipulatorState.EMPTY;
+                        shooter.setVoltage(OFF_SPEED);
+                        stopwatch.stop();
+                    }
+                }
+            }
         }
     }
 
     enum ManipulatorState {
-        LOADED,
+
         // the state when there is 1 coral present in the manipulator
-        // Will be "waiting" if not ready to shoot --> maybe refer "waiting" to "hold" in the loaded state
-        SHOOTING,
+        // Will be "empty" if not ready to shoot
+        LOADED,
+
         // the state when 1 coral is shot to score L1 at the reef
         // triggered when driver
-        WAITING
-        // the state when there is no coral present in the manipulator
-    }
+        SHOOTING,
 
-    ManipulatorState state = ManipulatorState.WAITING;
+        // the state when there is no coral present in the manipulator
+        EMPTY
+    }
 
     public ManipulatorState getState() {
         return state;
@@ -59,8 +85,6 @@ public class Manipulator extends SubsystemBase {
     public void shoot() {
         if (state == ManipulatorState.LOADED) {
             state = ManipulatorState.SHOOTING;
-
-            shooter.setVoltage(1);
         }
     }
 }
