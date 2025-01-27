@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
-import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.operation.SimulatorConfiguration;
 import frc.robot.subsystems.Hopper;
