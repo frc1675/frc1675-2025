@@ -26,6 +26,9 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
+
+        //Enable LiveWindow in Test Mode, only if doing PID Tuning.
+        if(Constants.LIVE_PID) enableLiveWindowInTest(true);
     }
 
     /**

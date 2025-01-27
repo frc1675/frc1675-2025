@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
 
@@ -42,6 +43,11 @@ public class Climber extends SubsystemBase {
 
     /** Creates a new Climber. */
     public Climber() {
+
+        //add PID controllers and encoders as children of the subsystem for LiveWindow
+        addChild("Retract Winch PID", retractWinchPID);
+        addChild("Deploy Winch PID", deployWinchPID);
+        addChild("Climber Encoder", climberEncoder);
 
         winchMotor = new SparkMax(CLIMB_MOTOR, MotorType.kBrushless);
 

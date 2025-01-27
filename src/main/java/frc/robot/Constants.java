@@ -14,5 +14,7 @@ package frc.robot;
  */
 public final class Constants {
 
+    public final static boolean LIVE_PID = true;
+
     public static class Drive {}
 }
