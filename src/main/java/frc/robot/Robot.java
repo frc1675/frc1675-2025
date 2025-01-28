@@ -27,8 +27,8 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
 
-        //Enable LiveWindow in Test Mode, only if doing PID Tuning.
-        if(Constants.LIVE_PID) enableLiveWindowInTest(true);
+        // Enable LiveWindow in Test Mode, only if doing PID Tuning.
+        if (Constants.LIVE_PID) enableLiveWindowInTest(true);
     }
 
     /**

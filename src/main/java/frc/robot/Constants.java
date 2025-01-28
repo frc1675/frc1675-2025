@@ -19,7 +19,7 @@ public final class Constants {
         public static final int kDriverControllerPort = 0;
     }
 
-    public final static boolean LIVE_PID = true;
+    public static final boolean LIVE_PID = true;
 
     public static class Drive {
         public static final double MAXIMUM_VELOCITY = 5.5; // meters per second
