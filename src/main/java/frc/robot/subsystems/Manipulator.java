@@ -23,7 +23,7 @@ public class Manipulator extends SubsystemBase {
 
     /** Creates a new Manipulator. */
     public Manipulator() {
-        shooter = new SparkMax(1, MotorType.kBrushless);
+        shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR, MotorType.kBrushless);
         hasCoral = false;
 
         stopwatch = new Timer();
