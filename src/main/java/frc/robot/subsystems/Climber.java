@@ -10,7 +10,6 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
 
@@ -22,7 +21,6 @@ public class Climber extends SubsystemBase {
     private static final int ENCODER_CHANNEL = 1;
 
     private int CLIMB_MOTOR;
-    private double WINCH_MOTOR_SPEED = 1;
     private double DEPLOY_WINCH_MAX_ACCELERATION = 1;
     private double DEPLOY_WINCH_MAX_VELOCITY = 1;
 

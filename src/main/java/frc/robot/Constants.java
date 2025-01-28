@@ -19,11 +19,8 @@ public final class Constants {
         public static final int kDriverControllerPort = 0;
     }
 
-<<<<<<< HEAD
     public final static boolean LIVE_PID = true;
 
-    public static class Drive {}
-=======
     public static class Drive {
         public static final double MAXIMUM_VELOCITY = 5.5; // meters per second
         public static final double MAXIMUM_ANGULAR_VELOCITY = 8; // radians per second
@@ -52,5 +49,4 @@ public final class Constants {
         public static final int LEFT_Y_AXIS = 1;
         public static final int RIGHT_X_AXIS = 4;
     }
->>>>>>> origin/main
 }
