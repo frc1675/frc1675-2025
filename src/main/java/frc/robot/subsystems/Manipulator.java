@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Manipulator extends SubsystemBase {
     private boolean hasCoral;
@@ -16,17 +17,13 @@ public class Manipulator extends SubsystemBase {
 
     ManipulatorState state = ManipulatorState.EMPTY;
 
-    private final double DELAY = 1.5;
-    private final double SHOOTING_SPEED = 1.0;
-    private final double INTAKE_SPEED = 0.2;
-    private final double MAX_VOLTAGE = 12.0;
     private Timer stopwatch;
 
     //  private LaserCan laserCAN;
 
     /** Creates a new Manipulator. */
     public Manipulator() {
-        shooter = new SparkMax(1, MotorType.kBrushless);
+        shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR, MotorType.kBrushless);
         hasCoral = false;
 
         stopwatch = new Timer();
@@ -53,7 +50,7 @@ public class Manipulator extends SubsystemBase {
                 if (!stopwatch.isRunning()) {
                     stopwatch.restart();
                 } else {
-                    if (stopwatch.hasElapsed(DELAY)) {
+                    if (stopwatch.hasElapsed(Constants.Manipulator.DELAY)) {
                         state = ManipulatorState.EMPTY;
                         stopwatch.stop();
                     }
@@ -63,11 +60,11 @@ public class Manipulator extends SubsystemBase {
 
         // stage 2 - Setting the motor speed
         if (state == ManipulatorState.SHOOTING) {
-            shooter.setVoltage(SHOOTING_SPEED * MAX_VOLTAGE);
+            shooter.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
         }
 
         if (state == ManipulatorState.EMPTY) {
-            shooter.setVoltage(INTAKE_SPEED * MAX_VOLTAGE);
+            shooter.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
         }
 
         if (state == ManipulatorState.LOADED) {

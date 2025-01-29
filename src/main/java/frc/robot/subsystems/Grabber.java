@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Grabber extends SubsystemBase {
     private SparkMax cagePullerMotorLeft;
@@ -14,18 +15,13 @@ public class Grabber extends SubsystemBase {
 
     // private LaserCan lasercan
 
-    private int LEFT_PULLER_MOTOR;
-    private int RIGHT_PULLER_MOTOR;
-
-    private double PULLER_MOTOR_SPEED;
-
     private GrabberState grabberState;
 
     /** Creates a new Grabber. */
     public Grabber() {
         grabberState = GrabberState.WAITING;
-        cagePullerMotorLeft = new SparkMax(LEFT_PULLER_MOTOR, MotorType.kBrushless);
-        cagePullerMotorRight = new SparkMax(RIGHT_PULLER_MOTOR, MotorType.kBrushless);
+        cagePullerMotorLeft = new SparkMax(Constants.Grabber.LEFT_PULLER_MOTOR, MotorType.kBrushless);
+        cagePullerMotorRight = new SparkMax(Constants.Grabber.RIGHT_PULLER_MOTOR, MotorType.kBrushless);
     }
 
     @Override
@@ -36,8 +32,8 @@ public class Grabber extends SubsystemBase {
             grabberState = GrabberState.DONE;
         }
         if (grabberState == GrabberState.GRABBING) {
-            cagePullerMotorLeft.setVoltage(PULLER_MOTOR_SPEED * 12);
-            cagePullerMotorRight.setVoltage(PULLER_MOTOR_SPEED * 12);
+            cagePullerMotorLeft.setVoltage(Constants.Grabber.PULLER_MOTOR_SPEED * 12);
+            cagePullerMotorRight.setVoltage(Constants.Grabber.PULLER_MOTOR_SPEED * 12);
         }
 
         if (grabberState == GrabberState.DONE) {
