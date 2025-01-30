@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -38,17 +39,29 @@ public class Climber extends SubsystemBase {
     public static final double DEPLOY_PID_P_COEFFICIENT = 0;
     public static final double DEPLOY_PID_I_COEFFICIENT = 0;
     public static final double DEPLOY_PID_D_COEFFICIENT = 0;
+
+    private double deployPTuning = 0;
+    private double deployITuning = 0;
+    private double deployDTuning = 0;
+
+    private double retractPTuning = 0;
+    private double retractITuning = 0;
+    private double retractDTuning = 0;
+
     private TrapezoidProfile.Constraints deployConstraints;
 
     /** Creates a new Climber. */
     public Climber() {
 
         // add PID controllers and encoders as children of the subsystem for LiveWindow
-
         if (Constants.LIVE_PID) {
-            addChild("Retract Winch PID", retractWinchPID);
-            addChild("Deploy Winch PID", deployWinchPID);
-            addChild("Climber Encoder", climberEncoder);
+            SmartDashboard.putNumber("Tuning deploy P", deployPTuning);
+            SmartDashboard.putNumber("Tuning deploy I", deployITuning);
+            SmartDashboard.putNumber("Tuning deploy D", deployDTuning);
+
+            SmartDashboard.putNumber("Tuning retract P", retractPTuning);
+            SmartDashboard.putNumber("Tuning retract I", retractITuning);
+            SmartDashboard.putNumber("Tuning retract D", retractDTuning);
         }
 
         winchMotor = new SparkMax(CLIMB_MOTOR, MotorType.kBrushless);
@@ -67,6 +80,25 @@ public class Climber extends SubsystemBase {
 
     @Override
     public void periodic() {
+
+        if (Constants.LIVE_PID) {
+
+            deployPTuning = SmartDashboard.getNumber("Tuning deploy P", -1);
+            deployITuning = SmartDashboard.getNumber("Tuning deploy I", -1);
+            deployDTuning = SmartDashboard.getNumber("Tuning deploy D", -1);
+
+            deployWinchPID.setP(deployPTuning);
+            deployWinchPID.setI(deployITuning);
+            deployWinchPID.setD(deployDTuning);
+
+            retractPTuning = SmartDashboard.getNumber("Tuning retract P", -1);
+            retractITuning = SmartDashboard.getNumber("Tuning retract I", -1);
+            retractDTuning = SmartDashboard.getNumber("Tuning retract D", -1);
+
+            retractWinchPID.setP(retractPTuning);
+            retractWinchPID.setI(retractITuning);
+            retractWinchPID.setD(retractDTuning);
+        }
 
         double motorPower;
         // will change comparison when we know how encoder works

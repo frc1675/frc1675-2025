@@ -12,6 +12,7 @@ import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.operation.SimulatorConfiguration;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Hopper.HopperState;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class RobotContainer {
     private final CommandXboxController driverController;
     private final CommandXboxController operatorController;
     private final Hopper hopper;
+    private final Climber climber;
 
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
@@ -56,6 +58,7 @@ public class RobotContainer {
         initOperationConfigs();
         registerRobotFunctions();
         hopper = new Hopper();
+        climber = new Climber();
     }
 
     private void initOperationConfigs() {
