@@ -25,6 +25,15 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v4
 
+    - name: Try ping
+      run: curl -s -o /dev/null -w "%{http_code}" https://www.example.com/
+
+    - name: Try download Pheonix
+      run: curl -s -o /dev/null -w "%{http_code}" https://maven.ctr-electronics.com/release/com/ctre/phoenix6/tools/25.2.1/tools-25.2.1-linuxathena.zip
+
+    - name: Try download Redux
+      run: curl -s -o /dev/null -w "%{http_code}" https://maven.reduxrobotics.com/com/reduxrobotics/frc/ReduxLib-driver/2025.0.1/ReduxLib-driver-2025.0.1-linuxathena.zip
+
     # Declares the repository safe and not under dubious ownership.
     - name: Add repository to git safe directories
       run: git config --global --add safe.directory $GITHUB_WORKSPACE
