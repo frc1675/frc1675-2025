@@ -20,7 +20,7 @@ public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfig
 
     @Override
     public void registerTeleopFunctions(RobotContainer rc) {
-        rc.registerDefaultDrive(
+        rc.registerSwerveAngularVelocityDrive(
                 () -> AllianceUtil.getTranslationDirection()
                         * getJoystickInput(controller, Constants.Controller.LEFT_Y_AXIS),
                 () -> AllianceUtil.getTranslationDirection()
