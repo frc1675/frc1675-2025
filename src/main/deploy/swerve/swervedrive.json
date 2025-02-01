@@ -1,7 +1,7 @@
 {
   "imu": {
-    "type": "navx_usb",
-    "id": null,
+    "type": "pigeon2",
+    "id": 21,
     "canbus": null
   },
   "invertedIMU": false,
