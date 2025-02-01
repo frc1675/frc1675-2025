@@ -39,6 +39,7 @@ public class Climber extends SubsystemBase {
     public static final double DEPLOY_PID_P_COEFFICIENT = 0;
     public static final double DEPLOY_PID_I_COEFFICIENT = 0;
     public static final double DEPLOY_PID_D_COEFFICIENT = 0;
+    private TrapezoidProfile.Constraints deployConstraints;
 
     private double deployPTuning = 0;
     private double deployITuning = 0;
@@ -47,8 +48,6 @@ public class Climber extends SubsystemBase {
     private double retractPTuning = 0;
     private double retractITuning = 0;
     private double retractDTuning = 0;
-
-    private TrapezoidProfile.Constraints deployConstraints;
 
     /** Creates a new Climber. */
     public Climber() {
