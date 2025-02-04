@@ -10,10 +10,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
+import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
-import frc.robot.operation.SimulatorConfiguration;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Hopper.HopperState;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
 
@@ -30,7 +28,7 @@ public class RobotContainer {
 
     private final CommandXboxController driverController;
     private final CommandXboxController operatorController;
-    private final Hopper hopper;
+    // private final Hopper hopper;
 
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
@@ -55,11 +53,11 @@ public class RobotContainer {
         operatorController = new CommandXboxController(1);
         initOperationConfigs();
         registerRobotFunctions();
-        hopper = new Hopper();
+        // hopper = new Hopper();
     }
 
     private void initOperationConfigs() {
-        operationConfigs.add(new SimulatorConfiguration(driverController));
+        operationConfigs.add(new JasonDriverConfiguration(driverController));
     }
 
     private void registerRobotFunctions() {
@@ -94,14 +92,14 @@ public class RobotContainer {
     }
 
     public void registerTurnHopperOn(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.ON)));
+        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.ON)));
     }
 
     public void registerTurnHopperOff(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.OFF)));
+        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.OFF)));
     }
 
     public void registerTurnHopperReverse(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.REVERSE)));
+        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.REVERSE)));
     }
 }
