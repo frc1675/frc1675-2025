@@ -12,6 +12,9 @@ import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Grabber;
+import frc.robot.subsystems.Manipulator;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
 
@@ -29,6 +32,9 @@ public class RobotContainer {
     private final CommandXboxController driverController;
     private final CommandXboxController operatorController;
     // private final Hopper hopper;
+    private Grabber grabber;
+    private Climber climber;
+    private Manipulator manipulator;
 
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
@@ -101,5 +107,25 @@ public class RobotContainer {
 
     public void registerTurnHopperReverse(Trigger t) {
         // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.REVERSE)));
+    }
+
+    public void registerClimberCurrentAngle(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.getCurrentAngle()));
+    }
+
+    public void registerClimberSetHomeAngle(Trigger t) {
+        // t.onTrue(new InstantCommand(() -> climber.setTarget(1)));
+    }
+
+    public void registerClimberSetClimbAngle(Trigger t) {
+        // t.onTrue(new InstantCommand(() -> climber.setTarget(1)));
+    }
+
+    public void registerGrabberToggleGrab(Trigger t) {
+        t.onTrue(new InstantCommand(() -> grabber.toggleGrabbing()));
+    }
+
+    public void registerManipulatorShoot(Trigger t) {
+        t.onTrue(new InstantCommand(() -> manipulator.shoot()));
     }
 }
