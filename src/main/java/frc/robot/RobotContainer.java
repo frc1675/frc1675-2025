@@ -7,9 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.drive.DefaultDrive;
-import frc.robot.drive.DriveSubsystem;
+import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.operation.SimulatorConfiguration;
 import frc.robot.subsystems.Hopper;
@@ -30,7 +28,6 @@ public class RobotContainer {
 
     private final CommandXboxController driverController;
     private final CommandXboxController operatorController;
-    private final Hopper hopper;
 
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
@@ -55,7 +52,6 @@ public class RobotContainer {
         operatorController = new CommandXboxController(1);
         initOperationConfigs();
         registerRobotFunctions();
-        hopper = new Hopper();
     }
 
     private void initOperationConfigs() {
@@ -91,17 +87,5 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         return null;
-    }
-
-    public void registerTurnHopperOn(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.ON)));
-    }
-
-    public void registerTurnHopperOff(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.OFF)));
-    }
-
-    public void registerTurnHopperReverse(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.REVERSE)));
     }
 }
