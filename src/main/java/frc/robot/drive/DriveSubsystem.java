@@ -8,13 +8,22 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+//import frc.robot.poseScheduler.PoseScheduler;
+
 import java.io.File;
 import java.io.IOException;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPLTVController;
+
 import swervelib.SwerveDrive;
 import swervelib.SwerveModule;
 import swervelib.parser.SwerveParser;
@@ -60,7 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param maxVisionPoseOverrideDistance Maximum vision pose difference allowed, in meters. (If the vision pose is too far off, ignore it)
      */
     public DriveSubsystem(DriveSubsystemBuilder builder) {
-
+        
         this.maxRotationVelocity = builder.maxRotationVelocity;
         this.maxTranslationVelocity = builder.maxTranslationVelocity;
         this.maxVisionPoseOverrideDistance = builder.maxVisionPoseOverrideDistance;
@@ -85,6 +94,40 @@ public class DriveSubsystem extends SubsystemBase {
 
         // JTPTODO REMOVE initdashboard for brownbox version
         initDashboard();
+
+
+        RobotConfig config = null;
+        try{
+            config = RobotConfig.fromGUISettings();
+          } catch (Exception e) {
+            // Handle exception as needed
+            e.printStackTrace();
+          }
+
+        AutoBuilder.configure(
+                    this::getPose, // Robot pose supplier
+                    this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+                    this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+                    (speeds, feedforwards) -> setRobotRelativeChassisSpeeds(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+                    new PPLTVController(0.02), // PPLTVController is the built in path following controller for differential drive trains
+                    config, // The robot configuration
+                    () -> {
+                    // Boolean supplier that controls when the path will be mirrored for the red alliance
+                    // This will flip the path being followed to the red side of the field.
+                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+                    var alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent()) {
+                        return alliance.get() == DriverStation.Alliance.Red;
+                    }
+                    return false;
+                    },
+                    this // Reference to this subsystem to set requirements
+            );
+
+
+
+
     }
 
     // JTPTODO REMOVE initdashboard for brownbox version
@@ -163,6 +206,8 @@ public class DriveSubsystem extends SubsystemBase {
     public Pose2d getPose() {
         return swerve.getPose();
     }
+
+
 
     /** Used for PathPlanner autonomous */
     public void resetOdometry(Pose2d override) {
