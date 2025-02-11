@@ -82,7 +82,8 @@ public final class Constants {
     }
 
     public static class Manipulator {
-        public static final int MANIPULATOR_MOTOR = 4;
+        public static final int MANIPULATOR_MOTOR_1 = 10;
+        public static final int MANIPULATOR_MOTOR_2 = 11;
 
         public static final double DELAY = 1.5;
         public static final double SHOOTING_SPEED = 1.0;
