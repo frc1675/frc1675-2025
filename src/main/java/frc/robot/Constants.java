@@ -49,9 +49,9 @@ public class Constants {
     }
 
     public static class Climber {
-        public static final int ENCODER_CHANNEL = 1;
+        public static final int ENCODER_CHANNEL = 0;
 
-        public static final int CLIMB_MOTOR = 0;
+        public static final int CLIMB_MOTOR = 12;
         public static final double DEPLOY_WINCH_MAX_ACCELERATION = 1;
         public static final double DEPLOY_WINCH_MAX_VELOCITY = 1;
 
@@ -68,14 +68,15 @@ public class Constants {
     }
 
     public static class Grabber {
-        public static final int LEFT_PULLER_MOTOR = 1;
-        public static final int RIGHT_PULLER_MOTOR = 2;
+        public static final int LEFT_PULLER_MOTOR = 13;
+        public static final int RIGHT_PULLER_MOTOR = 14;
+        public static final int CAGE_SENSOR = 32;
 
         public static final double PULLER_MOTOR_SPEED = 0.5;
     }
 
     public static class Hopper {
-        public static final int HOPPER_MOTOR = 3;
+        public static final int HOPPER_MOTOR = 9;
 
         public static final double HOPPER_INTAKE_SPEED = 1.0;
         public static final double HOPPER_REVERSE_SPEED = -1.0;
@@ -84,6 +85,7 @@ public class Constants {
     public static class Manipulator {
         public static final int MANIPULATOR_MOTOR_1 = 10;
         public static final int MANIPULATOR_MOTOR_2 = 11;
+        public static final int CORAL_SENSOR = 31;
 
         public static final double DELAY = 1.5;
         public static final double SHOOTING_SPEED = 1.0;
