@@ -87,6 +87,24 @@ public class RobotContainer {
         drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     }
 
+    public void registerSwervePointDrive(
+            DoubleSupplier x, DoubleSupplier y, DoubleSupplier headingX, DoubleSupplier headingY) {
+        SwerveInputStream driveAngularVelocity = SwerveInputStream.of(
+                        drive.getSwerveDrive(), x, y) // Axis which give the desired translational angle and speed.
+                .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
+                .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
+                .allianceRelativeControl(
+                        false); // Alliance relative controls. Done already in the driver configuration files.
+        Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
+        drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+
+        SwerveInputStream driveDirectAngle = driveAngularVelocity
+                .copy() // Copy the stream so further changes do not affect driveAngularVelocity
+                .withControllerHeadingAxis(
+                        headingX, headingY) // Axis which give the desired heading angle using trigonometry.
+                .headingWhile(true); // Enable heading based control.
+    }
+
     public void registerZeroGyro(Trigger t) {
         t.onTrue(new InstantCommand(() -> drive.zeroGyroscope(), drive));
     }

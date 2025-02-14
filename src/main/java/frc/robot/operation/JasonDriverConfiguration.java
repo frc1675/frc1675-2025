@@ -5,9 +5,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.util.AllianceUtil;
+import frc.robot.brownbox.util.AllianceUtil;
 
 public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfiguration {
+    public boolean angleDrive = true;
 
     public JasonDriverConfiguration(CommandXboxController controller) {
         super(controller);
