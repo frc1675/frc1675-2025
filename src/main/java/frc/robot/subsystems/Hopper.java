@@ -35,6 +35,12 @@ public class Hopper extends SubsystemBase {
         if (getState() == HopperState.REVERSE) {
             hopperMotor.setVoltage(Constants.Hopper.HOPPER_REVERSE_SPEED * 12.0);
         }
+
+        if (hasCoral() == true) {
+            changeState(Hopper.HopperState.OFF);
+        } else {
+            changeState(Hopper.HopperState.ON);
+        }
     }
 
     public enum HopperState {
