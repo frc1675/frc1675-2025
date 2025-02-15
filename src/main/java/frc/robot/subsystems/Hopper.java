@@ -12,12 +12,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Hopper extends SubsystemBase {
+
+    private Manipulator manipulator;
     private SparkMax hopperMotor;
     private HopperState hopperCurrentState;
+    // intake speed, and speed when intake would go reverse
+    private static final double HOPPER_INTAKE_SPEED = 1.0;
+    private static final double HOPPER_REVERSE_SPEED = -1.0;
 
-    /** Creates a new Hopper. */
-    public Hopper() {
-        hopperMotor = new SparkMax(Constants.Hopper.HOPPER_MOTOR, MotorType.kBrushless); // Replace CAN ID with constant
+    /** Creates a new Hopper.
+     * @param manipulator */
+    public Hopper(Manipulator manipulator) {
+        this.manipulator = manipulator;
+        hopperMotor = new SparkMax(0, MotorType.kBrushless); // Replace CAN ID with constant
         hopperCurrentState = HopperState.OFF;
         ShuffleboardTab tab = Shuffleboard.getTab("Hopper Display");
         tab.add("Hopper Shuffleboard", 3);
@@ -30,10 +37,19 @@ public class Hopper extends SubsystemBase {
             hopperMotor.setVoltage(0);
         }
         if (getState() == HopperState.ON) {
-            hopperMotor.setVoltage(Constants.Hopper.HOPPER_INTAKE_SPEED * 12.0);
+            hopperMotor.setVoltage(HOPPER_INTAKE_SPEED * 12.0);
         }
         if (getState() == HopperState.REVERSE) {
             hopperMotor.setVoltage(Constants.Hopper.HOPPER_REVERSE_SPEED * 12.0);
+        }
+    }
+
+    // can probably replace the "on" state and is written this way to not interfere with "reverse" and "off" states
+    public void runHopperAutomatically() {
+        if (manipulator.hasCoral()) {
+            changeState(Hopper.HopperState.OFF);
+        } else {
+            changeState(Hopper.HopperState.ON);
         }
     }
 
