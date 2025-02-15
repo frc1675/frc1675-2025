@@ -7,29 +7,27 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.brownbox.util.AllianceUtil;
 
-public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfiguration {
+public class KaiDriverConfiguration extends AbstractCommandXboxOperationConfiguration {
     public boolean angleDrive = true;
 
-    public JasonDriverConfiguration(CommandXboxController controller) {
+    public KaiDriverConfiguration(CommandXboxController controller) {
         super(controller);
     }
 
     @Override
     public void registerRobotFunctions(RobotContainer rc) {
         rc.registerZeroGyro(controller.start());
-        rc.registerTurnHopperAuto(controller.a());
-        rc.registerTurnHopperReverse(controller.b());
-        rc.registerTurnHopperOff(controller.x());
     }
 
     @Override
     public void registerTeleopFunctions(RobotContainer rc) {
-        rc.registerSwerveAngularVelocityDrive(
+        rc.registerSwervePointDrive(
                 () -> AllianceUtil.getTranslationDirection()
                         * getJoystickInput(controller, Constants.Controller.LEFT_Y_AXIS),
                 () -> AllianceUtil.getTranslationDirection()
                         * getJoystickInput(controller, Constants.Controller.LEFT_X_AXIS),
-                () -> getJoystickInput(controller, Constants.Controller.RIGHT_X_AXIS));
+                () -> getJoystickInput(controller, Constants.Controller.RIGHT_X_AXIS),
+                () -> getJoystickInput(controller, Constants.Controller.RIGHT_Y_AXIS));
     }
 
     private double getJoystickInput(CommandGenericHID stick, int axe) {

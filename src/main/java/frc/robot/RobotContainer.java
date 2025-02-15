@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
@@ -16,6 +15,7 @@ import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Manipulator;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
+import swervelib.SwerveInputStream;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,7 +30,6 @@ public class RobotContainer {
 
     private final CommandXboxController driverController;
     private final CommandXboxController operatorController;
-    // private final Hopper hopper;
 
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
@@ -78,8 +77,34 @@ public class RobotContainer {
         }
     }
 
-    public void registerDefaultDrive(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation) {
-        drive.setDefaultCommand(new DefaultDrive(drive, x, y, rotation, () -> 1.0));
+    public void registerSwerveAngularVelocityDrive(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation) {
+        SwerveInputStream driveAngularVelocity = SwerveInputStream.of(
+                        drive.getSwerveDrive(), x, y) // Axis which give the desired translational angle and speed.
+                .withControllerRotationAxis(rotation) // Axis which give the desired angular velocity.
+                .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
+                .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
+                .allianceRelativeControl(
+                        false); // Alliance relative controls. Done already in the driver configuration files.
+        Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
+        drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    }
+
+    public void registerSwervePointDrive(
+            DoubleSupplier x, DoubleSupplier y, DoubleSupplier headingX, DoubleSupplier headingY) {
+        SwerveInputStream driveAngularVelocity = SwerveInputStream.of(
+                        drive.getSwerveDrive(), x, y) // Axis which give the desired translational angle and speed.
+                .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
+                .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
+                .allianceRelativeControl(
+                        false); // Alliance relative controls. Done already in the driver configuration files.
+
+        SwerveInputStream driveDirectAngle = driveAngularVelocity
+                .copy() // Copy the stream so further changes do not affect driveAngularVelocity
+                .withControllerHeadingAxis(
+                        headingX, headingY) // Axis which give the desired heading angle using trigonometry.
+                .headingWhile(true); // Enable heading based control.
+        Command driveFieldOrientedDirectAngle = drive.driveFieldOriented(driveDirectAngle);
+        drive.setDefaultCommand(driveFieldOrientedDirectAngle);
     }
 
     public void registerZeroGyro(Trigger t) {
