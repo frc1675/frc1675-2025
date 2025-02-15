@@ -12,6 +12,7 @@ import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
+import frc.robot.subsystems.Hopper;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
 
@@ -34,6 +35,7 @@ public class RobotContainer {
 
     // The robot's subsystems and commands are defined here...
     private DriveSubsystem drive;
+    private Hopper hopper;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -53,7 +55,7 @@ public class RobotContainer {
         operatorController = new CommandXboxController(1);
         initOperationConfigs();
         registerRobotFunctions();
-        // hopper = new Hopper();
+        hopper = new Hopper();
     }
 
     private void initOperationConfigs() {
@@ -92,14 +94,18 @@ public class RobotContainer {
     }
 
     public void registerTurnHopperOn(Trigger t) {
-        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.ON)));
+        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.ON)));
+    }
+
+    public void registerTurnHopperAuto(Trigger t) {
+        t.onTrue(new InstantCommand(() -> hopper.runHopperAutomatically()));
     }
 
     public void registerTurnHopperOff(Trigger t) {
-        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.OFF)));
+        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.OFF)));
     }
 
     public void registerTurnHopperReverse(Trigger t) {
-        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.REVERSE)));
+        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.REVERSE)));
     }
 }

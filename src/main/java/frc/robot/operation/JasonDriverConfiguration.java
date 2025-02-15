@@ -16,6 +16,9 @@ public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfig
     @Override
     public void registerRobotFunctions(RobotContainer rc) {
         rc.registerZeroGyro(controller.start());
+        rc.registerTurnHopperAuto(controller.a());
+        rc.registerTurnHopperReverse(controller.b());
+        rc.registerTurnHopperOff(controller.x());
     }
 
     @Override
