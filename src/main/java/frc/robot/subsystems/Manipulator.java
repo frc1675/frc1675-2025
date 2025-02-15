@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 
+import au.grapplerobotics.ConfigurationFailedException;
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.interfaces.LaserCanInterface.RangingMode;
+import au.grapplerobotics.interfaces.LaserCanInterface.TimingBudget;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.Timer;
@@ -19,7 +23,7 @@ public class Manipulator extends SubsystemBase {
 
     private Timer stopwatch;
 
-    //  private LaserCan laserCAN;
+    private LaserCan laserCAN;
 
     /** Creates a new Manipulator. */
     public Manipulator() {
@@ -30,6 +34,15 @@ public class Manipulator extends SubsystemBase {
         // Not sure if timer starts automaticallly but wants to be off
         stopwatch.stop();
         stopwatch.reset();
+
+        laserCAN = new LaserCan(Constants.Manipulator.CORAL_SENSOR);
+
+        try {
+            laserCAN.setRangingMode(RangingMode.SHORT);
+            laserCAN.setTimingBudget(TimingBudget.TIMING_BUDGET_20MS);
+        } catch (ConfigurationFailedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -95,5 +108,14 @@ public class Manipulator extends SubsystemBase {
         if (state == ManipulatorState.LOADED) {
             state = ManipulatorState.SHOOTING;
         }
+    }
+
+    public double getMeasurement() {
+        return laserCAN.getMeasurement() == null ? 0 : laserCAN.getMeasurement().distance_mm;
+    }
+
+    public boolean manipulatorLoaded() {
+        double measurement = getMeasurement();
+        return measurement < Constants.Manipulator.DETECTION_RANGE;
     }
 }
