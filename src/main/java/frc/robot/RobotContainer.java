@@ -109,10 +109,6 @@ public class RobotContainer {
         // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.REVERSE)));
     }
 
-    public void registerClimberCurrentAngle(Trigger t) {
-        t.onTrue(new InstantCommand(() -> climber.getCurrentAngle()));
-    }
-
     public void registerClimberSetHomeAngle(Trigger t) {
         // t.onTrue(new InstantCommand(() -> climber.setTarget(1)));
     }
