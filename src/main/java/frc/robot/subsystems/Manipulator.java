@@ -24,6 +24,8 @@ public class Manipulator extends SubsystemBase {
     private Timer stopwatch;
 
     public LaserCan laserCAN;
+    // 0.155-0.160m without coral
+    // 0.075-0.080m with coral
 
     /** Creates a new Manipulator. */
     public Manipulator() {
@@ -120,6 +122,11 @@ public class Manipulator extends SubsystemBase {
 
     public boolean manipulatorLoaded() {
         double measurement = getMeasurement();
-        return measurement < Constants.Manipulator.DETECTION_RANGE;
+        if (measurement < Constants.Manipulator.DETECTION_RANGE) {
+            hasCoral = true;
+        } else {
+            hasCoral = false;
+        }
+        return hasCoral;
     }
 }

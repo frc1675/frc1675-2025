@@ -94,6 +94,6 @@ public class Constants {
         public static final double INTAKE_SPEED = 0.2;
         public static final double MAX_VOLTAGE = 12.0;
 
-        public static final double DETECTION_RANGE = 0;
+        public static final double DETECTION_RANGE = 85; // mm
     }
 }
