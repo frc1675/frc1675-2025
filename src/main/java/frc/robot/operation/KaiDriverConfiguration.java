@@ -10,7 +10,6 @@ import frc.robot.brownbox.util.AllianceUtil;
 public class KaiDriverConfiguration extends AbstractCommandXboxOperationConfiguration {
     public boolean angleDrive = true;
 
-
     public KaiDriverConfiguration(CommandXboxController controller) {
         super(controller);
     }
@@ -29,7 +28,7 @@ public class KaiDriverConfiguration extends AbstractCommandXboxOperationConfigur
                         * getJoystickInput(controller, Constants.Controller.LEFT_X_AXIS),
                 () -> getJoystickInput(controller, Constants.Controller.RIGHT_X_AXIS),
                 () -> getJoystickInput(controller, Constants.Controller.RIGHT_Y_AXIS));
-        }
+    }
 
     private double getJoystickInput(CommandGenericHID stick, int axe) {
         return MathUtil.applyDeadband(stick.getRawAxis(axe), Constants.Controller.DEADZONE_CONSTANT);
