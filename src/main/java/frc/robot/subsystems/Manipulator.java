@@ -115,7 +115,7 @@ public class Manipulator extends SubsystemBase {
     }
 
     public boolean manipulatorLoaded() {
-        LaserCan.Measurement measurement = laserCAN.getMeasurement();
-        return measurement.distance_mm < Constants.Manipulator.DETECTION_RANGE;
+        double measurement = getMeasurement();
+        return measurement < Constants.Manipulator.DETECTION_RANGE;
     }
 }
