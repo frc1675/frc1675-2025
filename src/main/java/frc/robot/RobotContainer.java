@@ -95,14 +95,14 @@ public class RobotContainer {
                 .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
                 .allianceRelativeControl(
                         false); // Alliance relative controls. Done already in the driver configuration files.
-        Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
-        drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
 
         SwerveInputStream driveDirectAngle = driveAngularVelocity
                 .copy() // Copy the stream so further changes do not affect driveAngularVelocity
                 .withControllerHeadingAxis(
                         headingX, headingY) // Axis which give the desired heading angle using trigonometry.
                 .headingWhile(true); // Enable heading based control.
+        Command driveFieldOrientedDirectAngle = drive.driveFieldOriented(driveDirectAngle);
+        drive.setDefaultCommand(driveFieldOrientedDirectAngle);
     }
 
     public void registerZeroGyro(Trigger t) {
