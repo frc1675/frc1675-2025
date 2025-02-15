@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Supplier;
 import swervelib.SwerveDrive;
 import swervelib.SwerveModule;
 import swervelib.parser.SwerveParser;
@@ -73,15 +75,14 @@ public class DriveSubsystem extends SubsystemBase {
         try {
             swerve = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"))
                     .createSwerveDrive(maxTranslationVelocity);
+            swerve.chassisVelocityCorrection = false;
+            swerve.setHeadingCorrection(true);
         } catch (IOException e) {
             System.out.println("Swerve drive configuration file could not be found at "
                     + Filesystem.getDeployDirectory()
                     + "/swerve");
             e.printStackTrace();
         }
-
-        swerve.chassisVelocityCorrection = false;
-        swerve.setHeadingCorrection(true);
 
         // JTPTODO REMOVE initdashboard for brownbox version
         initDashboard();
@@ -179,8 +180,18 @@ public class DriveSubsystem extends SubsystemBase {
         swerve.drive(
                 new Translation2d(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond),
                 speeds.omegaRadiansPerSecond,
-                false,
+                true,
                 false);
+    }
+
+    public Command driveFieldOriented(Supplier<ChassisSpeeds> velocity) {
+        return run(() -> {
+            swerve.driveFieldOriented(velocity.get());
+        });
+    }
+
+    public SwerveDrive getSwerveDrive() {
+        return swerve;
     }
 
     public static class DriveSubsystemBuilder {
