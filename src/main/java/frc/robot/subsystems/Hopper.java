@@ -13,14 +13,17 @@ import frc.robot.Constants;
 
 public class Hopper extends SubsystemBase {
 
+    private Manipulator manipulator;
     private SparkMax hopperMotor;
     private HopperState hopperCurrentState;
     // intake speed, and speed when intake would go reverse
     private static final double HOPPER_INTAKE_SPEED = 1.0;
     private static final double HOPPER_REVERSE_SPEED = -1.0;
 
-    /** Creates a new Hopper. */
-    public Hopper() {
+    /** Creates a new Hopper.
+     * @param manipulator */
+    public Hopper(Manipulator manipulator) {
+        this.manipulator = manipulator;
         hopperMotor = new SparkMax(0, MotorType.kBrushless); // Replace CAN ID with constant
         hopperCurrentState = HopperState.OFF;
         ShuffleboardTab tab = Shuffleboard.getTab("Hopper Display");
@@ -43,7 +46,7 @@ public class Hopper extends SubsystemBase {
 
     // can probably replace the "on" state and is written this way to not interfere with "reverse" and "off" states
     public void runHopperAutomatically() {
-        if (hasCoral() == true) {
+        if (manipulator.hasCoral()) {
             changeState(Hopper.HopperState.OFF);
         } else {
             changeState(Hopper.HopperState.ON);

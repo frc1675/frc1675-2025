@@ -23,7 +23,7 @@ public class Manipulator extends SubsystemBase {
 
     private Timer stopwatch;
 
-    private LaserCan laserCAN;
+    public LaserCan laserCAN;
 
     /** Creates a new Manipulator. */
     public Manipulator() {
@@ -83,6 +83,10 @@ public class Manipulator extends SubsystemBase {
         if (state == ManipulatorState.LOADED) {
             shooter.setVoltage(0);
         }
+    }
+
+    public boolean hasCoral() {
+        return hasCoral;
     }
 
     enum ManipulatorState {

@@ -13,6 +13,7 @@ import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Manipulator;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
 
@@ -36,6 +37,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private DriveSubsystem drive;
     private Hopper hopper;
+    private Manipulator manipulator;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -55,7 +57,8 @@ public class RobotContainer {
         operatorController = new CommandXboxController(1);
         initOperationConfigs();
         registerRobotFunctions();
-        hopper = new Hopper();
+        manipulator = new Manipulator();
+        hopper = new Hopper(manipulator);
     }
 
     private void initOperationConfigs() {
