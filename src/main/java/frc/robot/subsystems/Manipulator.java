@@ -124,6 +124,8 @@ public class Manipulator extends SubsystemBase {
         double measurement = getMeasurement();
         if (measurement < Constants.Manipulator.DETECTION_RANGE) {
             hasCoral = true;
+        } else {
+            hasCoral = false;
         }
         return hasCoral;
     }
