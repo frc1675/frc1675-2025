@@ -13,7 +13,5 @@ public class JasonOperatorConfiguration extends AbstractCommandXboxOperationConf
     public void registerRobotFunctions(RobotContainer rc) {}
 
     @Override
-    public void registerTeleopFunctions(RobotContainer rc) {
-        rc.registerTurnHopperReverse(controller.a());
-    }
+    public void registerTeleopFunctions(RobotContainer rc) {}
 }

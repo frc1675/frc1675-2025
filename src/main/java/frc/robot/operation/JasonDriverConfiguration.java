@@ -8,7 +8,6 @@ import frc.robot.RobotContainer;
 import frc.robot.brownbox.util.AllianceUtil;
 
 public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfiguration {
-    public boolean angleDrive = true;
 
     public JasonDriverConfiguration(CommandXboxController controller) {
         super(controller);

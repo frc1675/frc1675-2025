@@ -18,6 +18,7 @@ public class Manipulator extends SubsystemBase {
     private boolean hasCoral;
 
     private SparkMax shooter;
+    private SparkMax shootTwo;
 
     ManipulatorState state = ManipulatorState.EMPTY;
 
@@ -30,6 +31,8 @@ public class Manipulator extends SubsystemBase {
     /** Creates a new Manipulator. */
     public Manipulator() {
         shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_1, MotorType.kBrushless);
+        shootTwo = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_2, MotorType.kBrushless);
+        shootTwo.setInverted(true);
         hasCoral = false;
 
         stopwatch = new Timer();
@@ -49,6 +52,13 @@ public class Manipulator extends SubsystemBase {
 
     @Override
     public void periodic() {
+
+        if (getMeasurement() < Constants.Manipulator.DETECTION_RANGE) {
+            hasCoral = true;
+        } else {
+            hasCoral = false;
+        }
+
         // This method will be called once per scheduler run
         // checks sensor if it's loaded or not --> will trasnition to loaded when coral is in
 
@@ -74,21 +84,20 @@ public class Manipulator extends SubsystemBase {
         } // End of stage 1
 
         // stage 2 - Setting the motor speed
-        if (state == ManipulatorState.SHOOTING) {
-            shooter.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-        }
+        // if (state == ManipulatorState.SHOOTING) {
+        //     shooter.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+        //     shootTwo.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+        // }
 
-        if (state == ManipulatorState.EMPTY) {
-            shooter.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-        }
+        // if (state == ManipulatorState.EMPTY) {
+        //     shooter.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+        //     shootTwo.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+        // }
 
         if (state == ManipulatorState.LOADED) {
             shooter.setVoltage(0);
+            shootTwo.setVoltage(0);
         }
-    }
-
-    public boolean hasCoral() {
-        return hasCoral;
     }
 
     enum ManipulatorState {
@@ -121,12 +130,6 @@ public class Manipulator extends SubsystemBase {
     }
 
     public boolean manipulatorLoaded() {
-        double measurement = getMeasurement();
-        if (measurement < Constants.Manipulator.DETECTION_RANGE) {
-            hasCoral = true;
-        } else {
-            hasCoral = false;
-        }
         return hasCoral;
     }
 }
