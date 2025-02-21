@@ -20,7 +20,7 @@ public class Hopper extends SubsystemBase {
     /** Creates a new Hopper.*/
     public Hopper() {
         hopperMotor = new SparkMax(Constants.Hopper.HOPPER_MOTOR, MotorType.kBrushless); // Replace CAN ID with constant
-        hopperCurrentState = HopperState.OFF;
+        hopperCurrentState = HopperState.ON;
         ShuffleboardTab tab = Shuffleboard.getTab("Hopper Display");
         tab.add("Hopper Shuffleboard", 3);
     }

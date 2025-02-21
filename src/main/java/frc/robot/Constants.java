@@ -80,8 +80,8 @@ public class Constants {
     public static class Hopper {
         public static final int HOPPER_MOTOR = 9;
 
-        public static final double HOPPER_INTAKE_SPEED = 0.25;
-        public static final double HOPPER_REVERSE_SPEED = -1.0;
+        public static final double HOPPER_INTAKE_SPEED = 0.115;
+        public static final double HOPPER_REVERSE_SPEED = -0.3;
     }
 
     public static class Manipulator {
@@ -90,8 +90,9 @@ public class Constants {
         public static final int CORAL_SENSOR = 31;
 
         public static final double DELAY = 1.5;
-        public static final double SHOOTING_SPEED = 1.0;
-        public static final double INTAKE_SPEED = 0.2;
+        public static final double CHECK_DELAY = 0.5;
+        public static final double SHOOTING_SPEED = 0.2;
+        public static final double INTAKE_SPEED = 0.115;
         public static final double MAX_VOLTAGE = 12.0;
 
         public static final double DETECTION_RANGE = 85; // mm

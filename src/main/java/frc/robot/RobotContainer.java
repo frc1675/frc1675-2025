@@ -121,4 +121,8 @@ public class RobotContainer {
     public void registerTurnHopperReverse(Trigger t) {
         t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.REVERSE)));
     }
+
+    public void registerShootManipulator(Trigger t) {
+        t.onTrue(new InstantCommand(() -> manipulator.shoot()));
+    }
 }

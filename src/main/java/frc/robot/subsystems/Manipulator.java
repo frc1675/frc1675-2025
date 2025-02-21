@@ -22,7 +22,8 @@ public class Manipulator extends SubsystemBase {
 
     ManipulatorState state = ManipulatorState.EMPTY;
 
-    private Timer stopwatch;
+    private Timer shooterTimer;
+    private Timer manipulatorTimer;
 
     public LaserCan laserCAN;
     // 0.155-0.160m without coral
@@ -35,10 +36,14 @@ public class Manipulator extends SubsystemBase {
         shootTwo.setInverted(true);
         hasCoral = false;
 
-        stopwatch = new Timer();
+        shooterTimer = new Timer();
         // Not sure if timer starts automaticallly but wants to be off
-        stopwatch.stop();
-        stopwatch.reset();
+        shooterTimer.stop();
+        shooterTimer.reset();
+
+        // manipulatorTimer = new Timer();
+        // manipulatorTimer.stop();
+        // manipulatorTimer.reset();
 
         laserCAN = new LaserCan(Constants.Manipulator.CORAL_SENSOR);
 
@@ -72,31 +77,43 @@ public class Manipulator extends SubsystemBase {
 
             if (!hasCoral) {
 
-                if (!stopwatch.isRunning()) {
-                    stopwatch.restart();
+                if (!shooterTimer.isRunning()) {
+                    shooterTimer.restart();
                 } else {
-                    if (stopwatch.hasElapsed(Constants.Manipulator.DELAY)) {
+                    if (shooterTimer.hasElapsed(Constants.Manipulator.DELAY)) {
                         state = ManipulatorState.EMPTY;
-                        stopwatch.stop();
+                        shooterTimer.stop();
                     }
                 }
             }
         } // End of stage 1
 
         // stage 2 - Setting the motor speed
-        // if (state == ManipulatorState.SHOOTING) {
-        //     shooter.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-        //     shootTwo.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-        // }
+        if (state == ManipulatorState.SHOOTING) {
+            shooter.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shootTwo.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+        }
 
-        // if (state == ManipulatorState.EMPTY) {
-        //     shooter.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-        //     shootTwo.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-        // }
+        if (state == ManipulatorState.EMPTY) {
+            shooter.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shootTwo.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+        }
 
         if (state == ManipulatorState.LOADED) {
+
             shooter.setVoltage(0);
             shootTwo.setVoltage(0);
+
+            // if (!manipulatorTimer.isRunning()) {
+            //     manipulatorTimer.restart();
+            // } else {
+            //     if (manipulatorTimer.hasElapsed(Constants.Manipulator.CHECK_DELAY)) {
+            //         if(!hasCoral){
+            //             state = ManipulatorState.EMPTY;
+            //         }
+            //         manipulatorTimer.stop();
+            //     }
+            // }
         }
     }
 

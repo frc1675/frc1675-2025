@@ -19,6 +19,7 @@ public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfig
         rc.registerTurnHopperAuto(controller.a());
         rc.registerTurnHopperReverse(controller.b());
         rc.registerTurnHopperOff(controller.x());
+        rc.registerShootManipulator(controller.rightTrigger());
     }
 
     @Override
