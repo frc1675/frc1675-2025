@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,11 +16,16 @@ public class Hopper extends SubsystemBase {
 
     private SparkMax hopperMotor;
     private HopperState hopperCurrentState;
+    private Timer hopperTimer;
     // intake speed, and speed when intake would go reverse
 
     /** Creates a new Hopper.*/
     public Hopper() {
         hopperMotor = new SparkMax(Constants.Hopper.HOPPER_MOTOR, MotorType.kBrushless); // Replace CAN ID with constant
+        hopperTimer = new Timer();
+        hopperTimer.stop();
+        hopperTimer.reset();
+
         hopperCurrentState = HopperState.ON;
         ShuffleboardTab tab = Shuffleboard.getTab("Hopper Display");
         tab.add("Hopper Shuffleboard", 3);
@@ -36,6 +42,17 @@ public class Hopper extends SubsystemBase {
         }
         if (getState() == HopperState.REVERSE) {
             hopperMotor.setVoltage(Constants.Hopper.HOPPER_REVERSE_SPEED * 12.0);
+        }
+
+        if (hopperCurrentState == Hopper.HopperState.REVERSE) {
+            if (!hopperTimer.isRunning()) {
+                hopperTimer.restart();
+            } else {
+                if (hopperTimer.hasElapsed(3)) {
+                    hopperCurrentState = Hopper.HopperState.ON;
+                    hopperTimer.stop();
+                }
+            }
         }
     }
 

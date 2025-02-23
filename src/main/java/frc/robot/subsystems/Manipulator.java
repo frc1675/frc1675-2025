@@ -11,11 +11,15 @@ import au.grapplerobotics.interfaces.LaserCanInterface.TimingBudget;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Manipulator extends SubsystemBase {
     private boolean hasCoral;
+
+    private ShuffleboardTab dashboard;
 
     private SparkMax shooter;
     private SparkMax shootTwo;
@@ -31,8 +35,8 @@ public class Manipulator extends SubsystemBase {
 
     /** Creates a new Manipulator. */
     public Manipulator() {
-        shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_1, MotorType.kBrushless);
-        shootTwo = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_2, MotorType.kBrushless);
+        shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_1, MotorType.kBrushless); // bottom
+        shootTwo = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_2, MotorType.kBrushless); // top
         shootTwo.setInverted(true);
         hasCoral = false;
 
@@ -52,7 +56,15 @@ public class Manipulator extends SubsystemBase {
             laserCAN.setTimingBudget(TimingBudget.TIMING_BUDGET_20MS);
         } catch (ConfigurationFailedException e) {
             e.printStackTrace();
+
+            initDashboard();
         }
+    }
+
+    private void initDashboard() {
+        dashboard = Shuffleboard.getTab("Manipulator");
+        dashboard.addBoolean("Has Coral", () -> hasCoral);
+        dashboard.add("Current State", state);
     }
 
     @Override
@@ -90,13 +102,13 @@ public class Manipulator extends SubsystemBase {
 
         // stage 2 - Setting the motor speed
         if (state == ManipulatorState.SHOOTING) {
-            shooter.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-            shootTwo.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shooter.setVoltage(Constants.Manipulator.BOTTOM_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shootTwo.setVoltage(Constants.Manipulator.TOP_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
         }
 
         if (state == ManipulatorState.EMPTY) {
-            shooter.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
-            shootTwo.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shooter.setVoltage(Constants.Manipulator.BOTTOM_INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shootTwo.setVoltage(Constants.Manipulator.TOP_INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
         }
 
         if (state == ManipulatorState.LOADED) {
