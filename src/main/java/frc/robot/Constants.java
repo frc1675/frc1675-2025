@@ -46,7 +46,7 @@ public class Constants {
         public static final int LEFT_X_AXIS = 0;
         public static final int LEFT_Y_AXIS = 1;
         public static final int RIGHT_X_AXIS = 4;
-        public static final int RIGHT_Y_AXIS = 5;
+
         public static final int SCALE_TRANSLATION = 1;
     }
 
@@ -80,18 +80,23 @@ public class Constants {
     public static class Hopper {
         public static final int HOPPER_MOTOR = 9;
 
-        public static final double HOPPER_INTAKE_SPEED = 1.0;
-        public static final double HOPPER_REVERSE_SPEED = -1.0;
+        public static final double HOPPER_INTAKE_SPEED = 0.15;
+        public static final double HOPPER_REVERSE_SPEED = -0.3;
     }
 
     public static class Manipulator {
-        public static final int MANIPULATOR_MOTOR_1 = 10;
-        public static final int MANIPULATOR_MOTOR_2 = 11;
+        public static final int MANIPULATOR_MOTOR_1 = 10; // bottom
+        public static final int MANIPULATOR_MOTOR_2 = 11; // top
         public static final int CORAL_SENSOR = 31;
 
         public static final double DELAY = 1.5;
-        public static final double SHOOTING_SPEED = 1.0;
-        public static final double INTAKE_SPEED = 0.2;
+        public static final double CHECK_DELAY = 0.5;
+
+        public static final double TOP_SHOOTING_SPEED = 0.1;
+        public static final double BOTTOM_SHOOTING_SPEED = 0.2;
+
+        public static final double TOP_INTAKE_SPEED = 0.10;
+        public static final double BOTTOM_INTAKE_SPEED = 0.10;
         public static final double MAX_VOLTAGE = 12.0;
 
         public static final double DETECTION_RANGE = 85; // mm

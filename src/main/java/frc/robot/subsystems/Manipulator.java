@@ -11,17 +11,23 @@ import au.grapplerobotics.interfaces.LaserCanInterface.TimingBudget;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Manipulator extends SubsystemBase {
     private boolean hasCoral;
 
+    private ShuffleboardTab dashboard;
+
     private SparkMax shooter;
+    private SparkMax shootTwo;
 
     ManipulatorState state = ManipulatorState.EMPTY;
 
-    private Timer stopwatch;
+    private Timer shooterTimer;
+    private Timer manipulatorTimer;
 
     public LaserCan laserCAN;
     // 0.155-0.160m without coral
@@ -29,13 +35,19 @@ public class Manipulator extends SubsystemBase {
 
     /** Creates a new Manipulator. */
     public Manipulator() {
-        shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_1, MotorType.kBrushless);
+        shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_1, MotorType.kBrushless); // bottom
+        shootTwo = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_2, MotorType.kBrushless); // top
+        shootTwo.setInverted(true);
         hasCoral = false;
 
-        stopwatch = new Timer();
+        shooterTimer = new Timer();
         // Not sure if timer starts automaticallly but wants to be off
-        stopwatch.stop();
-        stopwatch.reset();
+        shooterTimer.stop();
+        shooterTimer.reset();
+
+        // manipulatorTimer = new Timer();
+        // manipulatorTimer.stop();
+        // manipulatorTimer.reset();
 
         laserCAN = new LaserCan(Constants.Manipulator.CORAL_SENSOR);
 
@@ -44,11 +56,26 @@ public class Manipulator extends SubsystemBase {
             laserCAN.setTimingBudget(TimingBudget.TIMING_BUDGET_20MS);
         } catch (ConfigurationFailedException e) {
             e.printStackTrace();
+
+            initDashboard();
         }
+    }
+
+    private void initDashboard() {
+        dashboard = Shuffleboard.getTab("Manipulator");
+        dashboard.addBoolean("Has Coral", () -> hasCoral);
+        dashboard.add("Current State", state);
     }
 
     @Override
     public void periodic() {
+
+        if (getMeasurement() < Constants.Manipulator.DETECTION_RANGE) {
+            hasCoral = true;
+        } else {
+            hasCoral = false;
+        }
+
         // This method will be called once per scheduler run
         // checks sensor if it's loaded or not --> will trasnition to loaded when coral is in
 
@@ -62,12 +89,12 @@ public class Manipulator extends SubsystemBase {
 
             if (!hasCoral) {
 
-                if (!stopwatch.isRunning()) {
-                    stopwatch.restart();
+                if (!shooterTimer.isRunning()) {
+                    shooterTimer.restart();
                 } else {
-                    if (stopwatch.hasElapsed(Constants.Manipulator.DELAY)) {
+                    if (shooterTimer.hasElapsed(Constants.Manipulator.DELAY)) {
                         state = ManipulatorState.EMPTY;
-                        stopwatch.stop();
+                        shooterTimer.stop();
                     }
                 }
             }
@@ -75,20 +102,31 @@ public class Manipulator extends SubsystemBase {
 
         // stage 2 - Setting the motor speed
         if (state == ManipulatorState.SHOOTING) {
-            shooter.setVoltage(Constants.Manipulator.SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shooter.setVoltage(Constants.Manipulator.BOTTOM_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shootTwo.setVoltage(Constants.Manipulator.TOP_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
         }
 
         if (state == ManipulatorState.EMPTY) {
-            shooter.setVoltage(Constants.Manipulator.INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shooter.setVoltage(Constants.Manipulator.BOTTOM_INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shootTwo.setVoltage(Constants.Manipulator.TOP_INTAKE_SPEED * Constants.Manipulator.MAX_VOLTAGE);
         }
 
         if (state == ManipulatorState.LOADED) {
-            shooter.setVoltage(0);
-        }
-    }
 
-    public boolean hasCoral() {
-        return hasCoral;
+            shooter.setVoltage(0);
+            shootTwo.setVoltage(0);
+
+            // if (!manipulatorTimer.isRunning()) {
+            //     manipulatorTimer.restart();
+            // } else {
+            //     if (manipulatorTimer.hasElapsed(Constants.Manipulator.CHECK_DELAY)) {
+            //         if(!hasCoral){
+            //             state = ManipulatorState.EMPTY;
+            //         }
+            //         manipulatorTimer.stop();
+            //     }
+            // }
+        }
     }
 
     enum ManipulatorState {
@@ -121,12 +159,6 @@ public class Manipulator extends SubsystemBase {
     }
 
     public boolean manipulatorLoaded() {
-        double measurement = getMeasurement();
-        if (measurement < Constants.Manipulator.DETECTION_RANGE) {
-            hasCoral = true;
-        } else {
-            hasCoral = false;
-        }
         return hasCoral;
     }
 }

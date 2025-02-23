@@ -54,10 +54,10 @@ public class RobotContainer {
         // Configure the trigger bindings
         driverController = new CommandXboxController(0);
         operatorController = new CommandXboxController(1);
+        manipulator = new Manipulator();
+        hopper = new Hopper();
         initOperationConfigs();
         registerRobotFunctions();
-        manipulator = new Manipulator();
-        hopper = new Hopper(manipulator);
     }
 
     private void initOperationConfigs() {
@@ -71,10 +71,12 @@ public class RobotContainer {
     }
 
     public void teleopInit() {
-
         for (OperationConfiguration opConfig : operationConfigs) {
             opConfig.registerTeleopFunctions(this);
         }
+
+        Trigger manipulatorTrigger = new Trigger(() -> manipulator.manipulatorLoaded());
+        registerTurnHopperAuto(manipulatorTrigger);
     }
 
     public void registerSwerveAngularVelocityDrive(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation) {
@@ -87,24 +89,6 @@ public class RobotContainer {
                         false); // Alliance relative controls. Done already in the driver configuration files.
         Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
         drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    }
-
-    public void registerSwervePointDrive(
-            DoubleSupplier x, DoubleSupplier y, DoubleSupplier headingX, DoubleSupplier headingY) {
-        SwerveInputStream driveAngularVelocity = SwerveInputStream.of(
-                        drive.getSwerveDrive(), x, y) // Axis which give the desired translational angle and speed.
-                .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
-                .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
-                .allianceRelativeControl(
-                        false); // Alliance relative controls. Done already in the driver configuration files.
-
-        SwerveInputStream driveDirectAngle = driveAngularVelocity
-                .copy() // Copy the stream so further changes do not affect driveAngularVelocity
-                .withControllerHeadingAxis(
-                        headingX, headingY) // Axis which give the desired heading angle using trigonometry.
-                .headingWhile(true); // Enable heading based control.
-        Command driveFieldOrientedDirectAngle = drive.driveFieldOriented(driveDirectAngle);
-        drive.setDefaultCommand(driveFieldOrientedDirectAngle);
     }
 
     public void registerZeroGyro(Trigger t) {
@@ -126,7 +110,8 @@ public class RobotContainer {
     }
 
     public void registerTurnHopperAuto(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.runHopperAutomatically()));
+        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.OFF)));
+        t.onFalse(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.ON)));
     }
 
     public void registerTurnHopperOff(Trigger t) {
@@ -135,5 +120,9 @@ public class RobotContainer {
 
     public void registerTurnHopperReverse(Trigger t) {
         t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.REVERSE)));
+    }
+
+    public void registerShootManipulator(Trigger t) {
+        t.onTrue(new InstantCommand(() -> manipulator.shoot()));
     }
 }
