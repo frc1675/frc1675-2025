@@ -7,11 +7,15 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
     private double targetAngle;
+
+    private ShuffleboardTab dashboard;
 
     private SparkMax winchMotor;
 
@@ -21,6 +25,11 @@ public class Climber extends SubsystemBase {
     public Climber() {
         winchMotor = new SparkMax(Constants.Climber.CLIMB_MOTOR, MotorType.kBrushless);
         climberEncoder = new DutyCycleEncoder(Constants.Climber.ENCODER_CHANNEL);
+    }
+
+    private void initDashboard() {
+        dashboard = Shuffleboard.getTab("Manipulator");
+        dashboard.add("Get angle", getCurrentAngle());
     }
 
     @Override

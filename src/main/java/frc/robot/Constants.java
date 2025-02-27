@@ -55,8 +55,8 @@ public class Constants {
 
         public static final int CLIMB_MOTOR = 12;
 
-        public static final double DEPLOY_WINCH_SPEED = 1;
-        public static final double RETRACT_WINCH_SPEED = 1;
+        public static final double DEPLOY_WINCH_SPEED = 0.4;
+        public static final double RETRACT_WINCH_SPEED = -0.4;
     }
 
     public static class Grabber {

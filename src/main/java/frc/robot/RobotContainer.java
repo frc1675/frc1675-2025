@@ -132,11 +132,11 @@ public class RobotContainer {
         t.onTrue(new InstantCommand(() -> manipulator.shoot()));
     }
 
-    public void registerdeployWinch(Trigger t) {
+    public void registerDeployWinch(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.deployWinch()));
     }
 
-    public void registerretractWinch(Trigger t) {
+    public void registerRetractWinch(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.retractWinch()));
     }
 
