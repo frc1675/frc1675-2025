@@ -54,19 +54,9 @@ public class Constants {
         public static final int ENCODER_CHANNEL = 0;
 
         public static final int CLIMB_MOTOR = 12;
-        public static final double DEPLOY_WINCH_MAX_ACCELERATION = 1;
-        public static final double DEPLOY_WINCH_MAX_VELOCITY = 1;
 
-        public static final double RETRACT_WINCH_MAX_ACCELERATION = 1;
-        public static final double RETRACT_WINCH_MAX_VELOCITY = 1;
-
-        public static final double RETRACT_PID_P_COEFFICIENT = 0;
-        public static final double RETRACT_PID_I_COEFFICIENT = 0;
-        public static final double RETRACT_PID_D_COEFFICIENT = 0;
-
-        public static final double DEPLOY_PID_P_COEFFICIENT = 0;
-        public static final double DEPLOY_PID_I_COEFFICIENT = 0;
-        public static final double DEPLOY_PID_D_COEFFICIENT = 0;
+        public static final double DEPLOY_WINCH_SPEED = 1;
+        public static final double RETRACT_WINCH_SPEED = 1;
     }
 
     public static class Grabber {
