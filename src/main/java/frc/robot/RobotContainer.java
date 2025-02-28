@@ -143,4 +143,8 @@ public class RobotContainer {
     public void registerToggleGrabber(Trigger t) {
         t.onTrue(new InstantCommand(() -> grabber.toggleGrabbing()));
     }
+
+    public void registerTurnOffWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.stopWinch()));
+    }
 }

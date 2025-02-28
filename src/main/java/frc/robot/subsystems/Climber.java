@@ -58,4 +58,8 @@ public class Climber extends SubsystemBase {
     public void retractWinch() {
         winchMotor.setVoltage(Constants.Climber.RETRACT_WINCH_SPEED);
     }
+
+    public void stopWinch() {
+        winchMotor.setVoltage(0);
+    }
 }
