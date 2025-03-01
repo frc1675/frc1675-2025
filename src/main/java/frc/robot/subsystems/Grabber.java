@@ -40,6 +40,11 @@ public class Grabber extends SubsystemBase {
             cagePullerMotorLeft.setVoltage(0);
             cagePullerMotorRight.setVoltage(0);
         }
+
+        if (grabberState == GrabberState.WAITING) {
+            cagePullerMotorLeft.setVoltage(0);
+            cagePullerMotorRight.setVoltage(0);
+        }
     }
 
     enum GrabberState {
@@ -56,7 +61,7 @@ public class Grabber extends SubsystemBase {
     public void toggleGrabbing() {
         if (grabberState == GrabberState.GRABBING) {
             grabberState = GrabberState.WAITING;
-        } else {
+        } else if (grabberState == GrabberState.WAITING) {
             grabberState = GrabberState.GRABBING;
         }
     }

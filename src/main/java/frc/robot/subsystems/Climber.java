@@ -25,11 +25,12 @@ public class Climber extends SubsystemBase {
     public Climber() {
         winchMotor = new SparkMax(Constants.Climber.CLIMB_MOTOR, MotorType.kBrushless);
         climberEncoder = new DutyCycleEncoder(Constants.Climber.ENCODER_CHANNEL);
+        initDashboard();
     }
 
     private void initDashboard() {
-        dashboard = Shuffleboard.getTab("Manipulator");
-        dashboard.add("Get angle", getCurrentAngle());
+        dashboard = Shuffleboard.getTab("Climber");
+        dashboard.addDouble("Get angle", () -> getCurrentAngle());
     }
 
     @Override
