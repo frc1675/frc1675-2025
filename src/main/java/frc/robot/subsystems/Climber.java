@@ -52,11 +52,11 @@ public class Climber extends SubsystemBase {
     }
 
     public void deployWinch() {
-        winchMotor.setVoltage(Constants.Climber.DEPLOY_WINCH_SPEED);
+        winchMotor.setVoltage(Constants.Climber.DEPLOY_WINCH_SPEED * 12);
     }
 
     public void retractWinch() {
-        winchMotor.setVoltage(Constants.Climber.RETRACT_WINCH_SPEED);
+        winchMotor.setVoltage(Constants.Climber.RETRACT_WINCH_SPEED * 12);
     }
 
     public void stopWinch() {
