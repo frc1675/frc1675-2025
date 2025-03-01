@@ -110,5 +110,12 @@ public class Constants {
         public static final double ELEVATOR_UP = 1.0;
         public static final double ELEVATOR_DOWN = -1.0;
         public static final double MAX_VOLTAGE = 12.0;
+
+        public static final double ELEVATOR_MAX_ACCELERATION = 1;
+        public static final double ELEVATOR_MAX_VELOCITY = 1;
+
+        public static final double ELEVATOR_PID_P_COEFFICIENT = 0;
+        public static final double ELEVATOR_PID_I_COEFFICIENT = 0;
+        public static final double ELEVATOR_PID_D_COEFFICIENT = 0;
     }
 }

@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 
@@ -12,10 +14,21 @@ public class Elevator {
     private double elevatorEncoder;
     private DigitalInput homeSwitch;
 
+    private ProfiledPIDController pid;
+    private TrapezoidProfile.Constraints profileConstraints;
+
     public Elevator() {
         elevatorMotor = new SparkMax(Constants.Elevator.ELEVATOR, MotorType.kBrushless);
         //    elevatorEncoder = new
         homeSwitch = new DigitalInput(Constants.Elevator.ELEVATOR_HOMESWITCH);
+
+        profileConstraints = new TrapezoidProfile.Constraints(
+                Constants.Elevator.ELEVATOR_MAX_VELOCITY, Constants.Elevator.ELEVATOR_MAX_ACCELERATION);
+        pid = new ProfiledPIDController(
+                Constants.Elevator.ELEVATOR_PID_P_COEFFICIENT,
+                Constants.Elevator.ELEVATOR_PID_I_COEFFICIENT,
+                Constants.Elevator.ELEVATOR_PID_D_COEFFICIENT,
+                profileConstraints);
 
         elevatorCurrentLevel = ElevatorLevel.OFF;
     }
@@ -39,7 +52,7 @@ public class Elevator {
         }
     }
 
-    public void changeState(Elevator.ElevatorLevel elevatorLevel) {
+    public void setTarget(Elevator.ElevatorLevel elevatorLevel) {
         elevatorCurrentLevel = ElevatorLevel;
     }
 
