@@ -101,4 +101,14 @@ public class Constants {
 
         public static final double DETECTION_RANGE = 85; // mm
     }
+
+    public static class Elevator {
+        public static final int ELEVATOR = 0;
+        public static final int ENCODER = 0;
+        public static final int ELEVATOR_HOMESWITCH = 0;
+
+        public static final double ELEVATOR_UP = 1.0;
+        public static final double ELEVATOR_DOWN = -1.0;
+        public static final double MAX_VOLTAGE = 12.0;
+    }
 }
