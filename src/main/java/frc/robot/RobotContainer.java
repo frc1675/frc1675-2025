@@ -8,14 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.drive.DefaultDrive;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Manipulator;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
-import swervelib.SwerveInputStream;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,13 +28,12 @@ public class RobotContainer {
 
     private final CommandXboxController driverController;
     private final CommandXboxController operatorController;
+    // private final Hopper hopper;
 
     private ArrayList<OperationConfiguration> operationConfigs = new ArrayList<>();
 
     // The robot's subsystems and commands are defined here...
     private DriveSubsystem drive;
-    private Hopper hopper;
-    private Manipulator manipulator;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -54,10 +51,9 @@ public class RobotContainer {
         // Configure the trigger bindings
         driverController = new CommandXboxController(0);
         operatorController = new CommandXboxController(1);
-        manipulator = new Manipulator();
-        hopper = new Hopper();
         initOperationConfigs();
         registerRobotFunctions();
+        // hopper = new Hopper();
     }
 
     private void initOperationConfigs() {
@@ -71,24 +67,14 @@ public class RobotContainer {
     }
 
     public void teleopInit() {
+
         for (OperationConfiguration opConfig : operationConfigs) {
             opConfig.registerTeleopFunctions(this);
         }
-
-        Trigger manipulatorTrigger = new Trigger(() -> manipulator.manipulatorLoaded());
-        registerTurnHopperAuto(manipulatorTrigger);
     }
 
-    public void registerSwerveAngularVelocityDrive(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation) {
-        SwerveInputStream driveAngularVelocity = SwerveInputStream.of(
-                        drive.getSwerveDrive(), x, y) // Axis which give the desired translational angle and speed.
-                .withControllerRotationAxis(rotation) // Axis which give the desired angular velocity.
-                .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
-                .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
-                .allianceRelativeControl(
-                        false); // Alliance relative controls. Done already in the driver configuration files.
-        Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
-        drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    public void registerDefaultDrive(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation) {
+        drive.setDefaultCommand(new DefaultDrive(drive, x, y, rotation, () -> 1.0));
     }
 
     public void registerZeroGyro(Trigger t) {
@@ -106,23 +92,14 @@ public class RobotContainer {
     }
 
     public void registerTurnHopperOn(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.ON)));
-    }
-
-    public void registerTurnHopperAuto(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.OFF)));
-        t.onFalse(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.ON)));
+        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.ON)));
     }
 
     public void registerTurnHopperOff(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.OFF)));
+        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.OFF)));
     }
 
     public void registerTurnHopperReverse(Trigger t) {
-        t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.REVERSE)));
-    }
-
-    public void registerShootManipulator(Trigger t) {
-        t.onTrue(new InstantCommand(() -> manipulator.shoot()));
+        // t.onTrue(new InstantCommand(() -> hopper.changeState(HopperState.REVERSE)));
     }
 }
