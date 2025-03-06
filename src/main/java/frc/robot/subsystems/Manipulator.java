@@ -21,6 +21,7 @@ import frc.robot.Constants;
 @Logged
 public class Manipulator extends SubsystemBase {
 
+    @Logged
     private boolean hasCoral;
 
     @NotLogged
@@ -32,6 +33,7 @@ public class Manipulator extends SubsystemBase {
     @NotLogged
     private SparkMax shootTwo;
 
+    @Logged
     ManipulatorState state = ManipulatorState.EMPTY;
 
     @NotLogged
@@ -155,6 +157,7 @@ public class Manipulator extends SubsystemBase {
         EMPTY
     }
 
+    @Logged
     public ManipulatorState getState() {
         return state;
     }
@@ -166,6 +169,7 @@ public class Manipulator extends SubsystemBase {
         }
     }
 
+    @Logged
     public double getMeasurement() {
         return laserCAN.getMeasurement() == null ? 0 : laserCAN.getMeasurement().distance_mm;
     }

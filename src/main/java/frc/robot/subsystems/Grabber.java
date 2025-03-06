@@ -6,15 +6,23 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+@Logged
 public class Grabber extends SubsystemBase {
+
+    @NotLogged
     private SparkMax cagePullerMotorLeft;
+
+    @NotLogged
     private SparkMax cagePullerMotorRight;
 
     // private LaserCan lasercan
 
+    @Logged
     private GrabberState grabberState;
 
     /** Creates a new Grabber. */
