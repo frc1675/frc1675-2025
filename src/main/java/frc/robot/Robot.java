@@ -24,9 +24,6 @@ public class Robot extends TimedRobot {
     @Logged
     private final RobotContainer m_robotContainer;
 
-    @Logged
-    private final int test = 125;
-
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
