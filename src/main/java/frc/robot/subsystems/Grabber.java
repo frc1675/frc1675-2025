@@ -32,8 +32,8 @@ public class Grabber extends SubsystemBase {
             grabberState = GrabberState.DONE;
         }
         if (grabberState == GrabberState.GRABBING) {
-            cagePullerMotorLeft.setVoltage(Constants.Grabber.PULLER_MOTOR_SPEED * 12);
-            cagePullerMotorRight.setVoltage(Constants.Grabber.PULLER_MOTOR_SPEED * 12);
+            cagePullerMotorLeft.setVoltage(Constants.Grabber.LEFT_PULLER_MOTOR_SPEED * 12);
+            cagePullerMotorRight.setVoltage(Constants.Grabber.RIGHT_PULLER_MOTOR_SPEED * 12);
         }
 
         if (grabberState == GrabberState.DONE) {

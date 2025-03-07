@@ -55,8 +55,11 @@ public class Constants {
 
         public static final int CLIMB_MOTOR = 12;
 
-        public static final double DEPLOY_WINCH_SPEED = -0.4;
+        public static final double DEPLOY_WINCH_SPEED = -0.35;
         public static final double RETRACT_WINCH_SPEED = 0.15;
+
+        public static final double CLIMBER_MAX_ANGLE = 300;
+        public static final double CLIMBER_GRAB_ANGLE = 150;
     }
 
     public static class Grabber {
@@ -64,7 +67,8 @@ public class Constants {
         public static final int RIGHT_PULLER_MOTOR = 14;
         public static final int CAGE_SENSOR = 32;
 
-        public static final double PULLER_MOTOR_SPEED = 0.5;
+        public static final double LEFT_PULLER_MOTOR_SPEED = 0.5;
+        public static final double RIGHT_PULLER_MOTOR_SPEED = -0.5;
     }
 
     public static class Hopper {

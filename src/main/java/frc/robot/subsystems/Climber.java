@@ -37,7 +37,9 @@ public class Climber extends SubsystemBase {
     public void periodic() {
 
         // will change comparison when we know how encoder works
-        if (getCurrentAngle() > getTarget()) {}
+        if (getCurrentAngle() > Constants.Climber.CLIMBER_MAX_ANGLE) {
+            winchMotor.setVoltage(0);
+        }
     }
 
     public double getCurrentAngle() {
