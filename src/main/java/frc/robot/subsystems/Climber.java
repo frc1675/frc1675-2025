@@ -22,6 +22,7 @@ public class Climber extends SubsystemBase {
     @NotLogged
     private double targetAngle;
 
+    @NotLogged
     private ShuffleboardTab dashboard;
 
     @NotLogged
@@ -47,6 +48,7 @@ public class Climber extends SubsystemBase {
         winchMotor = new SparkMax(Constants.Climber.CLIMB_MOTOR, MotorType.kBrushless);
         climberEncoder = new DutyCycleEncoder(Constants.Climber.ENCODER_CHANNEL);
         initDashboard();
+        setTarget(Constants.Climber.CLIMBER_STOWED_ANGLE);
     }
 
     private void initDashboard() {
@@ -58,9 +60,7 @@ public class Climber extends SubsystemBase {
     public void periodic() {
 
         // will change comparison when we know how encoder works
-        if (getCurrentAngle() > Constants.Climber.CLIMBER_MAX_ANGLE) {
-            winchMotor.setVoltage(0);
-        }
+        goToSetTarget();
     }
 
     @Logged
@@ -68,6 +68,7 @@ public class Climber extends SubsystemBase {
         return climberEncoder.get() * 360;
     }
 
+    @Logged
     public double getTarget() {
         return targetAngle;
     }
@@ -76,15 +77,30 @@ public class Climber extends SubsystemBase {
         targetAngle = angle;
     }
 
-    public void deployWinch() {
-        winchMotor.setVoltage(Constants.Climber.DEPLOY_WINCH_SPEED * 12);
+    public void goToSetTarget() {
+        if (getCurrentAngle() < getTarget() - 3) {
+            winchOut();
+        } else if (getCurrentAngle() > getTarget() + 3) {
+            winchIn();
+        } else {
+            winchMotor.setVoltage(0);
+        }
     }
 
-    public void retractWinch() {
-        winchMotor.setVoltage(Constants.Climber.RETRACT_WINCH_SPEED * 12);
+    public void winchOut() {
+        winchMotor.setVoltage(Constants.Climber.OUT_WINCH_SPEED * 12);
+    }
+
+    public void winchIn() {
+        winchMotor.setVoltage(Constants.Climber.IN_WINCH_SPEED * 12);
     }
 
     public void stopWinch() {
         winchMotor.setVoltage(0);
+    }
+
+    @Logged
+    public double getWinchMotorDraw() {
+        return winchMotor.getOutputCurrent();
     }
 }

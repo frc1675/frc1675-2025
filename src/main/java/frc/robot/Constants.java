@@ -56,11 +56,17 @@ public class Constants {
         public static final int CLIMB_MOTOR = 12;
         // This motor has a current limit of 30A set in the REV firmware
 
-        public static final double DEPLOY_WINCH_SPEED = -0.35;
-        public static final double RETRACT_WINCH_SPEED = 0.15;
+        public static final double OUT_WINCH_SPEED = 0.15;
+        public static final double IN_WINCH_SPEED = -0.20;
 
-        public static final double CLIMBER_MAX_ANGLE = 300;
-        public static final double CLIMBER_GRAB_ANGLE = 150;
+        public static final double CLIMBER_STOWED_ANGLE = 69;
+        public static final double CLIMBER_CLIMB_ANGLE = 89; // Make sure this is Max angle, not test
+        public static final double CLIMBER_GRAB_ANGLE = 193;
+        // Minimum/resting angle = 219
+        // Grabber angle = 193
+        // Climb angle = 89
+        // Testing max 171
+        // Stowed angle 69
     }
 
     public static class Grabber {

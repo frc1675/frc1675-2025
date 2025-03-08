@@ -135,11 +135,11 @@ public class RobotContainer {
     }
 
     public void registerDeployWinch(Trigger t) {
-        t.onTrue(new InstantCommand(() -> climber.deployWinch()));
+        t.onTrue(new InstantCommand(() -> climber.winchOut()));
     }
 
     public void registerRetractWinch(Trigger t) {
-        t.onTrue(new InstantCommand(() -> climber.retractWinch()));
+        t.onTrue(new InstantCommand(() -> climber.winchIn()));
     }
 
     public void registerToggleGrabber(Trigger t) {
@@ -148,5 +148,17 @@ public class RobotContainer {
 
     public void registerTurnOffWinch(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.stopWinch()));
+    }
+
+    public void registerGoToStowed(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_STOWED_ANGLE)));
+    }
+
+    public void registerGoToMax(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_CLIMB_ANGLE)));
+    }
+
+    public void registerGoToGrab(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_GRAB_ANGLE)));
     }
 }
