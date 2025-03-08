@@ -18,7 +18,7 @@ public class Elevator {
     private TrapezoidProfile.Constraints profileConstraints;
 
     public Elevator() {
-        elevatorMotor = new SparkMax(Constants.Elevator.ELEVATOR, MotorType.kBrushless);
+        elevatorMotor = new SparkMax(Constants.Elevator.ELEVATOR_MOTOR, MotorType.kBrushless);
         //    elevatorEncoder = new
         homeSwitch = new DigitalInput(Constants.Elevator.ELEVATOR_HOMESWITCH);
 
@@ -41,13 +41,13 @@ public class Elevator {
     }
 
     public void periodic() {
-        if (getLevel() == ElevatorLevel.LEVEL_1) {
+        if (setTarget() == ElevatorLevel.LEVEL_1) {
             elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * .1);
         }
-        if (getLevel() == ElevatorLevel.LEVEL_2) {
+        if (setTarget() == ElevatorLevel.LEVEL_2) {
             elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * .1);
         }
-        if (getLevel() == ElevatorLevel.LEVEL_3) {
+        if (setTarget() == ElevatorLevel.LEVEL_3) {
             elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * .1);
         }
     }
@@ -56,7 +56,7 @@ public class Elevator {
         elevatorCurrentLevel = ElevatorLevel;
     }
 
-    public ElevatorLevel getLevel() {
+    public ElevatorLevel setTarget() {
         return elevatorCurrentLevel;
     }
 
@@ -71,7 +71,7 @@ public class Elevator {
     public void elevatorUp() {
         elevatorMotor.setVoltage(Constants.Elevator.ELEVATOR_UP * 12);
     }
-
+    // multiplied voltage from original set (1, -1) in constants for elevator movement
     public void elevatorDown() {
         elevatorMotor.setVoltage(Constants.Elevator.ELEVATOR_DOWN * 12);
     }

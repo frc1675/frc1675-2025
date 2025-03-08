@@ -103,16 +103,18 @@ public class Constants {
     }
 
     public static class Elevator {
-        public static final int ELEVATOR = 0;
-        public static final int ENCODER = 0;
-        public static final int ELEVATOR_HOMESWITCH = 0;
+        public static final int ELEVATOR_MOTOR = 15;
+        public static final int ENCODER = 1;
+        public static final int ELEVATOR_HOMESWITCH = 2;
 
+        // elevator power/voltage to go up and down
         public static final double ELEVATOR_UP = 1.0;
         public static final double ELEVATOR_DOWN = -1.0;
+        // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 
-        public static final double ELEVATOR_MAX_ACCELERATION = 1;
-        public static final double ELEVATOR_MAX_VELOCITY = 1;
+        public static final double ELEVATOR_MAX_ACCELERATION = 1; // Highest amount of degrees per second square
+        public static final double ELEVATOR_MAX_VELOCITY = 1; // Degrees per second
 
         public static final double ELEVATOR_PID_P_COEFFICIENT = 0;
         public static final double ELEVATOR_PID_I_COEFFICIENT = 0;
