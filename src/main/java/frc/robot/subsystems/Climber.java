@@ -6,20 +6,41 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.epilogue.NotLogged;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+@Logged
 public class Climber extends SubsystemBase {
+
+    @NotLogged
     private double targetAngle;
 
     private ShuffleboardTab dashboard;
 
+    @NotLogged
     private SparkMax winchMotor;
 
+    @NotLogged
     private DutyCycleEncoder climberEncoder;
+
+    @NotLogged
+    private ProfiledPIDController retractWinchPID;
+
+    @NotLogged
+    private TrapezoidProfile.Constraints retractConstraints;
+
+    @NotLogged
+    private ProfiledPIDController deployWinchPID;
+
+    @NotLogged
+    private TrapezoidProfile.Constraints deployConstraints;
 
     /** Creates a new Climber. */
     public Climber() {
@@ -42,6 +63,7 @@ public class Climber extends SubsystemBase {
         }
     }
 
+    @Logged
     public double getCurrentAngle() {
         return climberEncoder.get() * 360;
     }
