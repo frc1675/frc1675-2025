@@ -54,6 +54,7 @@ public class Constants {
         public static final int ENCODER_CHANNEL = 0;
 
         public static final int CLIMB_MOTOR = 12;
+        // This motor has a current limit of 30A set in the REV firmware
 
         public static final double DEPLOY_WINCH_SPEED = -0.35;
         public static final double RETRACT_WINCH_SPEED = 0.15;
