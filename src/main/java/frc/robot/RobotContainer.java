@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DriveSubsystem;
+import frc.robot.drive.PathPlanner;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.subsystems.Hopper;
@@ -37,6 +41,8 @@ public class RobotContainer {
     private DriveSubsystem drive;
     private Hopper hopper;
     private Manipulator manipulator;
+    // private PathPlannerAuto auto;
+    private PathPlanner auto;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -50,14 +56,21 @@ public class RobotContainer {
                         Constants.Drive.ROTATION_TARGET_RANGE)
                 .withVisionProperties(Constants.Drive.MAXIMUM_VISION_POSE_OVERRIDE_DISTANCE)
                 .build();
+        auto = new PathPlanner(drive);
 
         // Configure the trigger bindings
         driverController = new CommandXboxController(0);
         operatorController = new CommandXboxController(1);
+        // auto = new PathPlanner(drive);
+        // auto = new PathPlannerAuto("Example Auto");
         manipulator = new Manipulator();
         hopper = new Hopper();
+
+        NamedCommands.registerCommand("shoot", Commands.run(manipulator::shoot, manipulator));
         initOperationConfigs();
         registerRobotFunctions();
+
+        // register Named Commands
     }
 
     private void initOperationConfigs() {
@@ -69,6 +82,10 @@ public class RobotContainer {
             opConfig.registerRobotFunctions(this);
         }
     }
+
+    // public Command loadAutos() {
+    //     return new PathPlannerAuto("Example Auto");
+    // }
 
     public void teleopInit() {
         for (OperationConfiguration opConfig : operationConfigs) {
@@ -102,7 +119,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return null;
+        return new PathPlannerAuto("Strait Auto Test");
     }
 
     public void registerTurnHopperOn(Trigger t) {

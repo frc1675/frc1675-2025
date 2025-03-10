@@ -41,6 +41,11 @@ public class Constants {
         public static final double ROTATION_TARGET_RANGE = 1.5;
     }
 
+    public static class Auto {
+        public static final double TRANSLATION_P = 0;
+        public static final double ROTATION_P = 0;
+    }
+
     public static class Controller {
         public static final double DEADZONE_CONSTANT = 0.1675;
         public static final int LEFT_X_AXIS = 0;

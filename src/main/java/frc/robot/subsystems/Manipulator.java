@@ -154,6 +154,12 @@ public class Manipulator extends SubsystemBase {
         }
     }
 
+    public void autoShoot() {
+        if (state == ManipulatorState.LOADED) {
+            state = ManipulatorState.SHOOTING;
+        }
+    }
+
     public double getMeasurement() {
         return laserCAN.getMeasurement() == null ? 0 : laserCAN.getMeasurement().distance_mm;
     }

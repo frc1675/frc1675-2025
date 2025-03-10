@@ -8,6 +8,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -167,7 +169,25 @@ public class DriveSubsystem extends SubsystemBase {
 
     /** Used for PathPlanner autonomous */
     public void resetOdometry(Pose2d override) {
+        Alert odom1 = new Alert(
+                "Cur X: " + swerve.getPose().getX() + " Y: " + swerve.getPose().getY() + " Rot: "
+                        + swerve.getPose().getRotation().getDegrees(),
+                AlertType.kInfo);
+
+        Alert odom2 = new Alert(
+                "Override X: " + override.getX() + " Y: " + override.getY() + " Rot: "
+                        + override.getRotation().getDegrees(),
+                AlertType.kInfo);
+        odom1.set(true);
+        odom2.set(true);
+
         swerve.resetOdometry(override);
+
+        Alert odom3 = new Alert(
+                "New X: " + swerve.getPose().getX() + " Y: " + swerve.getPose().getY() + " Rot: "
+                        + swerve.getPose().getRotation().getDegrees(),
+                AlertType.kInfo);
+        odom3.set(true);
     }
 
     /** Used for PathPlanner autonomous */

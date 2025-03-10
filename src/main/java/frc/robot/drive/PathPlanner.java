@@ -13,21 +13,18 @@ import frc.robot.brownbox.util.AllianceUtil;
 
 public class PathPlanner {
     private final SendableChooser<Command> autoChooser;
+    private ShuffleboardTab dashboard;
 
     public PathPlanner(DriveSubsystem drive) {
 
         RobotConfig config = null;
 
-        autoChooser = AutoBuilder.buildAutoChooser();
         try {
             config = RobotConfig.fromGUISettings();
         } catch (Exception e) {
             // Handle exception as needed
             e.printStackTrace();
         }
-
-        ShuffleboardTab dashboard = Shuffleboard.getTab("Auto");
-        dashboard.add("AutoChooser", autoChooser);
 
         AutoBuilder.configure(
                 drive::getPose,
@@ -39,9 +36,21 @@ public class PathPlanner {
                 config,
                 AllianceUtil::isRedAlliance,
                 drive);
+
+        autoChooser = AutoBuilder.buildAutoChooser();
+
+        initShuffleboard();
     }
 
     public Command getAuto() {
         return autoChooser.getSelected();
     }
+
+    private void initShuffleboard() {
+        dashboard = Shuffleboard.getTab("Auto");
+        dashboard.add("Close Start to H", autoChooser);
+        dashboard.add("First Auto Test", autoChooser);
+    }
+
+    private void registerNamedCommand() {}
 }
