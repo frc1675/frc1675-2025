@@ -117,5 +117,9 @@ public class Constants {
         public static final double ELEVATOR_PID_P_COEFFICIENT = 0;
         public static final double ELEVATOR_PID_I_COEFFICIENT = 0;
         public static final double ELEVATOR_PID_D_COEFFICIENT = 0;
+
+        public static final double LEVEL_ONE_ANGLE = 0;
+        public static final double LEVEL_TWO_ANGLE = 0;
+        public static final double LEVEL_THREE_ANGLE = 0;
     }
 }
