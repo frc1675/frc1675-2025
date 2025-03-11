@@ -79,4 +79,9 @@ public class Hopper extends SubsystemBase {
     public HopperState getState() {
         return hopperCurrentState;
     }
+
+    @Logged
+    public double gethopperMotorCurrent() {
+        return hopperMotor.getOutputCurrent();
+    }
 }

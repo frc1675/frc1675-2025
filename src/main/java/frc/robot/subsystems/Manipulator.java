@@ -177,4 +177,14 @@ public class Manipulator extends SubsystemBase {
     public boolean manipulatorLoaded() {
         return hasCoral;
     }
+
+    @Logged
+    public double getManipulatorMotorOneCurrent() {
+        return shooter.getOutputCurrent();
+    }
+
+    @Logged
+    public double getManipulatorMotorTwoCurrent() {
+        return shootTwo.getOutputCurrent();
+    }
 }
