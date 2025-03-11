@@ -68,7 +68,6 @@ public class Hopper extends SubsystemBase {
         hopperCurrentState = hopperState;
     }
 
-    // @Logged(name = "HopperState")
     public HopperState getState() {
         return hopperCurrentState;
     }
