@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Manipulator;
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class RobotContainer {
     private DriveSubsystem drive;
     private Hopper hopper;
     private Manipulator manipulator;
+    private Climber climber;
+    private Grabber grabber;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -58,6 +62,8 @@ public class RobotContainer {
         operatorController = new CommandXboxController(1);
         manipulator = new Manipulator();
         hopper = new Hopper();
+        climber = new Climber();
+        grabber = new Grabber();
         initOperationConfigs();
         registerRobotFunctions();
     }
@@ -126,5 +132,33 @@ public class RobotContainer {
 
     public void registerShootManipulator(Trigger t) {
         t.onTrue(new InstantCommand(() -> manipulator.shoot()));
+    }
+
+    public void registerDeployWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.winchOut()));
+    }
+
+    public void registerRetractWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.winchIn()));
+    }
+
+    public void registerToggleGrabber(Trigger t) {
+        t.onTrue(new InstantCommand(() -> grabber.toggleGrabbing()));
+    }
+
+    public void registerTurnOffWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.stopWinch()));
+    }
+
+    public void registerGoToStowed(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_STOWED_ANGLE)));
+    }
+
+    public void registerGoToMax(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_CLIMB_ANGLE)));
+    }
+
+    public void registerGoToGrab(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_GRAB_ANGLE)));
     }
 }

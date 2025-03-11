@@ -40,11 +40,16 @@ public class Grabber extends SubsystemBase {
             grabberState = GrabberState.DONE;
         }
         if (grabberState == GrabberState.GRABBING) {
-            cagePullerMotorLeft.setVoltage(Constants.Grabber.PULLER_MOTOR_SPEED * 12);
-            cagePullerMotorRight.setVoltage(Constants.Grabber.PULLER_MOTOR_SPEED * 12);
+            cagePullerMotorLeft.setVoltage(Constants.Grabber.LEFT_PULLER_MOTOR_SPEED * 12);
+            cagePullerMotorRight.setVoltage(Constants.Grabber.RIGHT_PULLER_MOTOR_SPEED * 12);
         }
 
         if (grabberState == GrabberState.DONE) {
+            cagePullerMotorLeft.setVoltage(0);
+            cagePullerMotorRight.setVoltage(0);
+        }
+
+        if (grabberState == GrabberState.WAITING) {
             cagePullerMotorLeft.setVoltage(0);
             cagePullerMotorRight.setVoltage(0);
         }
@@ -64,7 +69,7 @@ public class Grabber extends SubsystemBase {
     public void toggleGrabbing() {
         if (grabberState == GrabberState.GRABBING) {
             grabberState = GrabberState.WAITING;
-        } else {
+        } else if (grabberState == GrabberState.WAITING) {
             grabberState = GrabberState.GRABBING;
         }
     }

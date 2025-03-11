@@ -11,6 +11,7 @@ import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,6 +20,9 @@ public class Climber extends SubsystemBase {
 
     @NotLogged
     private double targetAngle;
+
+    @NotLogged
+    private ShuffleboardTab dashboard;
 
     @NotLogged
     private SparkMax winchMotor;
@@ -42,35 +46,14 @@ public class Climber extends SubsystemBase {
     public Climber() {
         winchMotor = new SparkMax(Constants.Climber.CLIMB_MOTOR, MotorType.kBrushless);
         climberEncoder = new DutyCycleEncoder(Constants.Climber.ENCODER_CHANNEL);
-
-        deployConstraints = new TrapezoidProfile.Constraints(
-                Constants.Climber.DEPLOY_WINCH_MAX_VELOCITY, Constants.Climber.DEPLOY_WINCH_MAX_ACCELERATION);
-        retractConstraints = new TrapezoidProfile.Constraints(
-                Constants.Climber.RETRACT_WINCH_MAX_VELOCITY, Constants.Climber.RETRACT_WINCH_MAX_ACCELERATION);
-
-        retractWinchPID = new ProfiledPIDController(
-                Constants.Climber.DEPLOY_PID_P_COEFFICIENT,
-                Constants.Climber.DEPLOY_PID_I_COEFFICIENT,
-                Constants.Climber.DEPLOY_PID_D_COEFFICIENT,
-                deployConstraints);
-        deployWinchPID = new ProfiledPIDController(
-                Constants.Climber.RETRACT_PID_P_COEFFICIENT,
-                Constants.Climber.RETRACT_PID_I_COEFFICIENT,
-                Constants.Climber.RETRACT_PID_D_COEFFICIENT,
-                retractConstraints);
+        setTarget(Constants.Climber.CLIMBER_STOWED_ANGLE);
     }
 
     @Override
     public void periodic() {
-        double motorPower;
-        // will change comparison when we know how encoder works
-        if (getCurrentAngle() > getTarget()) {
-            motorPower = deployWinchPID.calculate(getCurrentAngle(), getTarget());
-        } else {
-            motorPower = retractWinchPID.calculate(getCurrentAngle(), getTarget());
-        }
 
-        winchMotor.setVoltage(motorPower);
+        // will change comparison when we know how encoder works
+        goToSetTarget();
     }
 
     @Logged
@@ -78,11 +61,39 @@ public class Climber extends SubsystemBase {
         return climberEncoder.get() * 360;
     }
 
+    @Logged
     public double getTarget() {
         return targetAngle;
     }
 
     public void setTarget(double angle) {
         targetAngle = angle;
+    }
+
+    public void goToSetTarget() {
+        if (getCurrentAngle() < getTarget() - 3) {
+            winchOut();
+        } else if (getCurrentAngle() > getTarget() + 3) {
+            winchIn();
+        } else {
+            winchMotor.setVoltage(0);
+        }
+    }
+
+    public void winchOut() {
+        winchMotor.setVoltage(Constants.Climber.OUT_WINCH_SPEED * 12);
+    }
+
+    public void winchIn() {
+        winchMotor.setVoltage(Constants.Climber.IN_WINCH_SPEED * 12);
+    }
+
+    public void stopWinch() {
+        winchMotor.setVoltage(0);
+    }
+
+    @Logged
+    public double getWinchMotorDraw() {
+        return winchMotor.getOutputCurrent();
     }
 }
