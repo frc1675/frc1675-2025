@@ -22,22 +22,22 @@ public class Elevator {
 
     public Elevator() {
         elevatorMotor = new SparkMax(Constants.Elevator.ELEVATOR_MOTOR, MotorType.kBrushless);
-        //    elevatorEncoder = new
+
         homeSwitch = new DigitalInput(Constants.Elevator.ELEVATOR_HOMESWITCH);
 
         profileConstraints = new TrapezoidProfile.Constraints(
                 Constants.Elevator.ELEVATOR_MAX_VELOCITY, Constants.Elevator.ELEVATOR_MAX_ACCELERATION);
+
         pid = new ProfiledPIDController(
                 Constants.Elevator.ELEVATOR_PID_P_COEFFICIENT,
                 Constants.Elevator.ELEVATOR_PID_I_COEFFICIENT,
                 Constants.Elevator.ELEVATOR_PID_D_COEFFICIENT,
                 profileConstraints);
 
-        elevatorCurrentLevel = ElevatorLevel.OFF;
+        elevatorCurrentLevel = ElevatorLevel.LEVEL_1;
     }
 
     public enum ElevatorLevel {
-        OFF,
         LEVEL_1,
         LEVEL_2,
         LEVEL_3,
@@ -45,9 +45,11 @@ public class Elevator {
 
     public void periodic() {
         if (getLevel() == ElevatorLevel.LEVEL_1) {
-            setAngle(Constants.Elevator.LEVEL_ONE_ANGLE);
-            motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
-            elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+            if (!isHome()) {
+                setAngle(Constants.Elevator.LEVEL_ONE_ANGLE);
+                motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
+                elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+            }
         }
         if (getLevel() == ElevatorLevel.LEVEL_2) {
             setAngle(Constants.Elevator.LEVEL_TWO_ANGLE);
@@ -69,15 +71,7 @@ public class Elevator {
         return elevatorCurrentLevel;
     }
 
-    public ElevatorLevel setTarget() {
-        return elevatorCurrentLevel;
-    }
-
-    public boolean isAtHome() {
-        return getHomeSwitch();
-    }
-
-    public boolean getHomeSwitch() {
+    public boolean isHome() {
         return !homeSwitch.get();
     }
 

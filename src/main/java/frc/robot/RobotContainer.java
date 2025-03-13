@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Manipulator;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class RobotContainer {
     private DriveSubsystem drive;
     private Hopper hopper;
     private Manipulator manipulator;
+    private Elevator elevator;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -120,6 +122,26 @@ public class RobotContainer {
 
     public void registerTurnHopperReverse(Trigger t) {
         t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.REVERSE)));
+    }
+
+    public void registerElevatorLevelOne(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
+    }
+
+    public void registerElevatorLevelTwo(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_2)));
+    }
+
+    public void registerElevatorLevelThree(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_3)));
+    }
+
+    public void registerElevatorUp(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.elevatorUp()));
+    }
+
+    public void registerElevatorDown(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.elevatorDown()));
     }
 
     public void registerShootManipulator(Trigger t) {
