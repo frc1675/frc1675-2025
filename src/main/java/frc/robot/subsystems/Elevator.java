@@ -57,13 +57,11 @@ public class Elevator {
         }
 
         motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
-        elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
 
         if (motorPower > 0) { // if trying to go down
             if (isHome()) {
                 elevatorMotor.setVoltage(0);
             } else {
-                motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
                 elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
             }
         }
@@ -72,7 +70,6 @@ public class Elevator {
             if (getAngle() > Constants.Elevator.MAX_LIMIT) {
                 elevatorMotor.setVoltage(0);
             } else {
-                motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
                 elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
             }
         }
