@@ -76,8 +76,8 @@ public class Constants {
     public static class Hopper {
         public static final int HOPPER_MOTOR = 9;
 
-        public static final double HOPPER_INTAKE_SPEED = 0.15;
-        public static final double HOPPER_REVERSE_SPEED = -0.3;
+        public static final double HOPPER_INTAKE_SPEED = 1;
+        public static final double HOPPER_REVERSE_SPEED = -1;
     }
 
     public static class Manipulator {
