@@ -46,11 +46,10 @@ public class Hopper extends SubsystemBase {
             hopperMotor.setVoltage(0);
         }
         if (getState() == HopperState.ON) {
-            hopperMotor.setVoltage(Constants.Hopper.HOPPER_INTAKE_SPEED * 108.0);
+            hopperMotor.setVoltage(Constants.Hopper.HOPPER_INTAKE_SPEED * 12.0);
         }
         if (getState() == HopperState.REVERSE) {
-            hopperMotor.setVoltage(
-                    Constants.Hopper.HOPPER_REVERSE_SPEED * 108.0); // Not sure if reverse speed should also change
+            hopperMotor.setVoltage(Constants.Hopper.HOPPER_REVERSE_SPEED * 12.0);
         }
 
         if (hopperCurrentState == Hopper.HopperState.REVERSE) {
