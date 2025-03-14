@@ -123,5 +123,6 @@ public class Constants {
         public static final double LEVEL_ONE_ANGLE = 0;
         public static final double LEVEL_TWO_ANGLE = 0;
         public static final double LEVEL_THREE_ANGLE = 0;
+        public static final double MAX_LIMIT = 0;
     }
 }
