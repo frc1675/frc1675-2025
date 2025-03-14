@@ -46,35 +46,34 @@ public class Elevator {
     public void periodic() {
         if (getLevel() == ElevatorLevel.LEVEL_1) {
             setAngle(Constants.Elevator.LEVEL_ONE_ANGLE);
-            motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
-            if (motorPower > 0) {
-                if (isHome()) {
-                    elevatorMotor.setVoltage(0);
-                }
-            } else if (motorPower < 0) {
-                if (!isHome()) {
-                    elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
-                }
-            }
         }
 
         if (getLevel() == ElevatorLevel.LEVEL_2) {
             setAngle(Constants.Elevator.LEVEL_TWO_ANGLE);
-            motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
-            elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
         }
 
         if (getLevel() == ElevatorLevel.LEVEL_3) {
             setAngle(Constants.Elevator.LEVEL_THREE_ANGLE);
-            motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
-            if (motorPower < 0) {
-                if (getAngle() > Constants.Elevator.MAX_LIMIT) {
-                    elevatorMotor.setVoltage(0);
-                }
-            } else if (motorPower > 0) {
-                if (getAngle() < Constants.Elevator.MAX_LIMIT) {
-                    elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
-                }
+        }
+
+        motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
+        elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+
+        if (motorPower > 0) { // if trying to go down
+            if (isHome()) {
+                elevatorMotor.setVoltage(0);
+            } else {
+                motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
+                elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+            }
+        }
+
+        if (motorPower < 0) { // if trying to go up
+            if (getAngle() > Constants.Elevator.MAX_LIMIT) {
+                elevatorMotor.setVoltage(0);
+            } else {
+                motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
+                elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
             }
         }
     }
