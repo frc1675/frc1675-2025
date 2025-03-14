@@ -54,19 +54,14 @@ public class Constants {
         public static final int ENCODER_CHANNEL = 0;
 
         public static final int CLIMB_MOTOR = 12;
-        public static final double DEPLOY_WINCH_MAX_ACCELERATION = 1;
-        public static final double DEPLOY_WINCH_MAX_VELOCITY = 1;
+        // This motor has a current limit of 30A set in the REV firmware
 
-        public static final double RETRACT_WINCH_MAX_ACCELERATION = 1;
-        public static final double RETRACT_WINCH_MAX_VELOCITY = 1;
+        public static final double OUT_WINCH_SPEED = 0.15;
+        public static final double IN_WINCH_SPEED = -0.20;
 
-        public static final double RETRACT_PID_P_COEFFICIENT = 0;
-        public static final double RETRACT_PID_I_COEFFICIENT = 0;
-        public static final double RETRACT_PID_D_COEFFICIENT = 0;
-
-        public static final double DEPLOY_PID_P_COEFFICIENT = 0;
-        public static final double DEPLOY_PID_I_COEFFICIENT = 0;
-        public static final double DEPLOY_PID_D_COEFFICIENT = 0;
+        public static final double CLIMBER_STOWED_ANGLE = 69;
+        public static final double CLIMBER_CLIMB_ANGLE = 89; // Make sure this is Max angle, not test
+        public static final double CLIMBER_GRAB_ANGLE = 193;
     }
 
     public static class Grabber {
@@ -74,14 +69,15 @@ public class Constants {
         public static final int RIGHT_PULLER_MOTOR = 14;
         public static final int CAGE_SENSOR = 32;
 
-        public static final double PULLER_MOTOR_SPEED = 0.5;
+        public static final double LEFT_PULLER_MOTOR_SPEED = 0.5;
+        public static final double RIGHT_PULLER_MOTOR_SPEED = -0.5;
     }
 
     public static class Hopper {
         public static final int HOPPER_MOTOR = 9;
 
-        public static final double HOPPER_INTAKE_SPEED = 0.15;
-        public static final double HOPPER_REVERSE_SPEED = -0.3;
+        public static final double HOPPER_INTAKE_SPEED = 1;
+        public static final double HOPPER_REVERSE_SPEED = -1;
     }
 
     public static class Manipulator {
