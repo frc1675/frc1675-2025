@@ -6,16 +6,24 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+@Logged
 public class Hopper extends SubsystemBase {
 
+    @NotLogged
     private SparkMax hopperMotor;
+
+    @Logged
     private HopperState hopperCurrentState;
+
+    @NotLogged
     private Timer hopperTimer;
     // intake speed, and speed when intake would go reverse
 

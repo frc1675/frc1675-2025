@@ -10,25 +10,38 @@ import au.grapplerobotics.interfaces.LaserCanInterface.RangingMode;
 import au.grapplerobotics.interfaces.LaserCanInterface.TimingBudget;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+@Logged
 public class Manipulator extends SubsystemBase {
+
+    @Logged
     private boolean hasCoral;
 
     private ShuffleboardTab dashboard;
 
+    @NotLogged
     private SparkMax shooter;
+
+    @NotLogged
     private SparkMax shootTwo;
 
+    @Logged
     ManipulatorState state = ManipulatorState.EMPTY;
 
+    @NotLogged
     private Timer shooterTimer;
+
+    @NotLogged
     private Timer manipulatorTimer;
 
+    @NotLogged
     public LaserCan laserCAN;
     // 0.155-0.160m without coral
     // 0.075-0.080m with coral
@@ -143,6 +156,7 @@ public class Manipulator extends SubsystemBase {
         EMPTY
     }
 
+    @Logged
     public ManipulatorState getState() {
         return state;
     }
@@ -160,6 +174,7 @@ public class Manipulator extends SubsystemBase {
         }
     }
 
+    @Logged
     public double getMeasurement() {
         return laserCAN.getMeasurement() == null ? 0 : laserCAN.getMeasurement().distance_mm;
     }

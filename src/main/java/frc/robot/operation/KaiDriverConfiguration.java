@@ -11,9 +11,14 @@ public class KaiDriverConfiguration extends AbstractCommandXboxOperationConfigur
 
     @Override
     public void registerRobotFunctions(RobotContainer rc) {
-        //  rc.registerSwissCheese(controller.urmom());
-        // rc.registerWindexConsumption(controller.Programming());
-        // rc.registerKingVon(controller.Switch());
+        rc.registerZeroGyro(controller.start());
+        rc.registerTurnHopperAuto(controller.a());
+        rc.registerTurnHopperReverse(controller.b());
+        rc.registerTurnHopperOff(controller.x());
+        rc.registerShootManipulator(controller.rightTrigger());
+        rc.registerDeployWinch(controller.leftTrigger());
+        rc.registerRetractWinch(controller.leftBumper());
+        rc.registerTurnOffWinch(controller.rightBumper());
     }
 
     @Override
