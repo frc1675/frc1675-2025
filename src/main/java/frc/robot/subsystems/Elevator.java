@@ -67,11 +67,11 @@ public class Elevator {
         }
 
         if (motorPower < 0) { // if trying to go up
-            if (getAngle() > Constants.Elevator.MAX_LIMIT) {
-                elevatorMotor.setVoltage(0);
-            } else {
-                elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
-            }
+            // if (getAngle() > Constants.Elevator.MAX_LIMIT) {
+            //     elevatorMotor.setVoltage(0);
+            // } else {
+            elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+            // }
         }
     }
 
