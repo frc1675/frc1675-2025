@@ -6,7 +6,7 @@ import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -16,7 +16,7 @@ public class Elevator extends SubsystemBase {
     public SparkMax elevatorMotor;
     public double motorPower = 0;
     public ElevatorLevel elevatorCurrentLevel;
-    private DutyCycleEncoder elevatorEncoder;
+    private Encoder elevatorEncoder;
     private DigitalInput homeSwitch;
     private double targetAngle;
     private boolean toldGoUp = false;
@@ -26,8 +26,10 @@ public class Elevator extends SubsystemBase {
     private TrapezoidProfile.Constraints profileConstraints;
 
     public Elevator() {
-        elevatorMotor = new SparkMax(Constants.Elevator.ELEVATOR_MOTOR, MotorType.kBrushless);
 
+        elevatorEncoder = new Encoder(Constants.Elevator.ENCODER_A, Constants.Elevator.ENCODER_B);
+        elevatorMotor = new SparkMax(Constants.Elevator.ELEVATOR_MOTOR, MotorType.kBrushless);
+        elevatorEncoder.setReverseDirection(true);
         homeSwitch = new DigitalInput(Constants.Elevator.ELEVATOR_HOMESWITCH);
 
         profileConstraints = new TrapezoidProfile.Constraints(
@@ -62,27 +64,30 @@ public class Elevator extends SubsystemBase {
             setAngle(Constants.Elevator.LEVEL_THREE_ANGLE);
         }
 
-        // motorPower = -1.0 * pid.calculate(getAngle(), targetAngle);
+        motorPower = pid.calculate(getAngle(), targetAngle);
         if (motorPower < 0) { // if trying to go down
-            if (isHome()) {
+            if (isHome() || getAngle() < 0) {
                 elevatorMotor.setVoltage(0);
             } else {
                 elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
-                toldGoUp = true;
             }
         }
 
         if (motorPower > 0) { // if trying to go up
-            // if (getAngle() > Constants.Elevator.MAX_LIMIT) {
-            //     elevatorMotor.setVoltage(0);
-            // } else {
-            elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
-            // }
+            if (getAngle() > Constants.Elevator.MAX_LIMIT) {
+                elevatorMotor.setVoltage(0);
+            } else {
+                elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+            }
+        }
+
+        if (isHome() == true) {
+            elevatorEncoder.reset();
         }
     }
 
     public void setTarget(Elevator.ElevatorLevel elevatorLevel) {
-        elevatorCurrentLevel = ElevatorLevel;
+        elevatorCurrentLevel = elevatorLevel;
     }
 
     public ElevatorLevel getLevel() {
@@ -102,10 +107,14 @@ public class Elevator extends SubsystemBase {
     }
 
     public double getAngle() {
-        return elevatorEncoder.get() * 360;
+        return elevatorEncoder.get() / 2048.0 * 360.0;
     }
 
     public void setAngle(double angle) {
         targetAngle = angle;
+    }
+
+    public double getSetAngle() {
+        return targetAngle;
     }
 }

@@ -100,7 +100,8 @@ public class Constants {
 
     public static class Elevator {
         public static final int ELEVATOR_MOTOR = 15;
-        public static final int ENCODER = 1;
+        public static final int ENCODER_A = 3;
+        public static final int ENCODER_B = 4;
         public static final int ELEVATOR_HOMESWITCH = 2;
 
         // elevator power/voltage to go up and down
@@ -109,16 +110,16 @@ public class Constants {
         // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 
-        public static final double ELEVATOR_MAX_ACCELERATION = 1; // Highest amount of degrees per second square
-        public static final double ELEVATOR_MAX_VELOCITY = 1; // Degrees per second
+        public static final double ELEVATOR_MAX_ACCELERATION = 200; // Highest amount of degrees per second square
+        public static final double ELEVATOR_MAX_VELOCITY = 100; // Degrees per second
 
-        public static final double ELEVATOR_PID_P_COEFFICIENT = 0;
+        public static final double ELEVATOR_PID_P_COEFFICIENT = 0.001;
         public static final double ELEVATOR_PID_I_COEFFICIENT = 0;
         public static final double ELEVATOR_PID_D_COEFFICIENT = 0;
 
         public static final double LEVEL_ONE_ANGLE = 0;
-        public static final double LEVEL_TWO_ANGLE = 0;
-        public static final double LEVEL_THREE_ANGLE = 0;
-        public static final double MAX_LIMIT = 0; // 5.530 inches per revolution
+        public static final double LEVEL_TWO_ANGLE = 650.9;
+        public static final double LEVEL_THREE_ANGLE = 1627.4;
+        public static final double MAX_LIMIT = 1790.2; // 5.530 inches per revolution
     }
 }
