@@ -104,8 +104,8 @@ public class Constants {
         public static final int ELEVATOR_HOMESWITCH = 2;
 
         // elevator power/voltage to go up and down
-        public static final double ELEVATOR_UP = 1.0;
-        public static final double ELEVATOR_DOWN = -1.0;
+        public static final double ELEVATOR_UP = 0.1; // positive is up
+        public static final double ELEVATOR_DOWN = -0.1;
         // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 
@@ -119,6 +119,6 @@ public class Constants {
         public static final double LEVEL_ONE_ANGLE = 0;
         public static final double LEVEL_TWO_ANGLE = 0;
         public static final double LEVEL_THREE_ANGLE = 0;
-        public static final double MAX_LIMIT = 0;
+        public static final double MAX_LIMIT = 0; // 5.530 inches per revolution
     }
 }
