@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DriveSubsystem;
-import frc.robot.operation.KaiOperatorConfiguration;
+import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Elevator;
@@ -72,7 +72,7 @@ public class RobotContainer {
     }
 
     private void initOperationConfigs() {
-        operationConfigs.add(new KaiOperatorConfiguration(driverController)); // driver config
+        operationConfigs.add(new JasonDriverConfiguration(driverController)); // driver config
     }
 
     private void registerRobotFunctions() {
