@@ -71,9 +71,9 @@ public class Climber extends SubsystemBase {
     }
 
     public void goToSetTarget() {
-        if (getCurrentAngle() < getTarget() - 3) {
+        if (getCurrentAngle() < getTarget() - 5) {
             winchOut();
-        } else if (getCurrentAngle() > getTarget() + 3) {
+        } else if (getCurrentAngle() > getTarget() + 5) {
             winchIn();
         } else {
             winchMotor.setVoltage(0);
