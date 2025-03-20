@@ -5,11 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DriveSubsystem;
+import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.KaiOperatorConfiguration;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.subsystems.Climber;
@@ -42,9 +44,10 @@ public class RobotContainer {
     private DriveSubsystem drive;
     private Hopper hopper;
     private Manipulator manipulator;
-    private Elevator elevator;
     private Climber climber;
     private Grabber grabber;
+    private Elevator elevator;
+    private Timer shootHome;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -67,12 +70,14 @@ public class RobotContainer {
         climber = new Climber();
         grabber = new Grabber();
         elevator = new Elevator();
+        shootHome = new Timer();
         initOperationConfigs();
         registerRobotFunctions();
     }
 
     private void initOperationConfigs() {
-        operationConfigs.add(new KaiOperatorConfiguration(driverController)); // driver config
+        operationConfigs.add(new JasonDriverConfiguration(driverController));
+        operationConfigs.add(new KaiOperatorConfiguration(operatorController));
     }
 
     private void registerRobotFunctions() {
@@ -133,26 +138,6 @@ public class RobotContainer {
         t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.REVERSE)));
     }
 
-    public void registerElevatorLevelOne(Trigger t) {
-        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
-    }
-
-    public void registerElevatorLevelTwo(Trigger t) {
-        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_2)));
-    }
-
-    public void registerElevatorLevelThree(Trigger t) {
-        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_3)));
-    }
-
-    public void registerElevatorUp(Trigger t) {
-        t.onTrue(new InstantCommand(() -> elevator.elevatorUp()));
-    }
-
-    public void registerElevatorDown(Trigger t) {
-        t.onTrue(new InstantCommand(() -> elevator.elevatorDown()));
-    }
-
     public void registerShootManipulator(Trigger t) {
         t.onTrue(new InstantCommand(() -> manipulator.shoot()));
     }
@@ -183,5 +168,22 @@ public class RobotContainer {
 
     public void registerGoToGrab(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_GRAB_ANGLE)));
+    }
+
+    public void registerElevatorLevelOne(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
+    }
+
+    public void registerElevatorLevelTwo(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_2)));
+    }
+
+    public void registerElevatorLevelThree(Trigger t) {
+        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_3)));
+    }
+
+    public void registerShootThenHome(Trigger t) {
+        t.onTrue(new InstantCommand(() -> manipulator.shoot()));
+        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
     }
 }

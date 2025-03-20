@@ -15,8 +15,7 @@ public class KaiOperatorConfiguration extends AbstractCommandXboxOperationConfig
         rc.registerElevatorLevelOne(controller.a());
         rc.registerElevatorLevelTwo(controller.b());
         rc.registerElevatorLevelThree(controller.y());
-        rc.registerElevatorDown(controller.rightBumper());
-        rc.registerElevatorUp(controller.leftBumper());
+        rc.registerShootThenHome(controller.rightTrigger());
     }
 
     @Override
