@@ -21,9 +21,11 @@ public class Elevator extends SubsystemBase {
     private double targetAngle;
     private boolean toldGoUp = false;
     private double testMotorPower = 0;
+    private boolean homeLocked = false;
 
     private ProfiledPIDController pid;
     private TrapezoidProfile.Constraints profileConstraints;
+    private boolean elevatorLock;
 
     public Elevator() {
 
@@ -42,12 +44,18 @@ public class Elevator extends SubsystemBase {
                 profileConstraints);
 
         elevatorCurrentLevel = ElevatorLevel.LEVEL_1;
+
+        if (isHome() == true) {
+            elevatorEncoder.reset();
+        } else {
+            elevatorLock = true;
+        }
     }
 
     public enum ElevatorLevel {
         LEVEL_1,
         LEVEL_2,
-        LEVEL_3,
+        LEVEL_3
     }
 
     @Override
@@ -64,26 +72,65 @@ public class Elevator extends SubsystemBase {
             setAngle(Constants.Elevator.LEVEL_THREE_ANGLE);
         }
 
+        double myVoltage = calculateVoltage();
+
+        elevatorMotor.setVoltage(myVoltage);
+    }
+
+    private double calculateVoltage() {
+        // jason's home fix idea
+        // if (isHome() || getAngle() < 0.0) {
+        //     if (getLevel() == ElevatorLevel.LEVEL_2 || getLevel() == ElevatorLevel.LEVEL_3) {
+        //         homeLocked = false;
+        //         // motorPower = pid.calculate(getAngle(), targetAngle);
+        //         motorPower = Constants.Elevator.MAX_VOLTAGE * pid.calculate(getAngle(), targetAngle);
+        //         return motorPower;
+        //     } else if ((isHome() || getAngle() < 0.0) && motorPower < 0.0) {
+        //         homeLocked = true;
+        //         motorPower = 0.0;
+        //         return motorPower;
+        //     }
+        // }
+
+        // Return motorPower if no conditions are met
+        // return motorPower;  // Make sure the method always returns a value
+
+        // jason & kai's home fix idea
+        // if (motorPower < 0 && (isHome() || getAngle() < 0)) {
+        //     homeLocked = true;
+        //     return 0.0;
+
+        // } else {
+        //     if (getLevel() == ElevatorLevel.LEVEL_2 || getLevel() == ElevatorLevel.LEVEL_3) {
+        //         motorPower = pid.calculate(getAngle(), targetAngle);
+        //         return motorPower;
+        //     }
+        // }
+
+        // homeLocked = false;
+        if (elevatorLock == true) {
+            motorPower = 0.0;
+            return motorPower;
+        }
+
         motorPower = pid.calculate(getAngle(), targetAngle);
+
         if (motorPower < 0) { // if trying to go down
             if (isHome() || getAngle() < 0) {
-                elevatorMotor.setVoltage(0);
+                return 0.0;
             } else {
-                elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+                return Constants.Elevator.MAX_VOLTAGE * motorPower;
             }
         }
 
         if (motorPower > 0) { // if trying to go up
             if (getAngle() > Constants.Elevator.MAX_LIMIT) {
-                elevatorMotor.setVoltage(0);
+                return 0.0;
             } else {
-                elevatorMotor.setVoltage(Constants.Elevator.MAX_VOLTAGE * motorPower);
+                return Constants.Elevator.MAX_VOLTAGE * motorPower;
             }
         }
-
-        if (isHome() == true) {
-            elevatorEncoder.reset();
-        }
+        return 0.0;
     }
 
     public void setTarget(Elevator.ElevatorLevel elevatorLevel) {
