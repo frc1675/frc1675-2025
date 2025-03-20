@@ -10,7 +10,13 @@ public class KaiOperatorConfiguration extends AbstractCommandXboxOperationConfig
     }
 
     @Override
-    public void registerRobotFunctions(RobotContainer rc) {}
+    public void registerRobotFunctions(RobotContainer rc) {
+
+        rc.registerElevatorLevelOne(controller.a());
+        rc.registerElevatorLevelTwo(controller.b());
+        rc.registerElevatorLevelThree(controller.y());
+        rc.registerShootThenHome(controller.rightTrigger());
+    }
 
     @Override
     public void registerTeleopFunctions(RobotContainer rc) {
@@ -19,5 +25,6 @@ public class KaiOperatorConfiguration extends AbstractCommandXboxOperationConfig
         // rc.shoot(contoller.rightTrigger());
         // rc.climbe(controller.leftTrigger());
         // rc.align(controller.rightBumper());
+
     }
 }
