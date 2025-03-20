@@ -73,8 +73,6 @@ public class RobotContainer {
         hopper = new Hopper();
 
         NamedCommands.registerCommand("shoot", Commands.run(manipulator::shoot, manipulator));
-        manipulator = new Manipulator();
-        hopper = new Hopper();
         climber = new Climber();
         grabber = new Grabber();
         initOperationConfigs();
@@ -129,7 +127,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return new PathPlannerAuto("Strait Auto Test");
+        return new PathPlannerAuto("Strait Auto");
     }
 
     public void registerTurnHopperOn(Trigger t) {
