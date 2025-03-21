@@ -122,4 +122,9 @@ public class Constants {
         public static final double LEVEL_THREE_ANGLE = 1484; // 414
         public static final double MAX_LIMIT = 1790.2; // 5.530 inches per revolution
     }
+
+    public static class Dislodger {
+        public static final int DISLODGER_MOTOR = 16;
+        public static final double DISLODGER_MOTOR_SPEED = 1;
+    }
 }
