@@ -154,14 +154,17 @@ public class RobotContainer {
 
     public void registerGoToStowed(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_STOWED_ANGLE)));
+        t.onTrue(new InstantCommand(() -> climber.setState(Climber.GrabState.NOTHING)));
     }
 
     public void registerGoToMax(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_CLIMB_ANGLE)));
+        t.onTrue(new InstantCommand(() -> climber.setState(Climber.GrabState.NOTHING)));
     }
 
     public void registerGoToGrab(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_GRAB_ANGLE)));
+        t.onTrue(new InstantCommand(() -> climber.setState(Climber.GrabState.GRABBING)));
     }
 
     public void registerElevatorLevelOne(Trigger t) {

@@ -42,18 +42,25 @@ public class Climber extends SubsystemBase {
     @NotLogged
     private TrapezoidProfile.Constraints deployConstraints;
 
+    public GrabState currentGrabState;
+
     /** Creates a new Climber. */
     public Climber() {
         winchMotor = new SparkMax(Constants.Climber.CLIMB_MOTOR, MotorType.kBrushless);
         climberEncoder = new DutyCycleEncoder(Constants.Climber.ENCODER_CHANNEL);
         setTarget(Constants.Climber.CLIMBER_STOWED_ANGLE);
+        currentGrabState = GrabState.NOTHING;
+    }
+
+    public enum GrabState {
+        NOTHING,
+        GRABBING,
+        GRABBED
     }
 
     @Override
     public void periodic() {
-
-        // will change comparison when we know how encoder works
-        //     goToSetTarget();
+        goToSetTarget();
     }
 
     @Logged
@@ -75,11 +82,27 @@ public class Climber extends SubsystemBase {
         targetAngle = angle;
     }
 
+    public GrabState getState() {
+        return currentGrabState;
+    }
+
+    public void setState(Climber.GrabState grabState) {
+        currentGrabState = grabState;
+    }
+
     public void goToSetTarget() {
-        if (getCurrentAngle() < getTarget() - 5) {
-            winchOut();
-        } else if (getCurrentAngle() > getTarget() + 5) {
-            winchIn();
+        if (getState() != GrabState.GRABBED) {
+            if (getCurrentAngle() < getTarget() - 5) {
+                winchOut();
+            } else if (getCurrentAngle() > getTarget() + 5) {
+                winchIn();
+
+            } else {
+                if (getState() == Climber.GrabState.GRABBING) {
+                    setState(GrabState.GRABBED);
+                }
+                winchMotor.setVoltage(0);
+            }
         } else {
             winchMotor.setVoltage(0);
         }
