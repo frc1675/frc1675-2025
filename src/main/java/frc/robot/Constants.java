@@ -62,6 +62,10 @@ public class Constants {
         public static final double CLIMBER_STOWED_ANGLE = 116;
         public static final double CLIMBER_CLIMB_ANGLE = 159; // Make sure this is Max angle, not test
         public static final double CLIMBER_GRAB_ANGLE = 259;
+
+        public static final double CLIMBER_NEO_STOWED_ANGLE = 0;
+        public static final double CLIMBER_NEO_CLIMB_ANGLE = 159; // Make sure this is Max angle, not test
+        public static final double CLIMBER_NEO_GRAB_ANGLE = 259;
     }
 
     public static class Grabber {

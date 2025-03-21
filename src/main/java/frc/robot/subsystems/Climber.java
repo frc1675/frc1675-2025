@@ -57,6 +57,11 @@ public class Climber extends SubsystemBase {
     }
 
     @Logged
+    public double getNeoAngle() {
+        return -1 * winchMotor.getEncoder().getPosition();
+    }
+
+    @Logged
     public double getCurrentAngle() {
         return climberEncoder.get() * 360;
     }
