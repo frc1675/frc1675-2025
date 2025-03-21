@@ -53,7 +53,7 @@ public class Climber extends SubsystemBase {
     public void periodic() {
 
         // will change comparison when we know how encoder works
-        goToSetTarget();
+        //     goToSetTarget();
     }
 
     @Logged

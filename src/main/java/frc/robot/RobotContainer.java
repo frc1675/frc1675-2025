@@ -136,10 +136,12 @@ public class RobotContainer {
 
     public void registerDeployWinch(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.winchOut()));
+        t.onFalse(new InstantCommand(() -> climber.stopWinch()));
     }
 
     public void registerRetractWinch(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.winchIn()));
+        t.onFalse(new InstantCommand(() -> climber.stopWinch()));
     }
 
     public void registerToggleGrabber(Trigger t) {
