@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -103,7 +104,7 @@ public class RobotContainer {
                 .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
                 .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
                 .allianceRelativeControl(
-                        false); // Alliance relative controls. Done already in the driver configuration files.
+                        true); // Alliance relative controls. Done already in the driver configuration files.
         Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
         drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     }
@@ -119,7 +120,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return null;
+        return new PathPlannerAuto("Strait Auto");
     }
 
     public void registerTurnHopperOn(Trigger t) {
