@@ -6,7 +6,7 @@ package frc.robot;
 
 import au.grapplerobotics.CanBridge;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.epilogue.Epilogue; // IF error, build first.
+// import edu.wpi.first.epilogue.Epilogue; // IF error, build first.
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
         CanBridge.runTCP();
         m_robotContainer = new RobotContainer();
         DataLogManager.start(); // Optional to mirror the NetworkTables-logged data to a file on disk
-        Epilogue.bind(this);
+        // Epilogue.bind(this);
         CameraServer.startAutomaticCapture();
     }
 

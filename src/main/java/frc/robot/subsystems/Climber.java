@@ -53,7 +53,12 @@ public class Climber extends SubsystemBase {
     public void periodic() {
 
         // will change comparison when we know how encoder works
-        goToSetTarget();
+        //     goToSetTarget();
+    }
+
+    @Logged
+    public double getNeoAngle() {
+        return -1 * winchMotor.getEncoder().getPosition();
     }
 
     @Logged
@@ -71,9 +76,9 @@ public class Climber extends SubsystemBase {
     }
 
     public void goToSetTarget() {
-        if (getCurrentAngle() < getTarget() - 10) {
+        if (getCurrentAngle() < getTarget() - 5) {
             winchOut();
-        } else if (getCurrentAngle() > getTarget() + 10) {
+        } else if (getCurrentAngle() > getTarget() + 5) {
             winchIn();
         } else {
             winchMotor.setVoltage(0);

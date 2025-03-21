@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -120,7 +119,8 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return new PathPlannerAuto("Strait Auto");
+        // return new PathPlannerAuto("Strait Auto");
+        return null;
     }
 
     public void registerTurnHopperOn(Trigger t) {
@@ -142,14 +142,6 @@ public class RobotContainer {
 
     public void registerShootManipulator(Trigger t) {
         t.onTrue(new InstantCommand(() -> manipulator.shoot()));
-    }
-
-    public void registerDeployWinch(Trigger t) {
-        t.onTrue(new InstantCommand(() -> climber.winchOut()));
-    }
-
-    public void registerRetractWinch(Trigger t) {
-        t.onTrue(new InstantCommand(() -> climber.winchIn()));
     }
 
     public void registerToggleGrabber(Trigger t) {
@@ -191,5 +183,15 @@ public class RobotContainer {
 
     public void registerToggleDislodger(Trigger t) {
         t.onTrue(new InstantCommand(() -> dislodger.toggleOnOff()));
+    }
+
+    public void registerDeployWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.winchOut()));
+        t.onFalse(new InstantCommand(() -> climber.stopWinch()));
+    }
+
+    public void registerRetractWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.winchIn()));
+        t.onFalse(new InstantCommand(() -> climber.stopWinch()));
     }
 }

@@ -19,9 +19,12 @@ public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfig
         rc.registerTurnHopperReverse(controller.b());
         //  rc.registerTurnHopperOff(controller.x());
         rc.registerShootManipulator(controller.rightTrigger());
-        rc.registerGoToStowed(controller.leftTrigger());
-        rc.registerGoToMax(controller.leftBumper()); // Climb
-        rc.registerGoToGrab(controller.rightBumper());
+        // rc.registerGoToStowed(controller.leftTrigger());
+        // rc.registerGoToMax(controller.leftBumper()); // Climb
+        // rc.registerGoToGrab(controller.rightBumper());
+
+        rc.registerDeployWinch(controller.rightBumper());
+        rc.registerRetractWinch(controller.leftBumper());
         rc.registerToggleGrabber(controller.x());
     }
 
