@@ -44,6 +44,8 @@ public class Constants {
     public static class Auto {
         public static final double TRANSLATION_P = 0;
         public static final double ROTATION_P = 0;
+
+        // public static final double FED_X_
     }
 
     public static class Controller {

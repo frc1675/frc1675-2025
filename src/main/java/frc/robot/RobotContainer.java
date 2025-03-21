@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.brownbox.util.AllianceUtil;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.KaiOperatorConfiguration;
@@ -103,7 +105,7 @@ public class RobotContainer {
                 .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
                 .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
                 .allianceRelativeControl(
-                        true); // Alliance relative controls. Done already in the driver configuration files.
+                        false); // Alliance relative controls. Done already in the driver configuration files.
         Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
         drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     }
@@ -120,7 +122,18 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return new PathPlannerAuto("Strait Auto");
-        return null;
+        return (new StartEndCommand(
+                        () -> {
+                            if (AllianceUtil.isRedAlliance()) {
+                                drive.drive(.25, 0, 0);
+                            } else {
+                                drive.drive(-.25, 0, 0);
+                            }
+                        },
+                        () -> {
+                            drive.drive(0, 0, 0);
+                        }))
+                .withTimeout(1.0);
     }
 
     public void registerTurnHopperOn(Trigger t) {
