@@ -48,8 +48,9 @@ public class PathPlanner {
 
     private void initShuffleboard() {
         dashboard = Shuffleboard.getTab("Auto");
-        dashboard.add("Close Start to H", autoChooser);
-        dashboard.add("First Auto Test", autoChooser);
+
+        dashboard.add("Strait Auto", autoChooser);
+        dashboard.add("", autoChooser);
     }
 
     private void registerNamedCommand() {}
