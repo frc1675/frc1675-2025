@@ -104,6 +104,9 @@ public class Constants {
         public static final double TOP_SHOOTING_SPEED = 0.1;
         public static final double BOTTOM_SHOOTING_SPEED = 0.2;
 
+        public static final double HOME_TOP_SHOOTING_SPEED = 0.05;
+        public static final double HOME_BOTTOM_SHOOTING_SPEED = 0.1;
+
         public static final double TOP_INTAKE_SPEED = 0.10;
         public static final double BOTTOM_INTAKE_SPEED = 0.10;
         public static final double MAX_VOLTAGE = 12.0;

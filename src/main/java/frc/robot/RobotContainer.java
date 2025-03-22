@@ -8,9 +8,9 @@ import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.brownbox.util.AllianceUtil;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.KaiOperatorConfiguration;
@@ -67,11 +67,11 @@ public class RobotContainer {
         // Configure the trigger bindings
         driverController = new CommandXboxController(0);
         operatorController = new CommandXboxController(1);
-        manipulator = new Manipulator();
         hopper = new Hopper();
         climber = new Climber();
         grabber = new Grabber();
         elevator = new Elevator();
+        manipulator = new Manipulator(elevator);
         dislodger = new Dislodger();
 
         initOperationConfigs();
@@ -123,17 +123,27 @@ public class RobotContainer {
         // An example command will be run in autonomous
         // return new PathPlannerAuto("Strait Auto");
         return (new StartEndCommand(
+                        //         () -> {
+                        //             if (AllianceUtil.isRedAlliance()) {
+                        //                 drive.resetOdometry(new Pose2d(0, 0, new Rotation2d(Math.PI)));
+                        //             }
+                        //             drive.drive(.25, 0, 0);
+                        //         },
+                        //         () -> {
+                        //             drive.drive(0, 0, 0);
+
+                        //         }))
+                        // .withTimeout(1.0);
+
                         () -> {
-                            if (AllianceUtil.isRedAlliance()) {
-                                drive.drive(.25, 0, 0);
-                            } else {
-                                drive.drive(-.25, 0, 0);
-                            }
+                            drive.drive(.25, 0, 0);
                         },
                         () -> {
                             drive.drive(0, 0, 0);
                         }))
-                .withTimeout(1.0);
+                .withTimeout(1.4)
+                .andThen(new WaitCommand(2))
+                .andThen(new InstantCommand(() -> manipulator.shoot()));
     }
 
     public void registerTurnHopperOn(Trigger t) {
