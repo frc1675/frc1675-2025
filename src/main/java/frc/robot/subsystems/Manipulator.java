@@ -43,15 +43,19 @@ public class Manipulator extends SubsystemBase {
 
     @NotLogged
     public LaserCan laserCAN;
+
+    @NotLogged
+    Elevator elevator;
     // 0.155-0.160m without coral
     // 0.075-0.080m with coral
 
     /** Creates a new Manipulator. */
-    public Manipulator() {
+    public Manipulator(Elevator elevator) {
         shooter = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_1, MotorType.kBrushless); // bottom
         shootTwo = new SparkMax(Constants.Manipulator.MANIPULATOR_MOTOR_2, MotorType.kBrushless); // top
         shootTwo.setInverted(true);
         hasCoral = false;
+        this.elevator = elevator;
 
         shooterTimer = new Timer();
         // Not sure if timer starts automaticallly but wants to be off
@@ -114,7 +118,10 @@ public class Manipulator extends SubsystemBase {
         } // End of stage 1
 
         // stage 2 - Setting the motor speed
-        if (state == ManipulatorState.SHOOTING) {
+        if (state == ManipulatorState.SHOOTING && elevator.getLevel() == Elevator.ElevatorLevel.LEVEL_1) {
+            shooter.setVoltage(Constants.Manipulator.HOME_BOTTOM_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+            shootTwo.setVoltage(Constants.Manipulator.HOME_TOP_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
+        } else if (state == ManipulatorState.SHOOTING) {
             shooter.setVoltage(Constants.Manipulator.BOTTOM_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
             shootTwo.setVoltage(Constants.Manipulator.TOP_SHOOTING_SPEED * Constants.Manipulator.MAX_VOLTAGE);
         }

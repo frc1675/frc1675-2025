@@ -22,17 +22,18 @@ public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfig
         rc.registerGoToStowed(controller.leftTrigger());
         rc.registerGoToMax(controller.leftBumper()); // Climb
         rc.registerGoToGrab(controller.rightBumper());
+
+        // rc.registerDeployWinch(controller.rightBumper());
+        // rc.registerRetractWinch(controller.leftBumper());
         rc.registerToggleGrabber(controller.x());
     }
 
     @Override
     public void registerTeleopFunctions(RobotContainer rc) {
         rc.registerSwerveAngularVelocityDrive(
-                // () -> AllianceUtil.getTranslationDirection()
-                // *
+                // () -> AllianceUtil.getTranslationDirection()*
                 () -> getJoystickInput(controller, Constants.Controller.LEFT_Y_AXIS),
-                // () -> AllianceUtil.getTranslationDirection()
-                // *
+                // () -> AllianceUtil.getTranslationDirection()*
                 () -> getJoystickInput(controller, Constants.Controller.LEFT_X_AXIS),
                 () -> getJoystickInput(controller, Constants.Controller.RIGHT_X_AXIS));
     }
