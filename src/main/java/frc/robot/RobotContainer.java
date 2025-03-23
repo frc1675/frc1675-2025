@@ -161,7 +161,6 @@ public class RobotContainer {
 
         // return new PathPlannerAuto("Strait Auto");
     }
-}
 
     public void registerTurnHopperOn(Trigger t) {
         t.onTrue(new InstantCommand(() -> hopper.changeState(Hopper.HopperState.ON)));
