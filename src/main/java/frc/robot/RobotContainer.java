@@ -119,7 +119,7 @@ public class RobotContainer {
                 .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
                 .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
                 .allianceRelativeControl(
-                        true); // Alliance relative controls. Done already in the driver configuration files.
+                        false); // Alliance relative controls. Done already in the driver configuration files.
         Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
         drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     }
