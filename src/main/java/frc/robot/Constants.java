@@ -65,6 +65,7 @@ public class Constants {
         public static final double OUT_WINCH_SPEED = 0.85;
         public static final double IN_WINCH_SPEED = -0.85;
 
+
         public static final double CLIMBER_STOWED_ANGLE = 136;
         public static final double CLIMBER_CLIMB_ANGLE = 159; // Make sure this is Max angle, not test
         public static final double CLIMBER_GRAB_ANGLE = 290; //
@@ -122,6 +123,7 @@ public class Constants {
         // elevator power/voltage to go up and down
         public static final double ELEVATOR_MANUAL_UP = 0.1; // positive is up
         public static final double ELEVATOR_MANUAL_DOWN = -0.1;
+
         // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 
@@ -137,9 +139,10 @@ public class Constants {
         public static final double LEVEL_THREE_ANGLE = 1484; // 414
         public static final double MAX_LIMIT = 1790.2; // 5.530 inches per revolution
     }
-
+  
     public static class Dislodger {
         public static final int DISLODGER_MOTOR = 16;
         public static final double DISLODGER_MOTOR_SPEED = 1;
     }
+
 }
