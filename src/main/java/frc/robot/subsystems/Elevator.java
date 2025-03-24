@@ -78,36 +78,6 @@ public class Elevator extends SubsystemBase {
     }
 
     private double calculateVoltage() {
-        // jason's home fix idea
-        // if (isHome() || getAngle() < 0.0) {
-        //     if (getLevel() == ElevatorLevel.LEVEL_2 || getLevel() == ElevatorLevel.LEVEL_3) {
-        //         homeLocked = false;
-        //         // motorPower = pid.calculate(getAngle(), targetAngle);
-        //         motorPower = Constants.Elevator.MAX_VOLTAGE * pid.calculate(getAngle(), targetAngle);
-        //         return motorPower;
-        //     } else if ((isHome() || getAngle() < 0.0) && motorPower < 0.0) {
-        //         homeLocked = true;
-        //         motorPower = 0.0;
-        //         return motorPower;
-        //     }
-        // }
-
-        // Return motorPower if no conditions are met
-        // return motorPower;  // Make sure the method always returns a value
-
-        // jason & kai's home fix idea
-        // if (motorPower < 0 && (isHome() || getAngle() < 0)) {
-        //     homeLocked = true;
-        //     return 0.0;
-
-        // } else {
-        //     if (getLevel() == ElevatorLevel.LEVEL_2 || getLevel() == ElevatorLevel.LEVEL_3) {
-        //         motorPower = pid.calculate(getAngle(), targetAngle);
-        //         return motorPower;
-        //     }
-        // }
-
-        // homeLocked = false;
         if (elevatorLock == true) {
             motorPower = 0.0;
             return motorPower;
@@ -146,11 +116,11 @@ public class Elevator extends SubsystemBase {
     }
 
     public void elevatorUp() {
-        motorPower = Constants.Elevator.ELEVATOR_UP;
+        motorPower = Constants.Elevator.ELEVATOR_MANUAL_UP;
     }
     // multiplied voltage from original set (1, -1) in constants for elevator movement
     public void elevatorDown() {
-        motorPower = Constants.Elevator.ELEVATOR_DOWN;
+        motorPower = Constants.Elevator.ELEVATOR_MANUAL_DOWN;
     }
 
     public double getAngle() {
