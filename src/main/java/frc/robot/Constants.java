@@ -42,10 +42,9 @@ public class Constants {
     }
 
     public static class Auto {
+        // 0 is a placeholder until best values are found
         public static final double TRANSLATION_P = 0;
         public static final double ROTATION_P = 0;
-
-        // public static final double FED_X_
     }
 
     public static class Controller {
@@ -121,8 +120,8 @@ public class Constants {
         public static final int ELEVATOR_HOMESWITCH = 2;
 
         // elevator power/voltage to go up and down
-        public static final double ELEVATOR_UP = 0.1; // positive is up
-        public static final double ELEVATOR_DOWN = -0.1;
+        public static final double ELEVATOR_MANUAL_UP = 0.1; // positive is up
+        public static final double ELEVATOR_MANUAL_DOWN = -0.1;
         // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 

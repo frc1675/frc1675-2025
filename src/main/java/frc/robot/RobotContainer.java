@@ -75,12 +75,12 @@ public class RobotContainer {
         operatorController = new CommandXboxController(1);
         hopper = new Hopper();
 
-        NamedCommands.registerCommand("shoot", Commands.run(manipulator::shoot, manipulator));
         climber = new Climber();
         grabber = new Grabber();
         elevator = new Elevator();
         manipulator = new Manipulator(elevator);
         dislodger = new Dislodger();
+        NamedCommands.registerCommand("shoot", Commands.run(manipulator::shoot, manipulator));
 
         initOperationConfigs();
         registerRobotFunctions();
@@ -137,18 +137,6 @@ public class RobotContainer {
         // An example command will be run in autonomous
         // return new PathPlannerAuto("Strait Auto");
         return (new StartEndCommand(
-                        //         () -> {
-                        //             if (AllianceUtil.isRedAlliance()) {
-                        //                 drive.resetOdometry(new Pose2d(0, 0, new Rotation2d(Math.PI)));
-                        //             }
-                        //             drive.drive(.25, 0, 0);
-                        //         },
-                        //         () -> {
-                        //             drive.drive(0, 0, 0);
-
-                        //         }))
-                        // .withTimeout(1.0);
-
                         () -> {
                             drive.drive(.25, 0, 0);
                         },
@@ -219,8 +207,8 @@ public class RobotContainer {
     }
 
     public void registerShootThenHome(Trigger t) {
-        t.onTrue(new InstantCommand(() -> manipulator.shoot()));
-        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
+        t.onTrue(new InstantCommand(() -> manipulator.shoot())
+                .andThen(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
     }
 
     public void registerToggleDislodger(Trigger t) {
