@@ -41,6 +41,12 @@ public class Constants {
         public static final double ROTATION_TARGET_RANGE = 1.5;
     }
 
+    public static class Auto {
+        // 0 is a placeholder until best values are found
+        public static final double TRANSLATION_P = 0;
+        public static final double ROTATION_P = 0;
+    }
+
     public static class Controller {
         public static final double DEADZONE_CONSTANT = 0.1675;
         public static final int LEFT_X_AXIS = 0;
@@ -56,12 +62,18 @@ public class Constants {
         public static final int CLIMB_MOTOR = 12;
         // This motor has a current limit of 30A set in the REV firmware
 
-        public static final double OUT_WINCH_SPEED = 0.40;
-        public static final double IN_WINCH_SPEED = -0.75;
+        public static final double OUT_WINCH_SPEED = 0.85;
+        public static final double IN_WINCH_SPEED = -0.85;
 
-        public static final double CLIMBER_STOWED_ANGLE = 116;
+        public static final double CLIMBER_STOWED_ANGLE = 136;
         public static final double CLIMBER_CLIMB_ANGLE = 159; // Make sure this is Max angle, not test
-        public static final double CLIMBER_GRAB_ANGLE = 259;
+        public static final double CLIMBER_GRAB_ANGLE = 290; //
+
+        public static final double CLIMBER_NEO_STOWED_ANGLE = 9;
+
+        public static final double CLIMBER_NEO_CLIMB_ANGLE = 159; // Make sure this is Max angle, not test
+
+        public static final double CLIMBER_NEO_GRAB_ANGLE = -219;
     }
 
     public static class Grabber {
@@ -91,6 +103,9 @@ public class Constants {
         public static final double TOP_SHOOTING_SPEED = 0.1;
         public static final double BOTTOM_SHOOTING_SPEED = 0.2;
 
+        public static final double HOME_TOP_SHOOTING_SPEED = 0.05;
+        public static final double HOME_BOTTOM_SHOOTING_SPEED = 0.1;
+
         public static final double TOP_INTAKE_SPEED = 0.10;
         public static final double BOTTOM_INTAKE_SPEED = 0.10;
         public static final double MAX_VOLTAGE = 12.0;
@@ -105,8 +120,9 @@ public class Constants {
         public static final int ELEVATOR_HOMESWITCH = 2;
 
         // elevator power/voltage to go up and down
-        public static final double ELEVATOR_UP = 0.1; // positive is up
-        public static final double ELEVATOR_DOWN = -0.1;
+        public static final double ELEVATOR_MANUAL_UP = 0.1; // positive is up
+        public static final double ELEVATOR_MANUAL_DOWN = -0.1;
+
         // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 
@@ -121,5 +137,10 @@ public class Constants {
         public static final double LEVEL_TWO_ANGLE = 462;
         public static final double LEVEL_THREE_ANGLE = 1484; // 414
         public static final double MAX_LIMIT = 1790.2; // 5.530 inches per revolution
+    }
+
+    public static class Dislodger {
+        public static final int DISLODGER_MOTOR = 16;
+        public static final double DISLODGER_MOTOR_SPEED = 1;
     }
 }

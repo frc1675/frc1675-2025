@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.brownbox.util.AllianceUtil;
 
 public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfiguration {
 
@@ -23,16 +22,17 @@ public class JasonDriverConfiguration extends AbstractCommandXboxOperationConfig
         rc.registerGoToStowed(controller.leftTrigger());
         rc.registerGoToMax(controller.leftBumper()); // Climb
         rc.registerGoToGrab(controller.rightBumper());
+
+        // rc.registerDeployWinch(controller.rightBumper());
+        // rc.registerRetractWinch(controller.leftBumper());
         rc.registerToggleGrabber(controller.x());
     }
 
     @Override
     public void registerTeleopFunctions(RobotContainer rc) {
         rc.registerSwerveAngularVelocityDrive(
-                () -> AllianceUtil.getTranslationDirection()
-                        * getJoystickInput(controller, Constants.Controller.LEFT_Y_AXIS),
-                () -> AllianceUtil.getTranslationDirection()
-                        * getJoystickInput(controller, Constants.Controller.LEFT_X_AXIS),
+                () -> getJoystickInput(controller, Constants.Controller.LEFT_Y_AXIS),
+                () -> getJoystickInput(controller, Constants.Controller.LEFT_X_AXIS),
                 () -> getJoystickInput(controller, Constants.Controller.RIGHT_X_AXIS));
     }
 

@@ -5,9 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.epilogue.Logged;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DriveSubsystem;
@@ -15,6 +16,7 @@ import frc.robot.operation.JasonDriverConfiguration;
 import frc.robot.operation.KaiOperatorConfiguration;
 import frc.robot.operation.OperationConfiguration;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Dislodger;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Hopper;
@@ -47,7 +49,7 @@ public class RobotContainer {
     private Climber climber;
     private Grabber grabber;
     private Elevator elevator;
-    private Timer shootHome;
+    private Dislodger dislodger;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -65,12 +67,13 @@ public class RobotContainer {
         // Configure the trigger bindings
         driverController = new CommandXboxController(0);
         operatorController = new CommandXboxController(1);
-        manipulator = new Manipulator();
         hopper = new Hopper();
         climber = new Climber();
         grabber = new Grabber();
         elevator = new Elevator();
-        shootHome = new Timer();
+        manipulator = new Manipulator(elevator);
+        dislodger = new Dislodger();
+
         initOperationConfigs();
         registerRobotFunctions();
     }
@@ -118,7 +121,17 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return null;
+        // return new PathPlannerAuto("Strait Auto");
+        return (new StartEndCommand(
+                        () -> {
+                            drive.drive(.25, 0, 0);
+                        },
+                        () -> {
+                            drive.drive(0, 0, 0);
+                        }))
+                .withTimeout(1.4)
+                .andThen(new WaitCommand(2))
+                .andThen(new InstantCommand(() -> manipulator.shoot()));
     }
 
     public void registerTurnHopperOn(Trigger t) {
@@ -142,14 +155,6 @@ public class RobotContainer {
         t.onTrue(new InstantCommand(() -> manipulator.shoot()));
     }
 
-    public void registerDeployWinch(Trigger t) {
-        t.onTrue(new InstantCommand(() -> climber.winchOut()));
-    }
-
-    public void registerRetractWinch(Trigger t) {
-        t.onTrue(new InstantCommand(() -> climber.winchIn()));
-    }
-
     public void registerToggleGrabber(Trigger t) {
         t.onTrue(new InstantCommand(() -> grabber.toggleGrabbing()));
     }
@@ -160,14 +165,17 @@ public class RobotContainer {
 
     public void registerGoToStowed(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_STOWED_ANGLE)));
+        t.onTrue(new InstantCommand(() -> climber.setState(Climber.GrabState.NOTHING)));
     }
 
     public void registerGoToMax(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_CLIMB_ANGLE)));
+        t.onTrue(new InstantCommand(() -> climber.setState(Climber.GrabState.NOTHING)));
     }
 
     public void registerGoToGrab(Trigger t) {
         t.onTrue(new InstantCommand(() -> climber.setTarget(Constants.Climber.CLIMBER_GRAB_ANGLE)));
+        t.onTrue(new InstantCommand(() -> climber.setState(Climber.GrabState.GRABBING)));
     }
 
     public void registerElevatorLevelOne(Trigger t) {
@@ -183,7 +191,21 @@ public class RobotContainer {
     }
 
     public void registerShootThenHome(Trigger t) {
-        t.onTrue(new InstantCommand(() -> manipulator.shoot()));
-        t.onTrue(new InstantCommand(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
+        t.onTrue(new InstantCommand(() -> manipulator.shoot())
+                .andThen(() -> elevator.setTarget(Elevator.ElevatorLevel.LEVEL_1)));
+    }
+
+    public void registerToggleDislodger(Trigger t) {
+        t.onTrue(new InstantCommand(() -> dislodger.toggleOnOff()));
+    }
+
+    public void registerDeployWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.winchOut()));
+        t.onFalse(new InstantCommand(() -> climber.stopWinch()));
+    }
+
+    public void registerRetractWinch(Trigger t) {
+        t.onTrue(new InstantCommand(() -> climber.winchIn()));
+        t.onFalse(new InstantCommand(() -> climber.stopWinch()));
     }
 }
