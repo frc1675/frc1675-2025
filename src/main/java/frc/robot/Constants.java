@@ -122,6 +122,7 @@ public class Constants {
         // elevator power/voltage to go up and down
         public static final double ELEVATOR_MANUAL_UP = 0.1; // positive is up
         public static final double ELEVATOR_MANUAL_DOWN = -0.1;
+
         // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 

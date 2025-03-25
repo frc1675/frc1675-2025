@@ -50,10 +50,10 @@ public class RobotContainer {
     private Manipulator manipulator;
     private Climber climber;
     private Grabber grabber;
-    private Elevator elevator;
-    private Dislodger dislodger;
     // private PathPlannerAuto auto;
     private PathPlanner auto;
+    private Elevator elevator;
+    private Dislodger dislodger;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
