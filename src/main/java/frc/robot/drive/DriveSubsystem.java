@@ -200,7 +200,7 @@ public class DriveSubsystem extends SubsystemBase {
         swerve.drive(
                 new Translation2d(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond),
                 speeds.omegaRadiansPerSecond,
-                true,
+                false, // check
                 false);
     }
 

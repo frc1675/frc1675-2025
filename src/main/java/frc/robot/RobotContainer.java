@@ -5,12 +5,11 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drive.DriveSubsystem;
@@ -119,7 +118,7 @@ public class RobotContainer {
                 .deadband(Constants.Controller.DEADZONE_CONSTANT) // Controller deadband
                 .scaleTranslation(Constants.Controller.SCALE_TRANSLATION) // Scaled controller translation axis
                 .allianceRelativeControl(
-                        true); // Alliance relative controls. Done already in the driver configuration files.
+                        false); // Alliance relative controls. Done already in the driver configuration files.
         Command driveFieldOrientedAnglularVelocity = drive.driveFieldOriented(driveAngularVelocity);
         drive.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     }
@@ -136,18 +135,19 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return new PathPlannerAuto("Strait Auto");
-        return (new StartEndCommand(
-                        () -> {
-                            drive.drive(.25, 0, 0);
-                        },
-                        () -> {
-                            drive.drive(0, 0, 0);
-                        }))
-                .withTimeout(1.4)
-                .andThen(new WaitCommand(2))
-                .andThen(new InstantCommand(() -> manipulator.shoot()));
 
-        // return new PathPlannerAuto("Strait Auto");
+        // return (new StartEndCommand(
+        //                 () -> {
+        //                     drive.drive(.25, 0, 0);
+        //                 },
+        //                 () -> {
+        //                     drive.drive(0, 0, 0);
+        //                 }))
+        //         .withTimeout(1.4)
+        //         .andThen(new WaitCommand(2))
+        //         .andThen(new InstantCommand(() -> manipulator.shoot()));
+
+        return new PathPlannerAuto("Strait Auto");
     }
 
     public void registerTurnHopperOn(Trigger t) {
