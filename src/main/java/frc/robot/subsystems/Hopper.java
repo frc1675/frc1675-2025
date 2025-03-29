@@ -9,8 +9,6 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -35,8 +33,6 @@ public class Hopper extends SubsystemBase {
         hopperTimer.reset();
 
         hopperCurrentState = HopperState.ON;
-        ShuffleboardTab tab = Shuffleboard.getTab("Hopper Display");
-        tab.add("Hopper Shuffleboard", 3);
     }
 
     @Override
