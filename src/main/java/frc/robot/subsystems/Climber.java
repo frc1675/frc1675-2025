@@ -11,7 +11,6 @@ import edu.wpi.first.epilogue.NotLogged;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,9 +19,6 @@ public class Climber extends SubsystemBase {
 
     @NotLogged
     private double targetAngle;
-
-    @NotLogged
-    private ShuffleboardTab dashboard;
 
     @NotLogged
     private SparkMax winchMotor;
