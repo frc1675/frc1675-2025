@@ -17,6 +17,7 @@ import frc.robot.Commands.ElevatorL1;
 import frc.robot.Commands.ElevatorL2;
 import frc.robot.Commands.ElevatorL3;
 import frc.robot.Commands.Shoot;
+import frc.robot.Commands.WaitForCoral;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.drive.PathPlanner;
 import frc.robot.operation.JasonDriverConfiguration;
@@ -54,6 +55,7 @@ public class RobotContainer {
     private Hopper hopper;
     private Manipulator manipulator;
     private Shoot shoot;
+    private WaitForCoral waitForCoral;
     private Climber climber;
     private Grabber grabber;
     private Elevator elevator;
@@ -94,6 +96,7 @@ public class RobotContainer {
         elevatorL3 = new ElevatorL3(elevator);
         manipulator = new Manipulator(elevator);
         shoot = new Shoot(manipulator);
+        waitForCoral = new WaitForCoral(manipulator);
         dislodger = new Dislodger();
         dislodge = new Dislodge(dislodger);
         dislodgerOff = new DislodgerOff(dislodger);
@@ -102,6 +105,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Elevator L2", elevatorL2);
         NamedCommands.registerCommand("Elevator L3", elevatorL3);
         NamedCommands.registerCommand("Shoot", shoot);
+        NamedCommands.registerCommand("Pickup Coral", waitForCoral);
         NamedCommands.registerCommand("Dislodger On", dislodge);
         NamedCommands.registerCommand("Dislodger Off ", dislodgerOff);
 
@@ -152,7 +156,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return new PathPlannerAuto("one");
+        return new PathPlannerAuto("Far Right to E, Dislodge & Score L3, R Pickup");
     }
 
     public void registerTurnHopperOn(Trigger t) {

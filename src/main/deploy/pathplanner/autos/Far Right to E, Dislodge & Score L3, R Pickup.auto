@@ -7,31 +7,32 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Far Red to E"
+            "pathName": "Far Right to E"
           }
         },
         {
           "type": "sequential",
           "data": {
-            "commands": []
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Elevator L3"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator L3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Dislodger On"
+                }
+              }
+            ]
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Dislodger On"
+            "waitTime": 1.25
           }
         },
         {
@@ -44,6 +45,12 @@
           "type": "sequential",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Dislodger Off"
+                }
+              },
               {
                 "type": "named",
                 "data": {
@@ -60,12 +67,6 @@
                 "type": "named",
                 "data": {
                   "name": "Elevator L1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Dislodger Off"
                 }
               }
             ]

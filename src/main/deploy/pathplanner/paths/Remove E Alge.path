@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.846,
-        "y": 2.913
+        "x": 4.953,
+        "y": 2.8842499999999998
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.113997626487643,
-        "y": 3.065076513185648
+        "x": 5.220997626487643,
+        "y": 3.036326513185648
       },
       "isLocked": false,
       "linkedName": "Red E Shot"

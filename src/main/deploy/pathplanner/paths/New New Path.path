@@ -3,32 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.69610655737705,
-        "y": 0.5665471311475403
+        "x": 5.467643897320702,
+        "y": 3.247674161312472
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.971253571098055,
-        "y": 1.2512485603253247
+        "x": 6.393643897320702,
+        "y": 3.404174161312472
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Remove E Alge"
     },
     {
       "anchor": {
-        "x": 4.845750000000001,
-        "y": 2.913499999999999
+        "x": 7.605,
+        "y": 6.45275
       },
       "prevControl": {
-        "x": 5.840897645288658,
-        "y": 1.8980103515317932
+        "x": 6.559312500000001,
+        "y": 6.7818125
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red E Shot"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -123.69006752597983
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +51,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 121.34373627086967
+    "rotation": -179.62305952040285
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 121.1593045083442
   },
   "useDefaultConstraints": true
 }
