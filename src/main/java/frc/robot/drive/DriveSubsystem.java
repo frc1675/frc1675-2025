@@ -11,23 +11,17 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.io.File;
 import java.io.IOException;
 import java.util.function.Supplier;
 import swervelib.SwerveDrive;
-import swervelib.SwerveModule;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class DriveSubsystem extends SubsystemBase {
-
-    // JTPTODO REMOVE initdashboard for brownbox version
-    private ShuffleboardTab dashboard;
 
     private SwerveDrive swerve;
 
@@ -83,31 +77,6 @@ public class DriveSubsystem extends SubsystemBase {
                     + Filesystem.getDeployDirectory()
                     + "/swerve");
             e.printStackTrace();
-        }
-
-        // JTPTODO REMOVE initdashboard for brownbox version
-        initDashboard();
-    }
-
-    // JTPTODO REMOVE initdashboard for brownbox version
-    private void initDashboard() {
-        dashboard = Shuffleboard.getTab("Drive");
-        dashboard.addString("Current Command", this::getCommandName);
-
-        dashboard.add("Rotation PID", rotationController);
-        dashboard.addDouble("Yaw", () -> swerve.getYaw().getDegrees());
-        dashboard.addDouble("Target angle", () -> targetAngle == null ? -1 : targetAngle);
-
-        dashboard.addBoolean("Rotation On Target?", () -> rotationController.atSetpoint());
-
-        dashboard.add(swerve.field).withPosition(0, 1).withSize(5, 3);
-        int position = 0;
-        for (SwerveModule m : swerve.getModules()) {
-            dashboard
-                    .addDouble(m.configuration.name + " Module Position °", () -> m.getAbsolutePosition())
-                    .withPosition(position, 0)
-                    .withSize(2, 1);
-            position += 2;
         }
     }
 
