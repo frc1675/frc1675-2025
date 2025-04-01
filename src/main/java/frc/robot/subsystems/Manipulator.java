@@ -150,7 +150,7 @@ public class Manipulator extends SubsystemBase {
         }
     }
 
-    enum ManipulatorState {
+    public enum ManipulatorState {
 
         // the state when there is 1 coral present in the manipulator
         // Will be "empty" if not ready to shoot

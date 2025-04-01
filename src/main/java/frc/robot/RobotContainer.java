@@ -8,10 +8,15 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Commands.Dislodge;
+import frc.robot.Commands.DislodgerOff;
+import frc.robot.Commands.ElevatorL1;
+import frc.robot.Commands.ElevatorL2;
+import frc.robot.Commands.ElevatorL3;
+import frc.robot.Commands.Shoot;
 import frc.robot.drive.DriveSubsystem;
 import frc.robot.drive.PathPlanner;
 import frc.robot.operation.JasonDriverConfiguration;
@@ -48,10 +53,17 @@ public class RobotContainer {
     private DriveSubsystem drive;
     private Hopper hopper;
     private Manipulator manipulator;
+    private Shoot shoot;
     private Climber climber;
     private Grabber grabber;
     private Elevator elevator;
+    private ElevatorL1 elevatorL1;
+    private ElevatorL2 elevatorL2;
+    private ElevatorL3 elevatorL3;
+
     private Dislodger dislodger;
+    private Dislodge dislodge;
+    private DislodgerOff dislodgerOff;
 
     private PathPlanner auto;
 
@@ -77,10 +89,21 @@ public class RobotContainer {
         climber = new Climber();
         grabber = new Grabber();
         elevator = new Elevator();
+        elevatorL1 = new ElevatorL1(elevator);
+        elevatorL2 = new ElevatorL2(elevator);
+        elevatorL3 = new ElevatorL3(elevator);
         manipulator = new Manipulator(elevator);
+        shoot = new Shoot(manipulator);
         dislodger = new Dislodger();
+        dislodge = new Dislodge(dislodger);
+        dislodgerOff = new DislodgerOff(dislodger);
 
-        NamedCommands.registerCommand("shoot", Commands.run(manipulator::shoot, manipulator));
+        NamedCommands.registerCommand("Elevator L1", elevatorL1);
+        NamedCommands.registerCommand("Elevator L2", elevatorL2);
+        NamedCommands.registerCommand("Elevator L3", elevatorL3);
+        NamedCommands.registerCommand("Shoot", shoot);
+        NamedCommands.registerCommand("Dislodger On", dislodge);
+        NamedCommands.registerCommand("Dislodger Off ", dislodgerOff);
 
         initOperationConfigs();
         registerRobotFunctions();
@@ -129,7 +152,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return new PathPlannerAuto("Strait Auto");
+        return new PathPlannerAuto("one");
     }
 
     public void registerTurnHopperOn(Trigger t) {

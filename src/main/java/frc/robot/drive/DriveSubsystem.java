@@ -6,6 +6,7 @@ package frc.robot.drive;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -167,7 +168,15 @@ public class DriveSubsystem extends SubsystemBase {
 
     /** Used for PathPlanner autonomous */
     public void resetOdometry(Pose2d override) {
+        swerve.setGyro(new Rotation3d(
+                swerve.getRoll().getMeasure(),
+                swerve.getPitch().getMeasure(),
+                override.getRotation().getMeasure()));
+
         swerve.resetOdometry(override);
+
+        System.out.println("Ran resetOdometry");
+        System.out.println(override.getRotation().getDegrees());
     }
 
     /** Used for PathPlanner autonomous */

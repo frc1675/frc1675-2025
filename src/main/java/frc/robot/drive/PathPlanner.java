@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.brownbox.util.AllianceUtil;
 
 public class PathPlanner {
     private final SendableChooser<Command> autoChooser;
@@ -34,7 +33,7 @@ public class PathPlanner {
                 new PPHolonomicDriveController(
                         new PIDConstants(Constants.Auto.TRANSLATION_P), new PIDConstants(Constants.Auto.ROTATION_P)),
                 config,
-                AllianceUtil::isRedAlliance,
+                () -> true,
                 drive);
 
         autoChooser = AutoBuilder.buildAutoChooser();
