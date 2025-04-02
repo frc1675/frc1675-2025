@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.875,
-        "y": 0.7699999999999996
+        "x": 1.5820007732649362,
+        "y": 1.1799389459168157
       },
       "isLocked": false,
       "linkedName": "Right Pickup to F"
@@ -20,8 +20,8 @@
         "y": 2.8939999999999997
       },
       "prevControl": {
-        "x": 2.9585000000000004,
-        "y": 2.8939999999999997
+        "x": 3.2552236570912827,
+        "y": 2.447532763272785
       },
       "nextControl": null,
       "isLocked": false,

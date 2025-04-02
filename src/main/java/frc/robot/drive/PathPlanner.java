@@ -46,10 +46,10 @@ public class PathPlanner {
     }
 
     private void initShuffleboard() {
+
         dashboard = Shuffleboard.getTab("Auto");
 
-        dashboard.add("Strait Auto", autoChooser);
-        dashboard.add("", autoChooser);
+        dashboard.add("Auto Chooser", autoChooser);
     }
 
     private void registerNamedCommand() {}

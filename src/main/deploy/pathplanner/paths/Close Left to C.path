@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.953,
-        "y": 2.8842499999999998
+        "x": 7.877999999999999,
+        "y": 6.75
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.30594239917727,
-        "y": 3.0816593919970856
+        "x": 7.025258228701429,
+        "y": 6.277214143776736
       },
       "isLocked": false,
-      "linkedName": "Red E Shot"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.467643897320702,
-        "y": 3.247674161312472
+        "x": 5.21625,
+        "y": 5.0195
       },
       "prevControl": {
-        "x": 5.137809967606089,
-        "y": 3.089383172206987
+        "x": 5.661690494066361,
+        "y": 5.32651211135203
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Remove E Alge"
+      "linkedName": "Far Left to C"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 121.1593045083442
+    "rotation": -120.78414652632654
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 121.34373627086967
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

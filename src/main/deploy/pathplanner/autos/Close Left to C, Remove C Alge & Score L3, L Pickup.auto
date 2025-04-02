@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Far Right to E"
+            "pathName": "Far Left to C"
           }
         },
         {
@@ -25,20 +25,20 @@
                 "data": {
                   "name": "Dislodger On"
                 }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
               }
             ]
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Remove E Alge"
+            "pathName": "Remove C Alge"
           }
         },
         {
@@ -60,7 +60,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 1.5
+                  "waitTime": 0.5
                 }
               },
               {
@@ -75,38 +75,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "E to R Pickup"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Pickup Coral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Right Pickup to F"
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Elevator L3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Dislodger On"
-                }
-              }
-            ]
+            "pathName": "C to Left Pickup"
           }
         }
       ]

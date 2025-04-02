@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.700156192402669,
-        "y": 1.7613237514764069
+        "x": 4.784241700106912,
+        "y": 1.5856184503031088
       },
       "isLocked": false,
       "linkedName": "Remove E Alge"
@@ -20,8 +20,8 @@
         "y": 0.77
       },
       "prevControl": {
-        "x": 2.5049150322444578,
-        "y": 1.3932190527122452
+        "x": 2.5307926579819657,
+        "y": 1.418669800866516
       },
       "nextControl": null,
       "isLocked": false,
