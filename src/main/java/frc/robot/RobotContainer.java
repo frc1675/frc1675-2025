@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -68,6 +71,9 @@ public class RobotContainer {
     private DislodgerOff dislodgerOff;
 
     private PathPlanner auto;
+    private final SendableChooser<Command> autoChooser;
+
+    private ShuffleboardTab dashboard;
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -101,6 +107,8 @@ public class RobotContainer {
         dislodge = new Dislodge(dislodger);
         dislodgerOff = new DislodgerOff(dislodger);
 
+        autoChooser = AutoBuilder.buildAutoChooser();
+
         NamedCommands.registerCommand("Elevator L1", elevatorL1);
         NamedCommands.registerCommand("Elevator L2", elevatorL2);
         NamedCommands.registerCommand("Elevator L3", elevatorL3);
@@ -111,6 +119,7 @@ public class RobotContainer {
 
         initOperationConfigs();
         registerRobotFunctions();
+        initShuffleboard();
     }
 
     private void initOperationConfigs() {
@@ -156,7 +165,13 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return new PathPlannerAuto("Far Right to E, Dislodge & Score L3, R Pickup");
+        return autoChooser.getSelected();
+    }
+
+    private void initShuffleboard() {
+        dashboard = Shuffleboard.getTab("Auto");
+
+        dashboard.add("Auto Chooser", autoChooser);
     }
 
     public void registerTurnHopperOn(Trigger t) {

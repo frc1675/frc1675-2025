@@ -4,14 +4,11 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 
 public class PathPlanner {
-    private final SendableChooser<Command> autoChooser;
+    // private final SendableChooser<Command> autoChooser;
     private ShuffleboardTab dashboard;
 
     public PathPlanner(DriveSubsystem drive) {
@@ -36,21 +33,20 @@ public class PathPlanner {
                 () -> true,
                 drive);
 
-        autoChooser = AutoBuilder.buildAutoChooser();
+        //    autoChooser = AutoBuilder.buildAutoChooser();
 
-        initShuffleboard();
+        //    initShuffleboard();
     }
 
-    public Command getAuto() {
-        return autoChooser.getSelected();
-    }
+    // public Command getAuto() {
+    //     return autoChooser.getSelected();
+    // }
 
-    private void initShuffleboard() {
-        dashboard = Shuffleboard.getTab("Auto");
+    // private void initShuffleboard() {
+    //     dashboard = Shuffleboard.getTab("Auto");
 
-        dashboard.add("Strait Auto", autoChooser);
-        dashboard.add("", autoChooser);
-    }
+    //     dashboard.add("Auto Chooser", autoChooser);
+    // }
 
     private void registerNamedCommand() {}
 }
