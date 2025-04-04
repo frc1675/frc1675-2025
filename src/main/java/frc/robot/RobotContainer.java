@@ -81,8 +81,6 @@ public class RobotContainer {
                 .withVisionProperties(Constants.Drive.MAXIMUM_VISION_POSE_OVERRIDE_DISTANCE)
                 .build();
 
-        auto = new PathPlanner(drive);
-
         // Configure the trigger bindings
         driverController = new CommandXboxController(0);
         operatorController = new CommandXboxController(1);
@@ -107,6 +105,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("Pickup Coral", waitForCoral);
         NamedCommands.registerCommand("Dislodger On", dislodge);
         NamedCommands.registerCommand("Dislodger Off ", dislodgerOff);
+
+        auto = new PathPlanner(drive);
 
         initOperationConfigs();
         registerRobotFunctions();
