@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle to A"
+            "pathName": "NOMOVEREMOVE Far Right to E"
           }
         },
         {
@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Elevator L2"
+                  "name": "Elevator L3"
                 }
               },
               {
@@ -32,13 +32,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 3
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Remove A Alge"
+            "waitTime": 1.5
           }
         },
         {
@@ -54,19 +48,32 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Shoot"
+                  "name": "Elevator L1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator L3"
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.5
+                  "waitTime": 1.0
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Elevator L1"
+                  "name": "Shoot"
                 }
               }
             ]

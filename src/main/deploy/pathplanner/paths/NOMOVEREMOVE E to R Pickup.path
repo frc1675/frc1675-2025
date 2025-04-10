@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.722,
-        "y": 4.0055
+        "x": 5.0992500000000005,
+        "y": 2.9915000000000003
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.741636215340033,
-        "y": 3.9972613427584607
+        "x": 4.41584780278621,
+        "y": 1.3294442889906373
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "NOMOVE REMOVE Far Right to E"
     },
     {
       "anchor": {
-        "x": 5.68425,
-        "y": 4.0055
+        "x": 1.16025,
+        "y": 0.8854999999999995
       },
       "prevControl": {
-        "x": 6.135222387096694,
-        "y": 4.00960038043059
+        "x": 2.8160426579819666,
+        "y": 1.534169800866515
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Middle to A"
+      "linkedName": "Right Pickup to F"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 51.53228420424939
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 121.34373627086967
   },
   "useDefaultConstraints": true
 }

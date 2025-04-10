@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Elevator L2"
+                  "name": "Elevator L3"
                 }
               },
               {
@@ -76,6 +76,80 @@
           "type": "path",
           "data": {
             "pathName": "C to L Pickup"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pickup Coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L Pickup to B"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator L2"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.25
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Dislodger On"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Remove B Alge"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Dislodger Off"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator L1"
+                }
+              }
+            ]
           }
         }
       ]

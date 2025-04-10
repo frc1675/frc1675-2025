@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.875,
-        "y": 0.77
+        "x": 1.16025,
+        "y": 0.8854999999999995
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5820007732649362,
-        "y": 1.1799389459168157
+        "x": 1.8672507732649364,
+        "y": 1.2954389459168152
       },
       "isLocked": false,
       "linkedName": "Right Pickup to F"

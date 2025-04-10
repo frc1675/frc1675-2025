@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.21625,
-        "y": 5.0195
+        "x": 5.17725,
+        "y": 5.16575
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.476058681960534,
-        "y": 4.999887402949534
+        "x": 5.437058681960535,
+        "y": 5.146137402949535
       },
       "isLocked": false,
       "linkedName": "Far Left to C"

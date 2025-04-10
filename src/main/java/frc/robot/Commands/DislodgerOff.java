@@ -18,6 +18,6 @@ public class DislodgerOff extends Command {
 
     @Override
     public boolean isFinished() {
-        return dislodger.isOn == false;
+        return !dislodger.isOn;
     }
 }

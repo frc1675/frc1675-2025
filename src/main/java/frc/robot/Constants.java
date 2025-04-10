@@ -126,10 +126,10 @@ public class Constants {
         // max voltage that can be provided to the robot
         public static final double MAX_VOLTAGE = 12.0;
 
-        public static final double ELEVATOR_MAX_ACCELERATION = 2880; // Highest amount of degrees per second square
-        public static final double ELEVATOR_MAX_VELOCITY = 1440; // Degrees per second
+        public static final double ELEVATOR_MAX_ACCELERATION = 4800; // Highest amount of degrees per second square
+        public static final double ELEVATOR_MAX_VELOCITY = 3500; // Degrees per second
 
-        public static final double ELEVATOR_PID_P_COEFFICIENT = 0.001;
+        public static final double ELEVATOR_PID_P_COEFFICIENT = 0.002;
         public static final double ELEVATOR_PID_I_COEFFICIENT = 0;
         public static final double ELEVATOR_PID_D_COEFFICIENT = 0;
 
