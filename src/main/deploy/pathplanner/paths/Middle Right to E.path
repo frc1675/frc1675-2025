@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.803995901639343,
-        "y": 5.6013831967213115
+        "x": 7.81,
+        "y": 1.9
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.727922821988931,
-        "y": 5.601246634240331
+        "x": 6.719239695207924,
+        "y": 2.0297026217983256
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.969877049180327,
-        "y": 5.6013831967213115
+        "x": 5.11875,
+        "y": 2.9329999999999994
       },
       "prevControl": {
-        "x": 6.857155684117294,
-        "y": 5.599360920912108
+        "x": 6.528830660180192,
+        "y": 2.4046271423068375
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red E Shot"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 121.34373627086967
   },
   "reversed": false,
   "folder": null,
