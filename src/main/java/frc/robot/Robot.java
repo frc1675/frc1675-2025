@@ -20,7 +20,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 @Logged
 public class Robot extends TimedRobot {
-    private Command m_autonomousCommand;
+    private Command 
+        m_autonomousCommand = null;
 
     @Logged
     private final RobotContainer m_robotContainer;
